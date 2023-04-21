@@ -433,23 +433,47 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7855817420765898042, guid: caa944a18fcf07d4a89c64551fc4a643, type: 3}
       propertyPath: groundCheckSize.y
-      value: 0.3
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7855817420765898043, guid: caa944a18fcf07d4a89c64551fc4a643, type: 3}
       propertyPath: maxSpeed
       value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 7855817420765898043, guid: caa944a18fcf07d4a89c64551fc4a643, type: 3}
+      propertyPath: jumpForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7855817420765898043, guid: caa944a18fcf07d4a89c64551fc4a643, type: 3}
       propertyPath: accelInAir
       value: 0.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 7855817420765898043, guid: caa944a18fcf07d4a89c64551fc4a643, type: 3}
+      propertyPath: jumpHeight
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7855817420765898043, guid: caa944a18fcf07d4a89c64551fc4a643, type: 3}
       propertyPath: deccelInAir
       value: 0.787
       objectReference: {fileID: 0}
     - target: {fileID: 7855817420765898043, guid: caa944a18fcf07d4a89c64551fc4a643, type: 3}
+      propertyPath: gravityScale
+      value: 1.0193679
+      objectReference: {fileID: 0}
+    - target: {fileID: 7855817420765898043, guid: caa944a18fcf07d4a89c64551fc4a643, type: 3}
+      propertyPath: maxFallSpeed
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 7855817420765898043, guid: caa944a18fcf07d4a89c64551fc4a643, type: 3}
+      propertyPath: jumpToApexTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7855817420765898043, guid: caa944a18fcf07d4a89c64551fc4a643, type: 3}
       propertyPath: runAccelAmount
       value: 11.363636
+      objectReference: {fileID: 0}
+    - target: {fileID: 7855817420765898043, guid: caa944a18fcf07d4a89c64551fc4a643, type: 3}
+      propertyPath: gravityStrength
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 7855817420765898043, guid: caa944a18fcf07d4a89c64551fc4a643, type: 3}
       propertyPath: runDeccelAmount
@@ -461,6 +485,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7855817420765898043, guid: caa944a18fcf07d4a89c64551fc4a643, type: 3}
       propertyPath: decelerationTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7855817420765898043, guid: caa944a18fcf07d4a89c64551fc4a643, type: 3}
+      propertyPath: fallGravityMultiplier
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7855817420765898044, guid: caa944a18fcf07d4a89c64551fc4a643, type: 3}
