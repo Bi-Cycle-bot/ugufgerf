@@ -6,16 +6,17 @@ TagManager:
   tags:
   - Ground
   - Bouncer
+  - Enemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - Ground
   - Bouncer
-  - 
+  - Flying Enemy
   - 
   - 
   - 
