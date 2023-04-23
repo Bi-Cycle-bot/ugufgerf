@@ -119,6 +119,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void knockbackFromPosition(Vector2 position, float force){
+        rb.velocity = Vector2.zero;
         isJumping = false;
         Vector2 direction = (Vector2)transform.position - position;
         direction.Normalize();
@@ -126,6 +127,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void directionalKnockback(Vector2 direction, float force){
+        rb.velocity = Vector2.zero;
         isJumping = false;
         direction.Normalize();
         rb.AddForce(direction * force, ForceMode2D.Impulse);
