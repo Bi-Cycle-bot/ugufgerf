@@ -7,6 +7,9 @@ TagManager:
   - Ground
   - Bouncer
   - Enemy
+  - Gun
+  - Grenade
+  - Skill
   layers:
   - Default
   - TransparentFX
