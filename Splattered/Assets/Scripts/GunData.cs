@@ -10,11 +10,14 @@ public class GunData : MonoBehaviour
     public float fireRate;
     public float damage;
     public float range;
+    public float reloadTime;
     public float bulletSpeed;
+    public int springMag, springsPerTap;
     public bool isHitscan;
-    public int numberOfBullets;
+    //public int numberOfBullets;
     public float spread;
     public bool knockback;
+    public bool allowButtonHold;
     public int springsLeft, springsUsed;
     #endregion
     [HideInInspector] public bool shooting, reloading;
