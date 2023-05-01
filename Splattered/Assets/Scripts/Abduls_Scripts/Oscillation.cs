@@ -13,19 +13,19 @@ public class Oscillation : MonoBehaviour {
     // Public Variables
     public bool destroyOnIdle = true; // If set to true and if either stretch or period become 0, it will destroy the oscillation
     public bool idle = false; // Haults the oscillation. Can set this after the creation of the oscillation to pause the oscillation.
+    public int updateTick = 2; // Every # of ticks it takes before values get updated
 
     // Private Variables
     private float value = 0f;
     private int currUpdateTick = 0;
     private int tick = 0; // The current tick the oscillation is at
-    private int updateTick = 2; // Every # of ticks it takes before values get updated
 
     // Sine Wave Variables
-    private float stretch = 1f;
-    private float period = 1f;
-    private float yIntercept = 0f;
-    private float stretchDecay = .3f;
-    private float periodDecay = .3f;
+    public float stretch = 1f;
+    public float period = 1f;
+    public float yIntercept = 0f;
+    public float stretchDecay = .3f;
+    public float periodDecay = .3f;
 
     // Update is called once per frame
     void Update() {
@@ -37,30 +37,32 @@ public class Oscillation : MonoBehaviour {
             return; 
         }
 
+        float realTick = tick * (Mathf.PI / 32);
+
         // Updating oscillation
         float newStretch = 0f;
         float newPeriod = 0f;
         if (stretchDecay != 1) {
-            newStretch = stretch * Mathf.Pow((1 - stretchDecay), tick);
+            newStretch = stretch * Mathf.Pow((1 - stretchDecay), realTick);
         }
         if (periodDecay != 1) {
-            newPeriod = period * Mathf.Pow((1 - periodDecay), tick);
+            newPeriod = period * Mathf.Pow((1 - periodDecay), realTick);
         }
         
-        value = newStretch * Mathf.Sin(tick * newPeriod) + yIntercept;
+        value = newStretch * Mathf.Sin(realTick * newPeriod) + yIntercept;
 
         // Updating the values
         if (currUpdateTick >= updateTick) {
             tick++;
             currUpdateTick = 0;
-
-            // Checking for idle
-            if ((newStretch <= 0.001) || (newPeriod <= 0.001)) {
-                value = 0f;
-                idle = true;
-            }
         } else {
             currUpdateTick++;
+        }
+
+        // Checking for idle
+        if ((newStretch <= 0.001) || (newPeriod <= 0.001)) {
+            value = 0f;
+            idle = true;
         }
     }
 
