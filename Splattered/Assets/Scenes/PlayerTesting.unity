@@ -741,7 +741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23bf278c861aabc49b69606b8b81f969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRate: 5
+  fireRate: 0.1
   damage: 10
   range: 10
   reloadTime: 3
@@ -757,7 +757,7 @@ MonoBehaviour:
   shooting: 0
   reloading: 0
   bulletLifeTime: 2
-  timeBetweenShots: 0.2
+  timeBetweenShots: 10
   timeBetweenShooting: 0
   attackPoint: {fileID: 0}
   whatIsEnemy:
@@ -778,6 +778,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 1452280111}
+  pBullet: {fileID: 5947565453347487128, guid: 1a4b78d2aba461747a232c2bf4f24ca0, type: 3}
+  maxdown: 0
+  cdown: 0
 --- !u!50 &1452280113
 Rigidbody2D:
   serializedVersion: 4
@@ -1010,24 +1013,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!255 &1673047698
-FixedJoint2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1542293767}
-  m_Enabled: 1
-  serializedVersion: 4
-  m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 1452280113}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_AutoConfigureConnectedAnchor: 1
-  m_Anchor: {x: 0.48, y: -0.09}
-  m_ConnectedAnchor: {x: -0.5799999, y: -0.3307969}
-  m_DampingRatio: 0
-  m_Frequency: 0
 --- !u!1 &2028062754
 GameObject:
   m_ObjectHideFlags: 0
