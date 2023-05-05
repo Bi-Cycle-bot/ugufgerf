@@ -18,6 +18,7 @@ public class CameraManager : MonoBehaviour {
     public float mouseLimit = 2; // Limit the camera wont pass for going towards mouse
     public Vector2 minLimits; // The lower bound values for x and y the camera will never pass
     public Vector2 maxLimits; // The upper bound values for x and y the camera will never pass
+    public Vector2 offsets; // Offsets for the camera
 
     // Private Variables
     private Transform plrTrans; 
@@ -61,6 +62,7 @@ public class CameraManager : MonoBehaviour {
             }
         }
 
+<<<<<<< Updated upstream
         // Updating Position Oscillations
         for (int i = 0; i < xPosOsc.Count; i++) {
             if (xPosOsc[i] == null) {
@@ -76,6 +78,11 @@ public class CameraManager : MonoBehaviour {
                 yCamPos += yPosOsc[i].getValue();
             }
         }
+=======
+        // Offsets
+        xCamPos += offsets.x;
+        yCamPos += offsets.y;
+>>>>>>> Stashed changes
 
         // Setting Camera Values
         Vector3 newCamPos = new Vector3(xCamPos, yCamPos, -10f);

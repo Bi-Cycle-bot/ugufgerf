@@ -11,6 +11,15 @@ EditorUserSettings:
     RecentlyUsedSceneGuid-1:
       value: 50545652000c5b5d080c0e2346730944424e197b782e77677f794835b7e4663d
       flags: 0
+<<<<<<< Updated upstream
+=======
+    RecentlyUsedSceneGuid-4:
+      value: 5250075401540b585b0c0e77427b5a44104e417e2f2e733229711f63b7e56239
+      flags: 0
+    RecentlyUsedSceneGuid-5:
+      value: 575005510707585d5d0f5b7245700b4440154e7b297977367c7e496ae7e5306e
+      flags: 0
+>>>>>>> Stashed changes
     UIBuilder.EditorExtensionModeKey:
       value: 37434103
       flags: 0
