@@ -8,9 +8,11 @@ public class HandManager : MonoBehaviour {
     public float currToolLength = 1f; // The length of the tool
     public float yAdjust = 1f; // Adjusts the height/y position. Used to make the barrel of guns be aligned with the mouse.
     public Vector2 leftHandGrip; // Adjusts offset for left hand. Used to make it look like you're holding guns.
+    public Vector2 toolTip; // The tip of the tool/gun. Used to make any gun barrels be aligned with the mouse.
     public Transform crosshair;
     public Transform rightHand;
     public Transform leftHand;
+
 
     // Start is called before the first frame update
     void Start() {
