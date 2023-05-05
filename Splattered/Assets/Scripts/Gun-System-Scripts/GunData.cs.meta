@@ -1,0 +1,25 @@
+<<<<<<< Updated upstream:Splattered/Assets/Scripts/GunData.cs.meta
+fileFormatVersion: 2
+guid: 23bf278c861aabc49b69606b8b81f969
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+=======
+fileFormatVersion: 2
+guid: 7f86a339c73bef641883ae4e72496bd9
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+>>>>>>> Stashed changes:Splattered/Assets/Scripts/Gun-System-Scripts/GunData.cs.meta

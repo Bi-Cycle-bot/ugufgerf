@@ -14,13 +14,26 @@ public class PlayerMovementData : MonoBehaviour
     [Space(4)]
     [Range(0.01f, 1)] public float accelInAir; //Multipliers applied to acceleration rate when airborne.
     [Range(0.01f, 1)] public float deccelInAir;
-    
+
     [Space(10)]
     [Header("Jump")]
     public float jumpHeight;
     public float jumpToApexTime;
-    [HideInInspector]public float jumpForce;
+    [Range(0, 0.1f)]public float cyoteTime;
+    [HideInInspector] public float jumpForce;
 
+    [Space(10)]
+    [Header("Slide")]
+    // public float slideDistance;
+    public float slideTime;
+    public float slideSpeed;
+    public float slideCoolodown;
+    public float slideAccelMultiplier;
+    
+    [HideInInspector] public float lastSlideTime;
+    [HideInInspector] public float lastSlideTimeStart;
+
+    [Space(10)]
     [Header("Gravity")]
     [HideInInspector] public float gravityStrength;
     [HideInInspector] public float gravityScale;
@@ -45,6 +58,10 @@ public class PlayerMovementData : MonoBehaviour
 
         #region Jump Calculations
         jumpForce = Mathf.Abs(gravityStrength) * jumpToApexTime;
+        #endregion
+
+        #region Slide Calculations
+        // slideTime =  slideDistance / slideSpeed;
         #endregion
     }
 }
