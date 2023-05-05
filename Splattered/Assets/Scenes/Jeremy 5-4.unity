@@ -425,6 +425,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Soldier
       objectReference: {fileID: 0}
+    - target: {fileID: 4508288856230012112, guid: a659d05ef47664843b9c0d9fb7dd1928, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508288856230012112, guid: a659d05ef47664843b9c0d9fb7dd1928, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 4508288856230012122, guid: a659d05ef47664843b9c0d9fb7dd1928, type: 3}
       propertyPath: target
       value: 
@@ -472,6 +480,14 @@ PrefabInstance:
     - target: {fileID: 4508288856230012126, guid: a659d05ef47664843b9c0d9fb7dd1928, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508288856332701600, guid: a659d05ef47664843b9c0d9fb7dd1928, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508288856737924641, guid: a659d05ef47664843b9c0d9fb7dd1928, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a659d05ef47664843b9c0d9fb7dd1928, type: 3}
@@ -602,6 +618,14 @@ PrefabInstance:
     - target: {fileID: 7151015961648141607, guid: 3d1dcd0b4274dca478371e7d36e762c5, type: 3}
       propertyPath: m_Name
       value: Dropper
+      objectReference: {fileID: 0}
+    - target: {fileID: 7151015961648141607, guid: 3d1dcd0b4274dca478371e7d36e762c5, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7151015961648141607, guid: 3d1dcd0b4274dca478371e7d36e762c5, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d1dcd0b4274dca478371e7d36e762c5, type: 3}
