@@ -19,6 +19,7 @@ public class PlayerMovementData : MonoBehaviour
     [Header("Jump")]
     public float jumpHeight;
     public float jumpToApexTime;
+    [Range(0, 0.1f)]public float cyoteTime;
     [HideInInspector] public float jumpForce;
 
     [Space(10)]

@@ -22,6 +22,7 @@ public class Bird_Data : MonoBehaviour
     public float attackRange;
     public float attackSpeed;
     public float attackDamage;
+    public GameObject bulletPrefab;
     void OnValidate()
     {
         accelAmount = maxSpeed / accelerationTime;

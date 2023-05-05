@@ -58,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
         }
         moveInput.y = Input.GetAxisRaw("Vertical");
         if (Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0, LayerMask.GetMask("Ground")))
-            lastOnGround = 0.1f;
+            lastOnGround = Data.cyoteTime;
         if (lastOnGround > 0)
             isGrounded = true;
         else

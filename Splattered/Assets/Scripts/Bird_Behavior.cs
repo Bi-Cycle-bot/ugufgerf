@@ -9,6 +9,7 @@ public class Bird_Behavior : MonoBehaviour
     Rigidbody2D rb;
     CircleCollider2D hitbox;
     private Bird_Data data;
+    private float lastGunShot;
     
 
     void Start()
@@ -27,6 +28,11 @@ public class Bird_Behavior : MonoBehaviour
         else if ((Vector2.Distance(data.targetLocation, (Vector2)transform.position) < data.slowDistance/1.5f))
             data.isUsingSlowSpeed = true;
         fly();
+
+        if(Vector2.Distance(transform.position, target.transform.position) < data.attackRange && Time.time - lastGunShot > 1/data.attackSpeed){
+            lastGunShot = Time.time;
+            GameObject bullet = Instantiate(data.bulletPrefab, transform.position, Quaternion.identity);
+        }
     }
 
     void fly(){
