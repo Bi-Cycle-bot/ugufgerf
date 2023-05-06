@@ -29,7 +29,7 @@ public class Bird_Behavior : MonoBehaviour
             data.isUsingSlowSpeed = true;
         fly();
 
-        if(Vector2.Distance(transform.position, target.transform.position) < data.attackRange && Time.time - lastGunShot > 1/data.attackSpeed){
+        if(Vector2.Distance(transform.position, target.transform.position) < data.attackRange && Time.time - lastGunShot > data.attackSpeed){
             lastGunShot = Time.time;
             GameObject bullet = Instantiate(data.bulletPrefab, transform.position, Quaternion.identity);
         }

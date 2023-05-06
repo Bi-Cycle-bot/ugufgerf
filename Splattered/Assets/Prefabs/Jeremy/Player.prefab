@@ -110,6 +110,7 @@ MonoBehaviour:
   isSliding: 0
   isFacingRight: 0
   slideDirection: 0
+  isStunned: 0
 --- !u!114 &4131355967301580527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,6 +144,7 @@ MonoBehaviour:
   gravityScale: 8.321371
   fallGravityMultiplier: 2.3
   maxFallSpeed: 60
+  maxHealth: 20
 --- !u!50 &4131355967301580526
 Rigidbody2D:
   serializedVersion: 4

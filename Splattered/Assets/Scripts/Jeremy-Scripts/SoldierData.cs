@@ -17,7 +17,15 @@ public class SoldierData : MonoBehaviour
     [Header ("Attack")]
     public float attackRange;
     public float attackSpeed;
-    public float attackDamage;
+    public float attackDamage = 1;
+    public float stunDuration = 0.2f;
+    public float knockbackForce = 20f;
+    public Vector2 knockbackDirection;
+    public bool hasDirectionalKnockback = false;
+
+    [Space (10)]
+    [Header ("Health")]
+    public float maxHealth;
 
     void OnValidate()
     {
