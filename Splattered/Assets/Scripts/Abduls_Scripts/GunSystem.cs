@@ -25,6 +25,8 @@ public class GunSystem : MonoBehaviour {
     public float fireRate = .3f; // Fire rate every second
     public float maxCapacity = 30f; // Max capacity of the gun (i.e. mag capacity, clip capacity, etc.)
     public float reloadTime = 2f; // How long it takes to reload
+    public bool chamberBehavior = false; // To enable chambering behavior (if using animations, make sure u make them!)
+    public float chamberTime = 1f; // How long it takes to chamber a round
 
 
     // Accuracy Settings
@@ -40,7 +42,9 @@ public class GunSystem : MonoBehaviour {
     public Vector2 recoilGripPosOffset; // How much positional offset applied each shot
     public Vector3 recoilGripRotOffset; // How much rotational offset applied each shot
     public float recoilTime = .05f; // The total time the recoil will last for until it starts relieving (make it small)
+    [Range(0, 2)]
     public float recoilRelief = .1f; // The greater, the faster the offsets will go away
+    [Range(0, 2)]
     public float recoilStrength= .1f; // The greater, the faster the offsets will be affected
 
 
@@ -66,6 +70,8 @@ public class GunSystem : MonoBehaviour {
     // Sounds
     [Header("Audio")]
     public AudioClip gunShotAudio;
+    [Range(0, 1)]
+    public float gunShotVolume = .5f;
 
     // Optional Settings
     [Header("Optional Settings")]
@@ -79,8 +85,10 @@ public class GunSystem : MonoBehaviour {
     private float lastShotTime;
     private bool ready;
     private bool reloading;
+    private bool chambering;
     private bool mouse0Down;
     private bool recoilEnabled;
+    private bool needsChambering = true;
 
     private AudioSource soundEmitter; // Place to have audio
 
@@ -95,6 +103,13 @@ public class GunSystem : MonoBehaviour {
         currentCapacity = maxCapacity;
         lastShotTime = fireRate;
         ready = true;
+
+        // Chambering
+        if (needsChambering && chamberBehavior) {
+            if (ready && !chambering) {
+                chamber();
+            }
+        }
     }
 
     // Update is called once per frame
@@ -145,6 +160,7 @@ public class GunSystem : MonoBehaviour {
     void reset() {
         ready = false;
         reloading = false;
+        chambering = false;
         recoilEnabled = false;
         mainGripPosOffset = new Vector2(0, 0);
         mainGripRotOffset = new Vector3(0, 0, 0);
@@ -157,12 +173,23 @@ public class GunSystem : MonoBehaviour {
             bolt.localPosition = new Vector3(0, 0, 0);
         }
     }
+    
+    // Chambers a round
+    private void chamber() {
+        chambering = true;
+        ready = false;
+        if (gunAnims) {
+            gunAnims.chamber(chamberTime);
+        }
+        Invoke("finishChamber", chamberTime);
+    }
 
     // Shoots one bullet
     private void shoot() {
         // Checking Bullets
         if (currentCapacity == 0) { return; }
         currentCapacity--;
+        if (currentCapacity == 0) { needsChambering = true; }
 
         // Setting Values
         lastShotTime = 0;
@@ -170,7 +197,7 @@ public class GunSystem : MonoBehaviour {
         Invoke("finishRecoil", recoilTime);
 
         // Effects like particles and sounds
-        soundEmitter.PlayOneShot(gunShotAudio, 1f);
+        soundEmitter.PlayOneShot(gunShotAudio, gunShotVolume);
         if (bolt) {
             bolt.localPosition = new Vector3(boltBackValue, 0, 0);
         }
@@ -198,12 +225,23 @@ public class GunSystem : MonoBehaviour {
     // Used to when reloading is done
     private void finishReload() {
         currentCapacity = maxCapacity;
+        if (needsChambering && chamberBehavior) {
+            chamber();
+        } else {
+            ready = true;
+        }
         reloading = false;
-        ready = true;
     }
 
     // Used for finishing recoil
     private void finishRecoil() {
         recoilEnabled = false;
+    }
+
+    // Used for finishing recoil
+    private void finishChamber() {
+        needsChambering = false;
+        chambering = false;
+        ready = true;
     }
 }

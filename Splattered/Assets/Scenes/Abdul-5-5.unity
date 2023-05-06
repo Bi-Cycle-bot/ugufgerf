@@ -151,9 +151,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1069140971}
   m_Father: {fileID: 1611389848}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &115008463
 SpriteRenderer:
@@ -613,14 +614,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 753564692}
-  m_LocalRotation: {x: -0, y: -0, z: -0.02851789, w: 0.9995933}
-  m_LocalPosition: {x: 0.436, y: -0.077, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0.14331986, w: 0.9896765}
+  m_LocalPosition: {x: -0.197, y: 0.282, z: 0}
   m_LocalScale: {x: 0.23, y: 0.23, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 516927736}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -3.268}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 16.48}
 --- !u!212 &753564694
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -891,8 +892,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1611389848}
-  m_RootOrder: 2
+  m_Father: {fileID: 115008462}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1069140972
 SpriteRenderer:
@@ -1053,7 +1054,6 @@ Transform:
   m_Children:
   - {fileID: 367027172}
   - {fileID: 730452583}
-  - {fileID: 1069140971}
   - {fileID: 115008462}
   - {fileID: 1822328374}
   m_Father: {fileID: 301770050}
@@ -1127,6 +1127,8 @@ MonoBehaviour:
   fireRate: 0.085
   maxCapacity: 30
   reloadTime: 1
+  chamberBehavior: 1
+  chamberTime: 1
   inaccuracyBase: 1
   inaccuracyDistance: 50
   bloom: 0.1
@@ -1144,6 +1146,7 @@ MonoBehaviour:
   fireObject: {fileID: 1822328373}
   handManager: {fileID: 516927737}
   gunShotAudio: {fileID: 8300000, guid: e7578c2d4369ad74f9e0afc74077c2a0, type: 3}
+  gunShotVolume: 0.25
   bolt: {fileID: 1069140971}
   boltBackValue: -0.695
   gunAnims: {fileID: 1611389852}
@@ -1159,7 +1162,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.086
+  m_Volume: 0.394
   m_Pitch: 0.98
   Loop: 0
   Mute: 0
@@ -1264,51 +1267,104 @@ MonoBehaviour:
     newLocalRot: {x: 0, y: 0, z: 17.029}
     positionFactor: 0.139
     inactive: 0
+    sound: {fileID: 0}
   - attachedObject: {fileID: 367027172}
     newLocalPos: {x: 0.394, y: -0.071, z: 0}
     newLocalRot: {x: 0, y: 0, z: 17.029}
     positionFactor: 0.173
     inactive: 0
+    sound: {fileID: 8300000, guid: 7afbd97a76a61c74d949d4ee9bb427d3, type: 3}
   - attachedObject: {fileID: 367027172}
     newLocalPos: {x: 0.425, y: -0.373, z: 0}
     newLocalRot: {x: 0, y: 0, z: 17.029}
     positionFactor: 0.301
     inactive: 0
+    sound: {fileID: 0}
   - attachedObject: {fileID: 367027172}
     newLocalPos: {x: 0.785, y: -0.097, z: 0}
     newLocalRot: {x: 0, y: 0, z: -3.268}
     positionFactor: 0.454
     inactive: 0
+    sound: {fileID: 0}
   - attachedObject: {fileID: 367027172}
     newLocalPos: {x: 0.785, y: -0.097, z: 0}
     newLocalRot: {x: 0, y: 0, z: -3.268}
     positionFactor: 0.598
     inactive: 1
+    sound: {fileID: 0}
   - attachedObject: {fileID: 367027172}
     newLocalPos: {x: 0.785, y: -0.097, z: 0}
     newLocalRot: {x: 0, y: 0, z: -3.268}
     positionFactor: 0.69
     inactive: 0
+    sound: {fileID: 0}
   - attachedObject: {fileID: 367027172}
     newLocalPos: {x: 0.425, y: -0.373, z: 0}
     newLocalRot: {x: 0, y: 0, z: 17.029}
     positionFactor: 0.783
     inactive: 0
+    sound: {fileID: 0}
   - attachedObject: {fileID: 367027172}
     newLocalPos: {x: 0.394, y: -0.071, z: 0}
     newLocalRot: {x: 0, y: 0, z: 17.029}
     positionFactor: 0.885
     inactive: 0
+    sound: {fileID: 8300000, guid: 52907a8a7d8f85d46a7a7d4efeac9a7b, type: 3}
   - attachedObject: {fileID: 0}
     newLocalPos: {x: 0.394, y: -0.071, z: 0}
     newLocalRot: {x: 0, y: 0, z: 17.029}
     positionFactor: 0.937
     inactive: 0
+    sound: {fileID: 0}
   - attachedObject: {fileID: 0}
     newLocalPos: {x: 0.841, y: 0.11, z: 0}
     newLocalRot: {x: 0, y: 0, z: 0}
     positionFactor: 1
     inactive: 0
+    sound: {fileID: 0}
+  chamber_frames:
+  - attachedObject: {fileID: 0}
+    newLocalPos: {x: 0.037, y: 0.238, z: 0}
+    newLocalRot: {x: 0, y: 0, z: 13.77}
+    positionFactor: 0.181
+    inactive: 0
+    sound: {fileID: 0}
+  - attachedObject: {fileID: 115008462}
+    newLocalPos: {x: 0.037, y: 0.238, z: 0}
+    newLocalRot: {x: 0, y: 0, z: 13.77}
+    positionFactor: 0.215
+    inactive: 0
+    sound: {fileID: 0}
+  - attachedObject: {fileID: 115008462}
+    newLocalPos: {x: -0.15, y: 0.238, z: 0}
+    newLocalRot: {x: 0, y: 0, z: 13.77}
+    positionFactor: 0.334
+    inactive: 0
+    sound: {fileID: 8300000, guid: f5f12c6e122a2844796831f0ed39be31, type: 3}
+  - attachedObject: {fileID: 115008462}
+    newLocalPos: {x: -0.15, y: 0.238, z: 0}
+    newLocalRot: {x: 0, y: 0, z: 13.77}
+    positionFactor: 0.519
+    inactive: 0
+    sound: {fileID: 0}
+  - attachedObject: {fileID: 0}
+    newLocalPos: {x: -0.197, y: 0.282, z: 0}
+    newLocalRot: {x: 0, y: 0, z: 16.48}
+    positionFactor: 0.716
+    inactive: 0
+    sound: {fileID: 8300000, guid: 682a87c33ced1774387e519ee15f4c50, type: 3}
+  - attachedObject: {fileID: 0}
+    newLocalPos: {x: -0.197, y: 0.282, z: 0}
+    newLocalRot: {x: 0, y: 0, z: 16.48}
+    positionFactor: 0.804
+    inactive: 0
+    sound: {fileID: 0}
+  - attachedObject: {fileID: 0}
+    newLocalPos: {x: 0.861, y: 0.11, z: 0}
+    newLocalRot: {x: 0, y: 0, z: 0}
+    positionFactor: 1
+    inactive: 0
+    sound: {fileID: 0}
 --- !u!1 &1822328373
 GameObject:
   m_ObjectHideFlags: 0
@@ -1339,7 +1395,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1611389848}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1822328375
 SpriteRenderer:
