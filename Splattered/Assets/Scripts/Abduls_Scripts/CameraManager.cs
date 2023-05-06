@@ -2,7 +2,7 @@
 ------------------------------------------
 By: Abdul Ahad Naveed
 Created: 4/29/2023
-Updated: 4/29/2023 @ 11:30 pm
+Updated: 5/5/2023 @ 5:41 pm
 
 Handles camera manipulation
 */
@@ -16,6 +16,7 @@ public class CameraManager : MonoBehaviour {
     public float dampTime = .23f; // Time it takes for the camera to reach a position (longer = slower)
     public float mouseFactor = .1f; // How much should the camera follow the mouse
     public float mouseLimit = 2; // Limit the camera wont pass for going towards mouse
+    public float sizeOffset = 0; // Offets for the size/FOV of the camera
     public Vector2 minLimits; // The lower bound values for x and y the camera will never pass
     public Vector2 maxLimits; // The upper bound values for x and y the camera will never pass
     public Vector2 offsets; // Offsets for the camera
@@ -65,6 +66,7 @@ public class CameraManager : MonoBehaviour {
         // Offsets
         xCamPos += offsets.x;
         yCamPos += offsets.y;
+        newSize += sizeOffset;
 
         // Setting Camera Values
         Vector3 newCamPos = new Vector3(xCamPos, yCamPos, -10f);
