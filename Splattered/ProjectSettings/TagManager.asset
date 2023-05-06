@@ -8,6 +8,7 @@ TagManager:
   - Bouncer
   - Enemy
   - Grenade
+  - Player Bullets
   layers:
   - Default
   - TransparentFX
