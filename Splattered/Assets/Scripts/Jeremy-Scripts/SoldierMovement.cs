@@ -6,6 +6,7 @@ using UnityEngine;
 public class SoldierMovement : MonoBehaviour
 {
     [SerializeField] public GameObject target;
+    [SerializeField] private GameObject bulletPrefab;
     private PlayerMovement playerMovement;
     Rigidbody2D rb;
     BoxCollider2D hitbox;
@@ -18,6 +19,8 @@ public class SoldierMovement : MonoBehaviour
     [SerializeField] private Vector2 groundCheckSize;
     public bool isGrounded;
 
+    private float lastAttackTime;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -25,7 +28,7 @@ public class SoldierMovement : MonoBehaviour
         Data = GetComponent<SoldierData>();
         isUsingSlowSpeed = false;
         playerMovement = target.GetComponent<PlayerMovement>();
-        
+        lastAttackTime = Time.time;
 
     }
 
@@ -50,16 +53,29 @@ public class SoldierMovement : MonoBehaviour
             playerMovement.damagePlayer(Data.attackDamage, Data.stunDuration, transform.position, Data.knockbackForce, false);
         } 
 
+        if(Time.time - lastAttackTime > Data.attackSpeed)
+        {
+            lastAttackTime = Time.time;
+            GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        }
+
 
     }
 
     void Run()
     {
         float targetSpeed = direction * Data.maxSpeed;
+        if(Vector2.Distance(target.transform.position, transform.position) < Data.attackRange*2/3) {
+            targetSpeed *= Data.slowSpeedMultiplier;
+        }
+        if(Vector2.Distance(target.transform.position, transform.position) < 0.05f) {
+            targetSpeed = 0;
+        }
 
         #region Acceleration Calculation
         float accelerationRate = Data.accelAmount;
-        float slowDistance = Data.attackRange;
+        float slowDistance = Data.attackRange*2/3;
+        targetSpeed = (Vector2.Distance(target.transform.position, transform.position) < slowDistance) ? targetSpeed * Data.slowSpeedMultiplier : targetSpeed;
         #endregion
 
         #region Apply Movement
