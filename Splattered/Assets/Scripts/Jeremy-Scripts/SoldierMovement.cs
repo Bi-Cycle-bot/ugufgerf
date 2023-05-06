@@ -6,6 +6,7 @@ using UnityEngine;
 public class SoldierMovement : MonoBehaviour
 {
     [SerializeField] public GameObject target;
+    private PlayerMovement playerMovement;
     Rigidbody2D rb;
     BoxCollider2D hitbox;
     private SoldierData Data;
@@ -23,7 +24,7 @@ public class SoldierMovement : MonoBehaviour
         hitbox = GetComponent<BoxCollider2D>();
         Data = GetComponent<SoldierData>();
         isUsingSlowSpeed = false;
-
+        playerMovement = target.GetComponent<PlayerMovement>();
         
 
     }
@@ -44,6 +45,11 @@ public class SoldierMovement : MonoBehaviour
             Run();
         }
 
+        if(Physics2D.OverlapBox(transform.position, hitbox.size, 0, LayerMask.GetMask("Player")))
+        {
+            playerMovement.damagePlayer(Data.attackDamage, Data.stunDuration, transform.position, Data.knockbackForce, false);
+        } 
+
 
     }
 
@@ -63,5 +69,13 @@ public class SoldierMovement : MonoBehaviour
         rb.AddForce(movement * Vector2.right, ForceMode2D.Impulse);
         #endregion
 
+    }
+
+    void OnCollision2D(Collision2D collision)
+    {
+        if (collision.gameObject == target)
+        {
+            
+        }
     }
 }

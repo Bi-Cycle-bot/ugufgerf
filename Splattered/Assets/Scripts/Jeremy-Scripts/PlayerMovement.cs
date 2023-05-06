@@ -27,7 +27,16 @@ public class PlayerMovement : MonoBehaviour
     public bool isSliding;
     public bool isFacingRight;
     public float slideDirection;
+    public bool isStunned;
+    public bool isInvincible;
 
+    #endregion
+
+    #region Health
+    private float health;
+    private float maxHealth;
+    private float stunDuration;
+    private float invincibilityDuration;
     #endregion
 
     // Start is called before the first frame update
@@ -41,11 +50,32 @@ public class PlayerMovement : MonoBehaviour
         isFacingRight = true;
         Data.lastSlideTime = Time.time;
         Data.lastSlideTimeStart = Time.time;
+        health = Data.maxHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(stunDuration > 0)
+        {
+            stunDuration -= Time.deltaTime;
+            isStunned = true;
+            invincibilityDuration = Data.invincibilityTime;
+        }
+        else
+        {
+            isStunned = false;
+        }
+        if(invincibilityDuration > 0)
+        {
+            invincibilityDuration -= Time.deltaTime;
+            isInvincible = true;
+        }
+        else
+        {
+            isInvincible = false;
+        }
+        isInvincible = (invincibilityDuration > 0 || isStunned || isSliding) ? true : false;
         lastOnGround -= (lastOnGround > -0.1) ? Time.deltaTime : 0;
         moveInput.x = Input.GetAxisRaw("Horizontal");
         if(moveInput.x > 0)
@@ -94,16 +124,21 @@ public class PlayerMovement : MonoBehaviour
         }
         #endregion
 
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded && !isStunned)
         {
             isJumping = true;
             isSliding = false;
             Jump();
         }
-        else if (Input.GetButtonDown("Slide") && Time.time - Data.lastSlideTime >= Data.slideCoolodown)
+        else if (Input.GetButtonDown("Slide") && Time.time - Data.lastSlideTime >= Data.slideCoolodown && !isSliding && !isStunned)
         {
             StartSlide();
             Debug.Log("started slide");
+        }
+
+        if(rb.velocity.y < -Data.maxFallSpeed)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, -Data.maxFallSpeed);
         }
 
     }
@@ -121,7 +156,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Run()
     {
-        float targetSpeed = moveInput.x * Data.maxSpeed;
+        float targetSpeed = (!isStunned) ? moveInput.x * Data.maxSpeed : 0f;
 
         #region Caluclate Acceleration
         float accelRate;
@@ -149,17 +184,6 @@ public class PlayerMovement : MonoBehaviour
     private void Slide()
     {
         Data.lastSlideTime = Time.time;
-        // float targetSpeed = slideDirection * Data.slideSpeed;
-        
-        // #region Caluclate Acceleration
-        // float accelRate = Data.runAccelAmount*Data.slideAccelMultiplier;
-        // #endregion
-
-        // #region Apply Movment
-        // float speedDifference = targetSpeed - rb.velocity.x;
-        // float movement = speedDifference * accelRate;
-        // rb.AddForce(movement * Vector2.right, ForceMode2D.Force);
-        // #endregion
         rb.velocity = new Vector2(slideDirection * Data.slideSpeed, rb.velocity.y);
     }
 
@@ -193,6 +217,35 @@ public class PlayerMovement : MonoBehaviour
         isJumping = false;
         direction.Normalize();
         rb.AddForce(direction * force, ForceMode2D.Impulse);
+    }
+
+    public bool damagePlayer(float damage, float stunDuration, Vector2 knockbackDirectionOrPosition, float knockbackForce, bool usingDirectionalKnockback) {
+        if(!isInvincible)
+        {
+            health -= damage;
+            if (usingDirectionalKnockback)
+                directionalKnockback(knockbackDirectionOrPosition, knockbackForce);
+            else
+                knockbackFromPosition(knockbackDirectionOrPosition, knockbackForce);
+            this.stunDuration = stunDuration;
+            invincibilityDuration = Data.invincibilityTime;
+            Debug.Log("Player health = " + health);
+            return true;
+        }
+        return false;
+    }
+
+    public void increaseMaxHealth(int amount)
+    {
+        maxHealth += amount;
+        health += amount;
+    }
+
+    public void heal(int amount)
+    {
+        health += amount;
+        if (health > maxHealth)
+            health = maxHealth;
     }
 
 

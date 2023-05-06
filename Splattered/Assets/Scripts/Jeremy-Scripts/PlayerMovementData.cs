@@ -39,6 +39,11 @@ public class PlayerMovementData : MonoBehaviour
     [HideInInspector] public float gravityScale;
     public float fallGravityMultiplier;
     public float maxFallSpeed;
+    [Space(10)]
+
+    [Header("Health")]
+    public float maxHealth = 20;
+    public float invincibilityTime = 1.1f;
 
 
 

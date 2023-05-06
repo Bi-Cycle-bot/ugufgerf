@@ -9,6 +9,8 @@ TagManager:
   - Enemy
   - Grenade
   - Player Bullets
+  - Enemy Bullet
+  - OneWayGround
   layers:
   - Default
   - TransparentFX
@@ -21,8 +23,8 @@ TagManager:
   - Flying Enemy
   - Grounded Enemy
   - Player Bullets
-  - 
-  - 
+  - Enemy Bullet
+  - Grounded Enemy Hitbox
   - 
   - 
   - 
