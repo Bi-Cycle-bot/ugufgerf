@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    UnityEventQueueSystem eventQueue;
     Rigidbody2D rb;
     BoxCollider2D hitbox;
     public PlayerMovementData Data;
@@ -38,6 +39,12 @@ public class PlayerMovement : MonoBehaviour
     private float stunDuration;
     private float invincibilityDuration;
     #endregion
+
+    #region Events
+    public delegate void deathEvent();
+    public static event deathEvent onDeath;
+    #endregion
+
 
     // Start is called before the first frame update
     void Start()
@@ -88,12 +95,12 @@ public class PlayerMovement : MonoBehaviour
         }
         moveInput.y = Input.GetAxisRaw("Vertical");
         if (Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0, LayerMask.GetMask("Ground")))
-            lastOnGround = Data.cyoteTime;
+            lastOnGround = Data.coyoteTime;
         if (lastOnGround > 0)
             isGrounded = true;
         else
             isGrounded = false;
-
+        Debug.Log(lastOnGround);
         if (rb.velocity.y < 0.0f)
             isJumping = false;
 
@@ -141,6 +148,10 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, -Data.maxFallSpeed);
         }
 
+        if(health <= 0)
+        {
+            onDeath();
+        }
     }
 
     void FixedUpdate()
