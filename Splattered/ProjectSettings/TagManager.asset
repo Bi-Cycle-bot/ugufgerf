@@ -11,6 +11,8 @@ TagManager:
   - Player Bullets
   - Enemy Bullet
   - OneWayGround
+  - Skill
+  - Gun
   layers:
   - Default
   - TransparentFX

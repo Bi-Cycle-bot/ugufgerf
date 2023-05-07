@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class HandManager : MonoBehaviour {
     // Public Variables
+    [Header("General Settings")]
     public float centerDist = 5f; // The distance from the center
     public float currToolLength = 1f; // The length of the tool
     public float yAdjust = 1f; // Adjusts the height/y position. Used to make the barrel of guns be aligned with the mouse.
     public Transform crosshair;
     public Transform rightHand;
-    
 
     [Header("Left Hand Settings")]
     public Transform leftHand;
-    public Vector2 leftHandGrip; // Adjusts offset for left hand. Used to make it look like you're holding guns. (local space)
-    public Vector3 leftHandGripRotOffset; // Deals with rotating the hand (local space)
+    public Vector2 leftHandGrip; // Adjusts the base offset for left hand. Used to make it look like you're holding guns. (local space)
+    public Vector3 leftHandGripRotOffset; // Deals with the base rotation of the hand (local space)
 
     [Header("Offsets (for gun system)")]
     public Vector2 rightGripOffset; // Adjusts offset for right hand. Used to make it look like you're holding guns. (local space)
@@ -24,7 +24,8 @@ public class HandManager : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        // Not used (yet...?)
+        leftGripOffset = leftHandGrip;
+        leftRotationOffset = leftHandGripRotOffset;
     }   
 
     // Update is called once per frame
@@ -75,19 +76,25 @@ public class HandManager : MonoBehaviour {
         // Setting Left Hand Values
         leftHand.eulerAngles = rightHand.eulerAngles;
         leftHand.position = rightHand.position;
-        leftHand.position += (leftHandGrip.x + leftGripOffset.x) * leftHand.right;
-        leftHand.position += (leftHandGrip.y + leftGripOffset.y) * leftHand.up;
+        leftHand.position += leftGripOffset.x * leftHand.right;
+        leftHand.position += leftGripOffset.y * leftHand.up;
 
         // Applying LeftHand Offsets
         Vector3 newLeftLocalRot = leftHand.localEulerAngles;
-        newLeftLocalRot.x += leftHandGripRotOffset.x + leftRotationOffset.x;
-        newLeftLocalRot.y += leftHandGripRotOffset.y + leftRotationOffset.y;
-        newLeftLocalRot.z += leftHandGripRotOffset.z + leftRotationOffset.z;
+        newLeftLocalRot.x += leftRotationOffset.x;
+        newLeftLocalRot.y += leftRotationOffset.y;
+        newLeftLocalRot.z += leftRotationOffset.z;
         leftHand.localEulerAngles = newLeftLocalRot;
 
         // Mouse Things
         crosshair.position = new Vector3(mousePos.x, mousePos.y, 0);
         Cursor.visible = false;
+    }
+
+    // Resets the left hand offsets to the base ones
+    public void resetLeftOffsets() {
+        leftGripOffset = leftHandGrip;
+        leftRotationOffset = leftHandGripRotOffset;
     }
 
     // Returns the correctly scaled x position
