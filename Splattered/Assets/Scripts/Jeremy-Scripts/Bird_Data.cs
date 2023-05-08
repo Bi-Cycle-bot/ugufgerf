@@ -27,7 +27,7 @@ public class Bird_Data : MonoBehaviour
     [Space (10)]
 
     [Header ("Health")]
-    public float maxHealth = 3;
+    public float maxHealth = 10;
     void OnValidate()
     {
         accelAmount = maxSpeed / accelerationTime;

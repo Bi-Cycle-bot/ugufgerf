@@ -10,7 +10,10 @@ public class Bird_Behavior : MonoBehaviour
     CircleCollider2D hitbox;
     private Bird_Data data;
     private float lastGunShot;
-    [HideInInspector] public bool canMove;
+    private bool canMove;
+    private float currentHealth;
+    
+
     
 
     void Start()
@@ -19,11 +22,16 @@ public class Bird_Behavior : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         hitbox = GetComponent<CircleCollider2D>();
         data = GetComponent<Bird_Data>();
+        currentHealth = data.maxHealth;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        if(currentHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
         canMove = Mathf.Abs(transform.position.x - target.transform.position.x) < data.targetFollowRange.x &&
                   Mathf.Abs(transform.position.y - target.transform.position.y) < data.targetFollowRange.y;
         data.targetLocation = (Vector2)target.transform.position + new Vector2(0, data.heightAboveTarget);
@@ -66,5 +74,9 @@ public class Bird_Behavior : MonoBehaviour
         rb.AddForce(movement * direction, ForceMode2D.Force);
         #endregion
         
+    }
+
+    void DamageBird(float damage){
+        currentHealth -= damage;
     }
 }

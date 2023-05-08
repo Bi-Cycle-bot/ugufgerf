@@ -323,11 +323,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a30df0842131669458f861e8fa5698a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1176246278 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4508288856230012112, guid: a659d05ef47664843b9c0d9fb7dd1928, type: 3}
-  m_PrefabInstance: {fileID: 4508288857269943510}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1584410368
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -452,6 +447,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bird
       objectReference: {fileID: 0}
+    - target: {fileID: 3774666329453246218, guid: d79b0b67567fa2a43a15ec28ab1988b6, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3774666329453246219, guid: d79b0b67567fa2a43a15ec28ab1988b6, type: 3}
       propertyPath: maxSpeed
       value: 4
@@ -475,6 +474,14 @@ PrefabInstance:
     - target: {fileID: 3774666329453246219, guid: d79b0b67567fa2a43a15ec28ab1988b6, type: 3}
       propertyPath: slowSpeedMultiplier
       value: 0.721
+      objectReference: {fileID: 0}
+    - target: {fileID: 3774666329453246219, guid: d79b0b67567fa2a43a15ec28ab1988b6, type: 3}
+      propertyPath: targetFollowRange.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3774666329453246219, guid: d79b0b67567fa2a43a15ec28ab1988b6, type: 3}
+      propertyPath: targetFollowRange.y
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d79b0b67567fa2a43a15ec28ab1988b6, type: 3}
@@ -596,7 +603,7 @@ PrefabInstance:
       objectReference: {fileID: 516927733}
     - target: {fileID: 4131355967301580524, guid: 6d63d7cdf438e0341a1704386f77f579, type: 3}
       propertyPath: groundCheckSize.y
-      value: 1
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 4131355967301580526, guid: 6d63d7cdf438e0341a1704386f77f579, type: 3}
       propertyPath: m_Material
@@ -674,6 +681,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4508288856230012125, guid: a659d05ef47664843b9c0d9fb7dd1928, type: 3}
       propertyPath: attackDamage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508288856230012125, guid: a659d05ef47664843b9c0d9fb7dd1928, type: 3}
+      propertyPath: targetFollowRange.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508288856230012125, guid: a659d05ef47664843b9c0d9fb7dd1928, type: 3}
+      propertyPath: targetFollowRange.y
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4508288856230012126, guid: a659d05ef47664843b9c0d9fb7dd1928, type: 3}
@@ -829,7 +844,23 @@ PrefabInstance:
     - target: {fileID: 7151015961648141601, guid: 3d1dcd0b4274dca478371e7d36e762c5, type: 3}
       propertyPath: dropObject
       value: 
-      objectReference: {fileID: 1176246278}
+      objectReference: {fileID: 4508288856230012112, guid: a659d05ef47664843b9c0d9fb7dd1928, type: 3}
+    - target: {fileID: 7151015961648141601, guid: 3d1dcd0b4274dca478371e7d36e762c5, type: 3}
+      propertyPath: followTarget
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7151015961648141601, guid: 3d1dcd0b4274dca478371e7d36e762c5, type: 3}
+      propertyPath: destroyOnDrop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7151015961648141601, guid: 3d1dcd0b4274dca478371e7d36e762c5, type: 3}
+      propertyPath: targetFollowRange.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7151015961648141601, guid: 3d1dcd0b4274dca478371e7d36e762c5, type: 3}
+      propertyPath: targetFollowRange.y
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 7151015961648141603, guid: 3d1dcd0b4274dca478371e7d36e762c5, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -886,5 +917,6 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7151015961648141606, guid: 3d1dcd0b4274dca478371e7d36e762c5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3d1dcd0b4274dca478371e7d36e762c5, type: 3}

@@ -26,7 +26,7 @@ public class SoldierData : MonoBehaviour
 
     [Space (10)]
     [Header ("Health")]
-    public float maxHealth;
+    public float maxHealth = 20;
 
     void OnValidate()
     {

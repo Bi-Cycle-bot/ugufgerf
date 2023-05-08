@@ -26,6 +26,7 @@ public class SoldierMovement : MonoBehaviour
 
     void Start()
     {
+        target = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody2D>();
         hitbox = GetComponent<BoxCollider2D>();
         Data = GetComponent<SoldierData>();

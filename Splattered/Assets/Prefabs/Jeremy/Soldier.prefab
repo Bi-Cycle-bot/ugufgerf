@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 4508288856230012127}
   - component: {fileID: 4508288856230012122}
   - component: {fileID: 4508288856230012125}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Soldier
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -149,12 +149,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  bulletPrefab: {fileID: 0}
   targetLocation: {x: 0, y: 0}
   direction: 0
   isUsingSlowSpeed: 0
   groundCheck: {fileID: 4508288856737924654}
   groundCheckSize: {x: 0.95, y: 0.3}
+  canMove: 0
   isGrounded: 0
+  currentHealth: 0
 --- !u!114 &4508288856230012125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,9 +177,15 @@ MonoBehaviour:
   accelAmount: 1
   slowDistance: 3
   isUsingSlowSpeed: 0
+  targetFollowRange: {x: 20, y: 20}
   attackRange: 3
   attackSpeed: 2
   attackDamage: 24
+  stunDuration: 0.2
+  knockbackForce: 20
+  knockbackDirection: {x: 0, y: 0}
+  hasDirectionalKnockback: 0
+  maxHealth: 20
 --- !u!1 &4508288856332701600
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,7 +195,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4508288856332701601}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Checks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -218,7 +227,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4508288856737924654}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
