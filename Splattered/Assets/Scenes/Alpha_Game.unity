@@ -1489,6 +1489,18 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 0.95
       objectReference: {fileID: 0}
+    - target: {fileID: 6639137180472107188, guid: 4c23f693855a1f84ba4cb08920c4dad4, type: 3}
+      propertyPath: m_Color.b
+      value: 0.13914871
+      objectReference: {fileID: 0}
+    - target: {fileID: 6639137180472107188, guid: 4c23f693855a1f84ba4cb08920c4dad4, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6639137180472107188, guid: 4c23f693855a1f84ba4cb08920c4dad4, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6639137180472107189, guid: 4c23f693855a1f84ba4cb08920c4dad4, type: 3}
       propertyPath: groundCheckSize.y
       value: 0.35
