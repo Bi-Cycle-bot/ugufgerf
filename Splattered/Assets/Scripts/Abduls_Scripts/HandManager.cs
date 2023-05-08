@@ -91,6 +91,12 @@ public class HandManager : MonoBehaviour {
         Cursor.visible = false;
     }
 
+    // Resets the right hand offsets to just 0
+    public void resetRightOffsets() {
+        rightGripOffset = new Vector2(0, 0);
+        rightRotationOffset = new Vector3(0, 0, 0);
+    }
+
     // Resets the left hand offsets to the base ones
     public void resetLeftOffsets() {
         leftGripOffset = leftHandGrip;

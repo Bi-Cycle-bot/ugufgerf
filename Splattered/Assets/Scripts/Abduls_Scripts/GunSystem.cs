@@ -32,8 +32,10 @@ public class GunSystem : Tool {
     // Accuracy Settings
     [Header("Accuracy Settings")]
     public float inaccuracyBase = 1f; // Used in conjuction with 'inaccuractDistance': base / distance inaccuracy
-    public float inaccuracyDistance = 50f; // Used in conjuction with 'inaccuracyBase': base / distance inaccuracy
+    public float inaccuracyDistance = 5f; // Used in conjuction with 'inaccuracyBase': base / distance inaccuracy
     public float bloom = .1f; // Every time the gun fires, increase inaccuracyBase by this value. Can be 0.
+    public float bloomReliefWait = 2f;
+    public float boolRelief = .3f; // Every bloomReliefWait * Firerate while the gun is not firing, decrease bloom by this much.
     public float maxBloom = 1f; // Max bloom
 
 
@@ -57,7 +59,6 @@ public class GunSystem : Tool {
     // Bullet Settings
     [Header("Bullet Settings")]
     public float bulletVelocity = 5f; // Speed of the bullet
-    public float bulletDrop = .2f; // How much drop the bullet is going to have
     public GameObject bulletPrefab; // To the bullet the gun is going to shoot
 
 
@@ -84,6 +85,7 @@ public class GunSystem : Tool {
     // Gun Status
     private int currentCapacity;
     private float lastShotTime;
+    private float currentBloom;
     private bool ready;
     private bool reloading;
     private bool chambering;
@@ -110,6 +112,7 @@ public class GunSystem : Tool {
         lastShotTime = fireRate;
         equipped = true;
         ready = true;
+        currentBloom = 0;
     }
 
     // Update is called once per frame
@@ -124,6 +127,7 @@ public class GunSystem : Tool {
         }
 
         // Firing
+        lastShotTime += Time.deltaTime;
         if (lastShotTime >= fireRate) {
             if (ready) {
                 if ((fireMode == FireMode.SemiAuto) && Input.GetKeyDown(KeyCode.Mouse0)) {
@@ -132,8 +136,15 @@ public class GunSystem : Tool {
                     shoot(); // Full-Auto
                 }
             }
-        } else {
-            lastShotTime += Time.deltaTime;
+        }
+
+        // Chacking for bloom relief
+        if ((lastShotTime >= (fireRate * bloomReliefWait)) && (currentBloom > 0)) {
+            lastShotTime = fireRate;
+            currentBloom -= boolRelief;
+            if (currentBloom < 0) {
+                currentBloom = 0;
+            }
         }
 
         // Reloading
@@ -166,8 +177,7 @@ public class GunSystem : Tool {
         recoilEnabled = false;
         mainGripPosOffset = new Vector2(0, 0);
         mainGripRotOffset = new Vector3(0, 0, 0);
-        handManager.rightGripOffset = mainGripPosOffset;
-        handManager.rightRotationOffset = mainGripRotOffset;
+        handManager.resetRightOffsets();
         lastShotTime = fireRate;
         CancelInvoke();
         if (bolt) {
@@ -232,10 +242,8 @@ public class GunSystem : Tool {
 
         // Setting Values
         lastShotTime = 0;
-        recoilEnabled = true;
-        Invoke("finishRecoil", recoilTime);
 
-        // Effects like particles and sounds
+        // Effects 
         soundEmitter.pitch = Random.Range(.9f, 1.1f);
         soundEmitter.PlayOneShot(gunShotAudio, gunShotVolume);
         if (bolt) {
@@ -247,12 +255,38 @@ public class GunSystem : Tool {
         }
 
         // Fixing offsets
+        Vector3 rightRot = handManager.rightHand.transform.localEulerAngles;
+        rightRot.z -= mainGripRotOffset.z;
+        handManager.rightHand.transform.localEulerAngles = rightRot;
         mainGripPosOffset = new Vector2(0, 0);
         mainGripRotOffset = new Vector3(0, 0, 0);
-        handManager.rightGripOffset = new Vector2(0, 0);
-        handManager.rightRotationOffset = new Vector3(0, 0, 0);
+        handManager.resetRightOffsets();
+        
+        // Shooting Bullet
+        Vector3 position = fireObject.transform.position;
+        Vector3 endPosition = fireObject.transform.position + fireObject.transform.right * inaccuracyDistance;
+        float totalInaccuracy = currentBloom + inaccuracyBase;
+        endPosition += transform.up * Random.Range(totalInaccuracy * -1, totalInaccuracy);
+        GameObject newBullet = Instantiate(bulletPrefab, position, transform.rotation);
+        newBullet.transform.right = endPosition - newBullet.transform.position;
 
-        // [SHOOT BULLET HERE]
+        // Setting Bullet Values
+        Bullet bulletInfo = newBullet.GetComponent<Bullet>();
+        bulletInfo.baseDamage = baseDamage;
+        bulletInfo.bulletVelocity = bulletVelocity;
+        bulletInfo.headshotMultiplier = headshotMultiplier;
+
+        // Recoil
+        recoilEnabled = true;
+        Invoke("finishRecoil", recoilTime);
+
+        // Changing Bloom
+        if (currentBloom < maxBloom) {
+            currentBloom += bloom;
+            if (currentBloom > maxBloom) {
+                currentBloom = maxBloom;
+            }
+        }
     }
 
     // To Reload
@@ -266,7 +300,7 @@ public class GunSystem : Tool {
         Invoke("finishReload", reloadTime);
     }
 
-    // Used to when reloading is done
+    // Used when reloading is done
     private void finishReload() {
         currentCapacity = maxCapacity;
         if (needsChambering && chamberBehavior) {
@@ -282,7 +316,7 @@ public class GunSystem : Tool {
         recoilEnabled = false;
     }
 
-    // Used for finishing recoil
+    // Used for finishing chambering
     private void finishChamber() {
         needsChambering = false;
         chambering = false;
