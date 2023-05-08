@@ -29,7 +29,6 @@ public class EnemyBullet : MonoBehaviour
         transform.position = new Vector3(transform.position.x, transform.position.y, player.transform.position.z);
         Vector3.RotateTowards(transform.position, player.transform.position, 2*Mathf.PI, 100);
         timeOfCreation = Time.time;
-        
     }
 
     void OnTriggerEnter2D(Collider2D other)
