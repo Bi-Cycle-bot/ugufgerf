@@ -106,6 +106,11 @@ public class GunAnimations : MonoBehaviour {
                 startRot = handManager.leftRotationOffset;
                 currentGoal++;
                 if (currentGoal == currentFrames.Count) {
+                    if (attachedObject) {
+                        attachedObject.parent = gunTrans;
+                        attachedObject.localPosition = new Vector3(0, 0, 0);
+                        attachedObject.localEulerAngles = new Vector3(0, 0, 0);
+                    }
                     attachedObject = null;
                     playing = false;
                 } else {

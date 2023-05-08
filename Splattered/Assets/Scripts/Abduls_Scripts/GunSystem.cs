@@ -164,7 +164,7 @@ public class GunSystem : Tool {
             mainGripPosOffset = Vector2.Lerp(mainGripPosOffset, new Vector2(0, 0), recoilRelief / 2);
             mainGripRotOffset = Vector3.Lerp(mainGripRotOffset, new Vector3(0, 0, 0), recoilRelief / 2);
             if (bolt) {
-                bolt.localPosition = Vector3.Lerp(bolt.localPosition, new Vector3(0, 0, 0), .01f);
+                bolt.localPosition = Vector3.Lerp(bolt.localPosition, new Vector3(0, 0, 0), .05f);
             }
         }
         handManager.rightGripOffset = mainGripPosOffset;

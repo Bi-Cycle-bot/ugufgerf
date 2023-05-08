@@ -1473,6 +1473,10 @@ PrefabInstance:
       propertyPath: baseDamage
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 1611389850, guid: 4c23f693855a1f84ba4cb08920c4dad4, type: 3}
+      propertyPath: gunShotVolume
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 6639137180472107181, guid: 4c23f693855a1f84ba4cb08920c4dad4, type: 3}
       propertyPath: m_Name
       value: Player
@@ -24476,7 +24480,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 25
   m_Sprite: {fileID: 21300000, guid: ce630ba019c9d5544bb10e3a8392f9b4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
