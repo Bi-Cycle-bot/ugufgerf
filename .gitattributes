@@ -1,7 +1,15 @@
 ## Unity ##
+<<<<<<< HEAD
 *.cs diff=csharp text
 *.cginc text
 *.shader text
+=======
+
+*.cs diff=csharp text
+*.cginc text
+*.shader text
+
+>>>>>>> b281798642565240f70ce81f51aef5e14fc1db1f
 *.mat merge=unityyamlmerge eol=lf
 *.anim merge=unityyamlmerge eol=lf
 *.unity merge=unityyamlmerge eol=lf
@@ -11,7 +19,14 @@
 *.asset merge=unityyamlmerge eol=lf
 *.meta merge=unityyamlmerge eol=lf
 *.controller merge=unityyamlmerge eol=lf
+<<<<<<< HEAD
 ## git-lfs ##
+=======
+
+
+## git-lfs ##
+
+>>>>>>> b281798642565240f70ce81f51aef5e14fc1db1f
 #Image
 *.jpg filter=lfs diff=lfs merge=lfs -text
 *.jpeg filter=lfs diff=lfs merge=lfs -text
@@ -20,18 +35,34 @@
 *.psd filter=lfs diff=lfs merge=lfs -text
 *.ai filter=lfs diff=lfs merge=lfs -text
 *.tif filter=lfs diff=lfs merge=lfs -text
+<<<<<<< HEAD
+=======
+
+>>>>>>> b281798642565240f70ce81f51aef5e14fc1db1f
 #Audio
 *.mp3 filter=lfs diff=lfs merge=lfs -text
 *.wav filter=lfs diff=lfs merge=lfs -text
 *.ogg filter=lfs diff=lfs merge=lfs -text
+<<<<<<< HEAD
 #Video
 *.mp4 filter=lfs diff=lfs merge=lfs -text
 *.mov filter=lfs diff=lfs merge=lfs -text
+=======
+
+#Video
+*.mp4 filter=lfs diff=lfs merge=lfs -text
+*.mov filter=lfs diff=lfs merge=lfs -text
+
+>>>>>>> b281798642565240f70ce81f51aef5e14fc1db1f
 #3D Object
 *.FBX filter=lfs diff=lfs merge=lfs -text
 *.fbx filter=lfs diff=lfs merge=lfs -text
 *.blend filter=lfs diff=lfs merge=lfs -text
 *.obj filter=lfs diff=lfs merge=lfs -text
+<<<<<<< HEAD
+=======
+
+>>>>>>> b281798642565240f70ce81f51aef5e14fc1db1f
 #ETC
 *.a filter=lfs diff=lfs merge=lfs -text
 *.exr filter=lfs diff=lfs merge=lfs -text
@@ -44,4 +75,8 @@
 *.ttf filter=lfs diff=lfs merge=lfs -text
 *.rns filter=lfs diff=lfs merge=lfs -text
 *.reason filter=lfs diff=lfs merge=lfs -text
+<<<<<<< HEAD
 *.lxo filter=lfs diff=lfs merge=lfs -text
+=======
+*.lxo filter=lfs diff=lfs merge=lfs -text
+>>>>>>> b281798642565240f70ce81f51aef5e14fc1db1f
