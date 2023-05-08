@@ -1,3 +1,12 @@
+/*
+------------------------------------------
+By: Trent Lucas
+Created: 4/27/2023
+Updated: 4/27/2023 @ 12:30 pm
+
+Handles camera manipulation
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

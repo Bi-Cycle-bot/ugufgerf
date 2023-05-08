@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Trent Main Menu 5-7.unity
+    guid: 1de9972029ee2f145b1f8e1ed96c0588
+  - enabled: 1
+    path: Assets/Scenes/Trent First Level 5-7.unity
+    guid: 2d859147febab574d8e5fd0c3c3b5293
   m_configObjects: {}

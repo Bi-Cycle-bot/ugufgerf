@@ -12,6 +12,7 @@ public class SoldierData : MonoBehaviour
     [HideInInspector] public float accelAmount;
     public float slowDistance;
     [HideInInspector] public bool isUsingSlowSpeed;
+    public Vector2 targetFollowRange = new Vector2(20, 20);
     [Space(10)]
 
     [Header ("Attack")]

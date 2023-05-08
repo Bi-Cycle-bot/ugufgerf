@@ -39,8 +39,8 @@ public class PlayerInventory : MonoBehaviour, IInventory
     private Dictionary<itemType, GameObject> itemSetActive = new Dictionary<itemType, GameObject>() { };
     private Dictionary<itemType, GameObject> itemInstantiate = new Dictionary<itemType, GameObject>() { };
 
-    [SerializeField] Image[] inventorySlotImage = new Image[4];
-    [SerializeField] Image[] inventoryBackgroundImage = new Image[4];
+    [SerializeField] Image[] inventorySlotImage = new Image[3];
+    [SerializeField] Image[] inventoryBackgroundImage = new Image[3];
     [SerializeField] Sprite emptySlotSprite;
 
 
