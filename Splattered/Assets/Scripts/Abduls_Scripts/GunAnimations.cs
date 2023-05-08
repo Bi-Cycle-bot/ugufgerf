@@ -94,8 +94,10 @@ public class GunAnimations : MonoBehaviour {
             } else {
                 if (attachedObject) {
                     attachedObject.parent = gunTrans;
-                    attachedObject.localPosition = Vector3.Lerp(attachedObject.localPosition, new Vector3(0, 0, 0), .06f);
-                    attachedObject.localEulerAngles = Vector3.Lerp(attachedObject.localEulerAngles, new Vector3(0, 0, 0), .06f);
+                    attachedObject.localPosition = new Vector3(0, 0, 0);
+                    attachedObject.localEulerAngles = new Vector3(0, 0, 0);
+                    // attachedObject.localPosition = Vector3.Lerp(attachedObject.localPosition, new Vector3(0, 0, 0), .06f);
+                    // attachedObject.localEulerAngles = Vector3.Lerp(attachedObject.localEulerAngles, new Vector3(0, 0, 0), .06f);
                 }
             }
 
