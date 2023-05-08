@@ -14,6 +14,10 @@ public class Bullet : MonoBehaviour {
     // Bullet Settings
     [Header("Bullet Settings")]
     public float bulletVelocity = 5f; // Speed of the bullet
+    public float bulletKnockback = 1f; // Knockback of the bullet
+
+    // Debounces
+    private bool hitDebounce = false;
 
     // Start is called before the first frame update
     void Start() {
@@ -27,6 +31,13 @@ public class Bullet : MonoBehaviour {
 
     // Collisions
     void OnTriggerEnter2D(Collider2D other) {
-        print("HITTT!!");
+        if (hitDebounce) { return; }
+        hitDebounce = true;
+        if ((other.gameObject.layer == 8) || (other.gameObject.layer == 9)) {
+            SoldierMovement mainScript = other.gameObject.GetComponent<SoldierMovement>();
+            mainScript.damageSoldier(baseDamage, transform.right, bulletKnockback);
+        }
+
+        Destroy(gameObject);
     }
 }

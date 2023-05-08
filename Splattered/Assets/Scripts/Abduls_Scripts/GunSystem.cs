@@ -59,6 +59,7 @@ public class GunSystem : Tool {
     // Bullet Settings
     [Header("Bullet Settings")]
     public float bulletVelocity = 5f; // Speed of the bullet
+    public float bulletKnockback = 1f; // Knockback of the bullet
     public GameObject bulletPrefab; // To the bullet the gun is going to shoot
 
 
@@ -275,6 +276,7 @@ public class GunSystem : Tool {
         bulletInfo.baseDamage = baseDamage;
         bulletInfo.bulletVelocity = bulletVelocity;
         bulletInfo.headshotMultiplier = headshotMultiplier;
+        bulletInfo.bulletKnockback = bulletKnockback;
 
         // Recoil
         recoilEnabled = true;

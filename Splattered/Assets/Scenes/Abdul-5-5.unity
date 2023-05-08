@@ -1071,9 +1071,10 @@ MonoBehaviour:
   recoilTime: 0.05
   recoilRelief: 0.1
   recoilStrength: 0.58
-  baseDamage: 30
+  baseDamage: 1.76
   headshotMultiplier: 2
   bulletVelocity: 25
+  bulletKnockback: 6
   bulletPrefab: {fileID: 4071064140172276255, guid: 80657b268e5d59e4281c2ef73efca368, type: 3}
   fireObject: {fileID: 1822328373}
   gunShotAudio: {fileID: 8300000, guid: e7578c2d4369ad74f9e0afc74077c2a0, type: 3}

@@ -39,7 +39,7 @@ public class SoldierMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             Destroy(gameObject);
         }
@@ -54,17 +54,17 @@ public class SoldierMovement : MonoBehaviour
 
         direction = (target.transform.position.x - transform.position.x > 0) ? 1 : -1;
 
-        if(isGrounded)
+        if (isGrounded)
         {
             Run();
         }
 
-        if(Physics2D.OverlapBox(transform.position, hitbox.size, 0, LayerMask.GetMask("Player")))
+        if (Physics2D.OverlapBox(transform.position, hitbox.size, 0, LayerMask.GetMask("Player")))
         {
             playerMovement.damagePlayer(Data.attackDamage, Data.stunDuration, transform.position, Data.knockbackForce, false);
-        } 
+        }
 
-        if(Time.time - lastAttackTime > Data.attackSpeed && canMove)
+        if (Time.time - lastAttackTime > Data.attackSpeed && canMove)
         {
             lastAttackTime = Time.time;
             GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
@@ -76,16 +76,18 @@ public class SoldierMovement : MonoBehaviour
     void Run()
     {
         float targetSpeed = direction * Data.maxSpeed;
-        if(Vector2.Distance(target.transform.position, transform.position) < Data.attackRange*2/3) {
+        if (Vector2.Distance(target.transform.position, transform.position) < Data.attackRange * 2 / 3)
+        {
             targetSpeed *= Data.slowSpeedMultiplier;
         }
-        if(Vector2.Distance(target.transform.position, transform.position) < 0.05f || !canMove) {
+        if (Vector2.Distance(target.transform.position, transform.position) < 0.05f || !canMove)
+        {
             targetSpeed = 0;
         }
 
         #region Acceleration Calculation
         float accelerationRate = Data.accelAmount;
-        float slowDistance = Data.attackRange*2/3;
+        float slowDistance = Data.attackRange * 2 / 3;
         targetSpeed = (Vector2.Distance(target.transform.position, transform.position) < slowDistance) ? targetSpeed * Data.slowSpeedMultiplier : targetSpeed;
         #endregion
 
@@ -98,11 +100,12 @@ public class SoldierMovement : MonoBehaviour
 
     }
 
-    void damageSoldier(float damage, Vector2 bulletPosition, float knockbackforce)
+    public void damageSoldier(float damage, Vector2 bulletDirection, float knockbackforce)
     {
-        rb.AddForce(((Vector2)transform.position - bulletPosition).normalized * knockbackforce, ForceMode2D.Impulse);
+        // rb.AddForce((bulletDirection).normalized * knockbackforce, ForceMode2D.Impulse);
+        rb.AddForce(transform.right * knockbackforce, ForceMode2D.Impulse);
         currentHealth -= damage;
     }
 
-    
+
 }
