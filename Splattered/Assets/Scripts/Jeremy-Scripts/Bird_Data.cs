@@ -16,6 +16,7 @@ public class Bird_Data : MonoBehaviour
     [HideInInspector] public bool isUsingSlowSpeed;
     public float heightAboveTarget = 3;
     [HideInInspector] public Vector2 targetLocation;
+    public Vector2 targetFollowRange = new Vector2(20, 20);
     [Space(10)]
 
     [Header ("Attack")]

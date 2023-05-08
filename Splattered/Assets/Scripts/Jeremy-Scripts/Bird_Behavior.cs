@@ -10,10 +10,12 @@ public class Bird_Behavior : MonoBehaviour
     CircleCollider2D hitbox;
     private Bird_Data data;
     private float lastGunShot;
+    [HideInInspector] public bool canMove;
     
 
     void Start()
     {
+
         rb = GetComponent<Rigidbody2D>();
         hitbox = GetComponent<CircleCollider2D>();
         data = GetComponent<Bird_Data>();
@@ -22,6 +24,8 @@ public class Bird_Behavior : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        canMove = Mathf.Abs(transform.position.x - target.transform.position.x) < data.targetFollowRange.x &&
+                  Mathf.Abs(transform.position.y - target.transform.position.y) < data.targetFollowRange.y;
         data.targetLocation = (Vector2)target.transform.position + new Vector2(0, data.heightAboveTarget);
         if(Vector2.Distance(data.targetLocation, (Vector2)transform.position) > data.slowDistance)
             data.isUsingSlowSpeed = false;
@@ -29,7 +33,7 @@ public class Bird_Behavior : MonoBehaviour
             data.isUsingSlowSpeed = true;
         fly();
 
-        if(Vector2.Distance(transform.position, target.transform.position) < data.attackRange && Time.time - lastGunShot > data.attackSpeed){
+        if(Vector2.Distance(transform.position, target.transform.position) < data.attackRange && Time.time - lastGunShot > data.attackSpeed && canMove){
             lastGunShot = Time.time;
             GameObject bullet = Instantiate(data.bulletPrefab, transform.position, Quaternion.identity);
         }
@@ -39,7 +43,7 @@ public class Bird_Behavior : MonoBehaviour
         #region Acceleration Calculation
         float accelerationRate = data.accelAmount;
         float slowDistance = data.attackRange - data.heightAboveTarget;
-        if (Vector2.Distance(data.targetLocation, (Vector2)transform.position) < slowDistance * 0.05f){
+        if (Vector2.Distance(data.targetLocation, (Vector2)transform.position) < slowDistance * 0.05f || !canMove){
             data.targetSpeed = 0;
             accelerationRate = data.deccelAmount;
         }

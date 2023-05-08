@@ -17,9 +17,12 @@ public class SoldierMovement : MonoBehaviour
     [HideInInspector] public bool isUsingSlowSpeed;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Vector2 groundCheckSize;
+    [HideInInspector] public bool canMove;
     public bool isGrounded;
 
     private float lastAttackTime;
+
+    public float currentHealth;
 
     void Start()
     {
@@ -29,11 +32,18 @@ public class SoldierMovement : MonoBehaviour
         isUsingSlowSpeed = false;
         playerMovement = target.GetComponent<PlayerMovement>();
         lastAttackTime = Time.time;
+        currentHealth = Data.maxHealth;
 
     }
 
     void FixedUpdate()
     {
+        if(currentHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
+        canMove = Mathf.Abs(transform.position.x - target.transform.position.x) < Data.targetFollowRange.x &&
+                  Mathf.Abs(transform.position.y - target.transform.position.y) < Data.targetFollowRange.y;
         if (Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0, LayerMask.GetMask("Ground")))
         {
             isGrounded = true;
@@ -53,7 +63,7 @@ public class SoldierMovement : MonoBehaviour
             playerMovement.damagePlayer(Data.attackDamage, Data.stunDuration, transform.position, Data.knockbackForce, false);
         } 
 
-        if(Time.time - lastAttackTime > Data.attackSpeed)
+        if(Time.time - lastAttackTime > Data.attackSpeed && canMove)
         {
             lastAttackTime = Time.time;
             GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
@@ -68,7 +78,7 @@ public class SoldierMovement : MonoBehaviour
         if(Vector2.Distance(target.transform.position, transform.position) < Data.attackRange*2/3) {
             targetSpeed *= Data.slowSpeedMultiplier;
         }
-        if(Vector2.Distance(target.transform.position, transform.position) < 0.05f) {
+        if(Vector2.Distance(target.transform.position, transform.position) < 0.05f || !canMove) {
             targetSpeed = 0;
         }
 
@@ -87,11 +97,11 @@ public class SoldierMovement : MonoBehaviour
 
     }
 
-    void OnCollision2D(Collision2D collision)
+    void damageSoldier(float damage, Vector2 bulletPosition, float knockbackforce)
     {
-        if (collision.gameObject == target)
-        {
-            
-        }
+        rb.AddForce(((Vector2)transform.position - bulletPosition).normalized * knockbackforce, ForceMode2D.Impulse);
+        currentHealth -= damage;
     }
+
+    
 }
