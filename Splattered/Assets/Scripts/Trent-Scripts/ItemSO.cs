@@ -12,4 +12,4 @@ public class ItemSO : ScriptableObject
     public Sprite item_sprite;
 }
 
-public enum itemType { Gun, Grenade, Skill1 };
+public enum itemType { Gun, Grenade, Skill1, M4A1 };

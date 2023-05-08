@@ -1123,6 +1123,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98f1437381a043344a0c89358ba57c7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  toolLength: 1.5
+  yAdjust: -0.18
+  leftHandGrip: {x: 0.841, y: 0.11}
+  leftHandGripRotOffset: {x: 0, y: 0, z: 0}
   fireMode: 0
   fireRate: 0.085
   maxCapacity: 30
@@ -1144,12 +1148,12 @@ MonoBehaviour:
   bulletDrop: 0.2
   bulletPrefab: {fileID: 0}
   fireObject: {fileID: 1822328373}
-  handManager: {fileID: 516927737}
   gunShotAudio: {fileID: 8300000, guid: e7578c2d4369ad74f9e0afc74077c2a0, type: 3}
   gunShotVolume: 0.25
   bolt: {fileID: 1069140971}
   boltBackValue: -0.695
   gunAnims: {fileID: 1611389852}
+  spentShell: {fileID: 0}
 --- !u!82 &1611389851
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1258,9 +1262,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f250f4117bc8b4b4fa1e5f3bb63fce59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handManager: {fileID: 516927737}
-  leftHand: {fileID: 753564692}
-  gunTrans: {fileID: 1611389848}
   reload_frames:
   - attachedObject: {fileID: 0}
     newLocalPos: {x: 0.394, y: -0.071, z: 0}
@@ -1336,13 +1337,13 @@ MonoBehaviour:
     inactive: 0
     sound: {fileID: 0}
   - attachedObject: {fileID: 115008462}
-    newLocalPos: {x: -0.15, y: 0.238, z: 0}
+    newLocalPos: {x: -0.25, y: 0.238, z: 0}
     newLocalRot: {x: 0, y: 0, z: 13.77}
     positionFactor: 0.334
     inactive: 0
     sound: {fileID: 8300000, guid: f5f12c6e122a2844796831f0ed39be31, type: 3}
   - attachedObject: {fileID: 115008462}
-    newLocalPos: {x: -0.15, y: 0.238, z: 0}
+    newLocalPos: {x: -0.25, y: 0.238, z: 0}
     newLocalRot: {x: 0, y: 0, z: 13.77}
     positionFactor: 0.519
     inactive: 0

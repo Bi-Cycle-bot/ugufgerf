@@ -23,11 +23,6 @@ public class GunAnimations : MonoBehaviour {
         public AudioClip sound; // If you want a sound to play
     }
 
-    public HandManager handManager; // The hand manager this keyframe is acting upon
-    public GameObject leftHand; // Left hand of the player
-    public Transform gunTrans; // Gun of these animations
-    private AudioSource soundEmitter; // Place to have audio
-
     // ---------------------- RELOAD VARIABLES ----------------------
     [Header("Reload Animation")]
     public List<keyframe> reload_frames; // Make sure the last keyframe contains the default position/rotation values!
@@ -35,6 +30,13 @@ public class GunAnimations : MonoBehaviour {
     // ---------------------- CHAMBER VARIABLES ----------------------
     [Header("Chamber Animation")]
     public List<keyframe> chamber_frames; // Make sure the last keyframe contains the default position/rotation values!
+
+    // ---------------------- OTHER PRIVATE VARIABLES ----------------------
+    private GameObject player; // Player Game Object
+    private HandManager handManager; // The hand manager this keyframe is acting upon
+    private AudioSource soundEmitter; // Place to have audio
+    private Transform gunTrans; // Gun of these animations
+    private GameObject leftHand; // Left hand of the player
 
     // Animation Variables
     private float currentTime = 0;
@@ -49,7 +51,12 @@ public class GunAnimations : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
+        // Setting values
+        player = GameObject.FindGameObjectWithTag("Player");
+        handManager = player.GetComponent<HandManager>();
         soundEmitter = GetComponent<AudioSource>();
+        gunTrans = GetComponent<Transform>();
+        leftHand = GameObject.Find("/Player/LeftHand");
     }
 
     // Update is called once per frame
@@ -70,7 +77,7 @@ public class GunAnimations : MonoBehaviour {
             // Changing the current pos/rot
             Vector3 goalPos = currentFrames[currentGoal].newLocalPos;
             Vector3 goalRot = currentFrames[currentGoal].newLocalRot;
-            handManager.leftHandGrip = Vector3.Lerp(startPos, goalPos, frameTime / timeToMove);
+            handManager.leftGripOffset = Vector3.Lerp(startPos, goalPos, frameTime / timeToMove);
             handManager.leftRotationOffset = Vector3.Lerp(startRot, goalRot, frameTime / timeToMove);
 
             // Inactivity
@@ -95,7 +102,7 @@ public class GunAnimations : MonoBehaviour {
             // Updating time
             currentTime += Time.deltaTime;
             if (currentTime >= (animationTime * currentFrames[currentGoal].positionFactor)) {
-                startPos = handManager.leftHandGrip;
+                startPos = handManager.leftGripOffset;
                 startRot = handManager.leftRotationOffset;
                 currentGoal++;
                 if (currentGoal == currentFrames.Count) {
@@ -108,6 +115,14 @@ public class GunAnimations : MonoBehaviour {
                 }
             }
         }
+    }
+
+    // Cancels all animations
+    public void cancel() {
+        reset();
+        playing = false;
+        currentFrames = null;
+        handManager.resetLeftOffsets();
     }
 
     // Do the reload animation
@@ -128,7 +143,7 @@ public class GunAnimations : MonoBehaviour {
         playing = true;
         currentGoal = 0;
         currentTime = 0;
-        startPos = handManager.leftHandGrip;
+        startPos = handManager.leftGripOffset;
         startRot = handManager.leftRotationOffset;
         attachedObject = null;
     }
