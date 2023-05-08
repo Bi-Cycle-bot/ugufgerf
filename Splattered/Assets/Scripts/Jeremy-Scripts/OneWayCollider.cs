@@ -15,7 +15,8 @@ public class OneWayCollider : MonoBehaviour
     {
         hitbox = GetComponent<Collider2D>();
         platformRB = GetComponent<Rigidbody2D>();
-
+        playerRB = GameObject.Find("Player").GetComponent<Rigidbody2D>();
+        playerHitbox = GameObject.Find("Player").GetComponent<Collider2D>();
         timeToGoTrough = 0.1f;
     }
 

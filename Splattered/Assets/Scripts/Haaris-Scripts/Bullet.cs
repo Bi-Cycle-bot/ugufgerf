@@ -33,9 +33,15 @@ public class Bullet : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other) {
         if (hitDebounce) { return; }
         hitDebounce = true;
-        if ((other.gameObject.layer == 8) || (other.gameObject.layer == 9)) {
+        if (other.gameObject.layer == 9) {
             SoldierMovement mainScript = other.gameObject.GetComponent<SoldierMovement>();
             mainScript.damageSoldier(baseDamage, transform.right, bulletKnockback);
+        } else if (other.gameObject.layer == 13) {
+            DropperBehavior mainScript = other.gameObject.GetComponent<DropperBehavior>();
+            mainScript.DamageDropper(baseDamage);
+        } else if (other.gameObject.layer == 8) {
+            Bird_Behavior mainScript = other.gameObject.GetComponent<Bird_Behavior>();
+            mainScript.DamageBird(baseDamage);
         }
 
         Destroy(gameObject);

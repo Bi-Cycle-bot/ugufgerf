@@ -11,5 +11,5 @@ public class DropperData : MonoBehaviour
     public bool destroyOnDrop = true;
     public bool dropOnDeath = false;
     public float maxHealth = 50;
-    public Direction direction;
+    public Direction direction = Direction.Left;
 }

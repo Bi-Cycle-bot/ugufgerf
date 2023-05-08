@@ -23,6 +23,7 @@ public class Bird_Behavior : MonoBehaviour
         hitbox = GetComponent<CircleCollider2D>();
         data = GetComponent<Bird_Data>();
         currentHealth = data.maxHealth;
+        target = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
@@ -76,7 +77,7 @@ public class Bird_Behavior : MonoBehaviour
         
     }
 
-    void DamageBird(float damage){
+    public void DamageBird(float damage){
         currentHealth -= damage;
     }
 }

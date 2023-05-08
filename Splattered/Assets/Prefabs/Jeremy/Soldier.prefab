@@ -170,17 +170,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f9544c759794f54b8c67717a9887631, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 3
+  maxSpeed: 5
   accelerationTime: 3
   deccelerationTime: 3
   slowSpeedMultiplier: 0.714
-  accelAmount: 1
+  accelAmount: 1.6666666
   slowDistance: 3
   isUsingSlowSpeed: 0
   targetFollowRange: {x: 20, y: 20}
   attackRange: 3
   attackSpeed: 2
-  attackDamage: 24
+  attackDamage: 6.45646
   stunDuration: 0.2
   knockbackForce: 20
   knockbackDirection: {x: 0, y: 0}

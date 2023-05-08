@@ -31,8 +31,9 @@ public class DropperBehavior : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        target = GameObject.FindGameObjectWithTag("Player");
         currentHealth = maxHealth;
-        lastDropTime = -10;
+        lastDropTime = Time.time-10;
     }
 
     void FixedUpdate()
@@ -53,9 +54,13 @@ public class DropperBehavior : MonoBehaviour
         {
             direction = Direction.Left;
         }
-        Drop();
         Move();
 
+    }
+
+    void Update()
+    {
+        Drop();
     }
 
     void Drop()
@@ -81,7 +86,7 @@ public class DropperBehavior : MonoBehaviour
             rb.velocity = Vector2.zero;
     }
 
-    void DamageDropper(float damage)
+    public void DamageDropper(float damage)
     {
         currentHealth -= damage;
     }

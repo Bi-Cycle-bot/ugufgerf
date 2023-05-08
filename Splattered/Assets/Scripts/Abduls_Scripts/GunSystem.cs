@@ -113,6 +113,7 @@ public class GunSystem : Tool {
         lastShotTime = fireRate;
         equipped = true;
         ready = true;
+        needsChambering = false;
         currentBloom = 0;
     }
 

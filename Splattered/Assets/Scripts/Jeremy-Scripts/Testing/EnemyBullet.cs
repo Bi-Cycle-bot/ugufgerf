@@ -17,6 +17,8 @@ public class EnemyBullet : MonoBehaviour
     public float knockbackForce = 10f;
     public float stunDuration = 0.2f;
     public bool isUsingDirectionalKnockback = false;
+    public float lifeSpan = 1.3f;
+    private float timeOfCreation;
 
     void Start()
     {
@@ -26,6 +28,8 @@ public class EnemyBullet : MonoBehaviour
         hitbox = GetComponent<BoxCollider2D>();
         transform.position = new Vector3(transform.position.x, transform.position.y, player.transform.position.z);
         Vector3.RotateTowards(transform.position, player.transform.position, 2*Mathf.PI, 100);
+        timeOfCreation = Time.time;
+        
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -41,5 +45,7 @@ public class EnemyBullet : MonoBehaviour
     void Update()
     {
         rb.velocity = (player.transform.position - transform.position).normalized * speed;
+        if(Time.time - timeOfCreation >= lifeSpan)
+            Destroy(gameObject);
     }
 }

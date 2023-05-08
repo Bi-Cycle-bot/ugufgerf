@@ -1,6 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -150,7 +154,8 @@ public class PlayerMovement : MonoBehaviour
 
         if(health <= 0)
         {
-            onDeath();
+            // onDeath();
+            SceneManager.LoadScene(0);
         }
     }
 

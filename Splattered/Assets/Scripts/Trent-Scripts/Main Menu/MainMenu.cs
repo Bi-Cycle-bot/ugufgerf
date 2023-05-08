@@ -10,6 +10,10 @@ public class MainMenu : MonoBehaviour
 {
     public TextMeshPro theText;
 
+    void Start() {
+        Cursor.visible = true;
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         theText.color = Color.red;

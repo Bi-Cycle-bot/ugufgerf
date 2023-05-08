@@ -118,7 +118,7 @@ MonoBehaviour:
   player: {fileID: 0}
   playerMovement: {fileID: 0}
   speed: 7
-  damage: 1
+  damage: 4
   knockbackDirection: {x: 0, y: 0}
   knockbackForce: 50
   stunDuration: 0.05
