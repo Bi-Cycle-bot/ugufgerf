@@ -26,6 +26,7 @@ public class GunSystem : Tool {
     public int maxCapacity = 30; // Max capacity of the gun (i.e. mag capacity, clip capacity, etc.)
     public float reloadTime = 2f; // How long it takes to reload
     public bool chamberBehavior = false; // To enable chambering behavior (if using animations, make sure u make them!)
+    public bool autoReload = true; // If the gun is empty (0) it will automatically reload when Mouse0 is pressed
     public float chamberTime = 1f; // How long it takes to chamber a round
 
 
@@ -150,9 +151,18 @@ public class GunSystem : Tool {
         }
 
         // Reloading
-        if (Input.GetKeyDown(KeyCode.R) && ready) {
-            if (currentCapacity < maxCapacity) {
-                reload();
+        if (ready) {
+            if (Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.Mouse1)) {
+                if (currentCapacity < maxCapacity) {
+                    reload();
+                }
+            }
+
+            // Auto Reload
+            if (Input.GetKeyDown(KeyCode.Mouse0) && autoReload) {
+                if (currentCapacity == 0) {
+                    reload();
+                }
             }
         }
 

@@ -104,6 +104,8 @@ public class GunAnimations : MonoBehaviour {
             // Updating time
             currentTime += Time.deltaTime;
             if (currentTime >= (animationTime * currentFrames[currentGoal].positionFactor)) {
+                handManager.leftGripOffset = currentFrames[currentGoal].newLocalPos;
+                handManager.leftRotationOffset = currentFrames[currentGoal].newLocalRot;
                 startPos = handManager.leftGripOffset;
                 startRot = handManager.leftRotationOffset;
                 currentGoal++;
