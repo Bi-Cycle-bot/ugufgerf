@@ -13,6 +13,7 @@ TagManager:
   - OneWayGround
   - Skill
   - Gun
+  - EnemyDeathParticles
   layers:
   - Default
   - TransparentFX

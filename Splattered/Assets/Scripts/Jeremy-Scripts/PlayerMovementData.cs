@@ -25,6 +25,7 @@ public class PlayerMovementData : MonoBehaviour
     [Space(10)]
     [Header("Slide")]
     // public float slideDistance;
+    public bool slideStopsYMovement;
     public float slideTime;
     public float slideSpeed;
     public float slideCoolodown;
@@ -44,6 +45,7 @@ public class PlayerMovementData : MonoBehaviour
     [Header("Health")]
     public float maxHealth = 20;
     public float invincibilityTime = 1.1f;
+    [Range(0.01f, 0.3f)]public float hitFlashTime;
 
 
 

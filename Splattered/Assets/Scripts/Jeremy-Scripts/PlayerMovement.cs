@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D rb;
     BoxCollider2D hitbox;
     public PlayerMovementData Data;
+    private SpriteRenderer spriteRenderer;
 
     #region INPUT PARAMETERS
     private Vector2 moveInput;
@@ -30,18 +31,24 @@ public class PlayerMovement : MonoBehaviour
     private bool usingFasterGravity;
     public bool isJumping;
     public bool isSliding;
+    private bool wasSliding;
     public bool isFacingRight;
     public float slideDirection;
     public bool isStunned;
     public bool isInvincible;
+    private bool isFlashing;
 
     #endregion
 
-    #region Health
+    #region Health and Damage
     private float health;
     private float maxHealth;
     private float stunDuration;
     private float invincibilityDuration;
+    #endregion
+
+    #region Color
+    private Color originalColor;
     #endregion
 
     #region Events
@@ -59,14 +66,17 @@ public class PlayerMovement : MonoBehaviour
         isSliding = false;
         isJumping = false;
         isFacingRight = true;
-        Data.lastSlideTime = Time.time;
-        Data.lastSlideTimeStart = Time.time;
+        Data.lastSlideTime = Time.time - 4f;
+        Data.lastSlideTimeStart = Time.time - 4f;
         health = Data.maxHealth;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        originalColor = spriteRenderer.color;
     }
 
     // Update is called once per frame
     void Update()
     {
+        #region State Calculations
         if(stunDuration > 0)
         {
             stunDuration -= Time.deltaTime;
@@ -77,17 +87,15 @@ public class PlayerMovement : MonoBehaviour
         {
             isStunned = false;
         }
+
         if(invincibilityDuration > 0)
         {
             invincibilityDuration -= Time.deltaTime;
-            isInvincible = true;
         }
-        else
-        {
-            isInvincible = false;
-        }
+
         isInvincible = (invincibilityDuration > 0 || isStunned || isSliding) ? true : false;
         lastOnGround -= (lastOnGround > -0.1) ? Time.deltaTime : 0;
+        
         moveInput.x = Input.GetAxisRaw("Horizontal");
         if(moveInput.x > 0)
         {
@@ -104,9 +112,10 @@ public class PlayerMovement : MonoBehaviour
             isGrounded = true;
         else
             isGrounded = false;
-        Debug.Log(lastOnGround);
+        // Debug.Log(lastOnGround);
         if (rb.velocity.y < 0.0f)
             isJumping = false;
+        #endregion
 
         #region Gravity
         if ((rb.velocity.y < 0 || !Input.GetButton("Jump")) || !isJumping)
@@ -123,17 +132,20 @@ public class PlayerMovement : MonoBehaviour
         #region Slide Stop
         if(isSliding && Input.GetAxisRaw("Horizontal") == -slideDirection)
         {
-            Debug.Log("Slide ended");
+            // Debug.Log("Slide ended");
             isSliding = false;
             rb.velocity = new Vector2(Data.maxSpeed * Input.GetAxisRaw("Horizontal"), rb.velocity.y);
         }
         else if(Time.time - Data.lastSlideTimeStart > Data.slideTime && isSliding)
         {
-            Debug.Log("Slide ended");
+            // Debug.Log("Slide ended");
             isSliding = false;
             rb.velocity = new Vector2(Data.maxSpeed * Input.GetAxisRaw("Horizontal"), rb.velocity.y);
         }
         #endregion
+
+
+        #region Input
 
         if (Input.GetButtonDown("Jump") && isGrounded && !isStunned)
         {
@@ -144,8 +156,10 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetButtonDown("Slide") && Time.time - Data.lastSlideTime >= Data.slideCoolodown && !isSliding && !isStunned)
         {
             StartSlide();
-            Debug.Log("started slide");
+            // Debug.Log("started slide");
         }
+
+        #endregion
 
         if(rb.velocity.y < -Data.maxFallSpeed)
         {
@@ -157,6 +171,15 @@ public class PlayerMovement : MonoBehaviour
             // onDeath();
             SceneManager.LoadScene(0);
         }
+
+        #region Animations
+        if(wasSliding && Time.time - Data.lastSlideTime >= Data.slideCoolodown)
+        {
+            StartCoroutine(canSlideAnimation());
+        }
+        wasSliding = Time.time - Data.lastSlideTime < Data.slideCoolodown;
+        #endregion
+        
     }
 
     void FixedUpdate()
@@ -200,7 +223,10 @@ public class PlayerMovement : MonoBehaviour
     private void Slide()
     {
         Data.lastSlideTime = Time.time;
-        rb.velocity = new Vector2(slideDirection * Data.slideSpeed, rb.velocity.y);
+        if(Data.slideStopsYMovement)
+            rb.velocity = new Vector2(slideDirection * Data.slideSpeed, 0);
+        else
+            rb.velocity = new Vector2(slideDirection * Data.slideSpeed, rb.velocity.y);
     }
 
     private void Jump()
@@ -208,8 +234,6 @@ public class PlayerMovement : MonoBehaviour
         lastOnGround = 0;
 
         float force = Data.jumpForce;
-        // if (rb.velocity.y < 0)
-        //     force -= rb.velocity.y;
         rb.velocity = new Vector2(rb.velocity.x, 0);
         rb.AddForce(force * Vector2.up, ForceMode2D.Impulse);
     }
@@ -245,7 +269,11 @@ public class PlayerMovement : MonoBehaviour
                 knockbackFromPosition(knockbackDirectionOrPosition, knockbackForce);
             this.stunDuration = stunDuration;
             invincibilityDuration = Data.invincibilityTime;
-            Debug.Log("Player health = " + health);
+            spriteRenderer.color -= new Color(0, 0, 0, 0);
+            // Debug.Log("Player health = " + health);
+            isInvincible = true;
+            isStunned = true;
+            StartCoroutine(hitAnimation());
             return true;
         }
         return false;
@@ -262,6 +290,29 @@ public class PlayerMovement : MonoBehaviour
         health += amount;
         if (health > maxHealth)
             health = maxHealth;
+    }
+
+    IEnumerator hitAnimation()
+    {
+        // float startTime = Time.time;
+        bool isInvisible = false;
+        while(isStunned || invincibilityDuration > 0)
+        {
+            spriteRenderer.color = (isInvisible) ? originalColor : Color.clear;
+            isInvisible = !isInvisible;
+            if(isInvisible)
+                yield return new WaitForSeconds(Data.hitFlashTime/2);
+            else
+                yield return new WaitForSeconds(Data.hitFlashTime);
+        }
+        spriteRenderer.color = originalColor;
+    }
+
+    IEnumerator canSlideAnimation()
+    {
+        spriteRenderer.color = Color.blue;
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.color = originalColor;
     }
 
 
