@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Boss : MonoBehaviour
 {
     [Header("Boss Settings")]
-    public GameObject target;
+    [HideInInspector]public GameObject target;
     public float maxHealth;
     public float currentHealth;
 

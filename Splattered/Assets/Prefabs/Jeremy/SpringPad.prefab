@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3775277330412920906}
   - component: {fileID: 3775277330412920905}
   - component: {fileID: 3775277330412920904}
+  - component: {fileID: -3644578259288826264}
   m_Layer: 6
   m_Name: SpringPad
   m_TagString: Ground
@@ -133,3 +134,17 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &-3644578259288826264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3775277330412920911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f255e2beffff37740bd3e79db2f870d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  springForce: 30
+  playerMovement: {fileID: 0}

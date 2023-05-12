@@ -28,22 +28,22 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
     #region State
-    private bool usingFasterGravity;
-    public bool isJumping;
-    public bool isSliding;
-    private bool wasSliding;
-    public bool isFacingRight;
-    public float slideDirection;
-    public bool isStunned;
-    public bool isInvincible;
-    private bool isFlashing;
+    [HideInInspector] private bool usingFasterGravity;
+    [HideInInspector] public bool isJumping;
+    [HideInInspector] public bool isSliding;
+    [HideInInspector] private bool wasSliding;
+    [HideInInspector] public bool isFacingRight;
+    [HideInInspector] public float slideDirection;
+    [HideInInspector] public bool isStunned;
+    [HideInInspector] public bool isInvincible;
+    [HideInInspector] private bool isFlashing;
 
     #endregion
 
     #region Health and Damage
     private float health;
     private float maxHealth;
-    private float stunDuration;
+    public float stunDuration;
     private float invincibilityDuration;
     #endregion
 
@@ -256,6 +256,15 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = Vector2.zero;
         isJumping = false;
         direction.Normalize();
+        rb.AddForce(direction * force, ForceMode2D.Impulse);
+    }
+
+    public void directionalKnockbackWithHorizontalMultiplier(Vector2 direction, float force, float horizontalForceMultiplier)
+    {
+        rb.velocity = Vector2.zero;
+        isJumping = false;
+        direction.Normalize();
+        direction.x *= horizontalForceMultiplier;
         rb.AddForce(direction * force, ForceMode2D.Impulse);
     }
 

@@ -5,6 +5,8 @@ using UnityEngine;
 public class SpringPad : MonoBehaviour
 {
     public float springForce = 30f;
+    public float horizontalForceMultiplier = 3f;
+    public float stunDuration = 0.1f;
     public PlayerMovement playerMovement;
 
     void Start()
@@ -16,7 +18,11 @@ public class SpringPad : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            playerMovement.directionalKnockback(new Vector2(0, 1), springForce);
+            Vector2 direction = new Vector2(transform.up.x * horizontalForceMultiplier, transform.up.y);
+            playerMovement.directionalKnockbackWithHorizontalMultiplier((Vector2)transform.up, springForce, horizontalForceMultiplier);
+            playerMovement.stunDuration = stunDuration;
+            playerMovement.isStunned = true;
+            Debug.Log(transform.up);
         }
     }
 }
