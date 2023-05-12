@@ -104,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
             isGrounded = true;
         else
             isGrounded = false;
-        Debug.Log(lastOnGround);
+        //Debug.Log(lastOnGround);
         if (rb.velocity.y < 0.0f)
             isJumping = false;
 

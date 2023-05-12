@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Alpha_Game.unity
     guid: 2d859147febab574d8e5fd0c3c3b5293
+  - enabled: 1
+    path: Assets/Scenes/Trent 5-12.unity
+    guid: c952d829b923b8b4db715193ee820a02
+  - enabled: 1
+    path: Assets/Scenes/Trent 5-9.unity
+    guid: 133427cdad0272e49a72d3aa346f5ba0
   m_configObjects: {}
