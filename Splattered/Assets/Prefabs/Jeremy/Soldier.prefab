@@ -150,6 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   bulletPrefab: {fileID: 0}
+  deathParticles: {fileID: 0}
   targetLocation: {x: 0, y: 0}
   direction: 0
   isUsingSlowSpeed: 0
@@ -181,11 +182,12 @@ MonoBehaviour:
   attackRange: 3
   attackSpeed: 2
   attackDamage: 6.45646
-  stunDuration: 0.2
+  attackStunDuration: 0.2
   knockbackForce: 20
   knockbackDirection: {x: 0, y: 0}
   hasDirectionalKnockback: 0
   maxHealth: 20
+  hitStunDuration: 0.1
 --- !u!1 &4508288856332701600
 GameObject:
   m_ObjectHideFlags: 0
