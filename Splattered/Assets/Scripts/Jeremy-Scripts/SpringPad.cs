@@ -18,6 +18,7 @@ public class SpringPad : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            playerMovement.isSliding = false;
             Vector2 direction = new Vector2(transform.up.x * horizontalForceMultiplier, transform.up.y);
             playerMovement.directionalKnockbackWithHorizontalMultiplier((Vector2)transform.up, springForce, horizontalForceMultiplier);
             playerMovement.stunDuration = stunDuration;
