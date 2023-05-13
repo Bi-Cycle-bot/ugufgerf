@@ -6,7 +6,7 @@ public class RabbitBoss : Boss
 {
     [Header("GameObjects")]
     public GameObject bullet;
-    public GameObject jumpAttackExplosion;
+    [HideInInspector] public BunnyExplosion bunnyExplosion;
     private Rigidbody2D rb;
     private Collider2D hitbox;
     [Space(10)]
@@ -18,9 +18,9 @@ public class RabbitBoss : Boss
     public Transform wallCheckRight;
     public Transform wallCheckLeft;
     public Vector2 wallCheckSize;
-    private bool isGrounded;
-    private bool isTouchingWallRight;
-    private bool isTouchingWallLeft;
+    public bool isGrounded;
+    public bool isTouchingWallRight;
+    public bool isTouchingWallLeft;
     #endregion
 
     [Space(3)]
@@ -29,16 +29,19 @@ public class RabbitBoss : Boss
     [HideInInspector] public float runAccelAmount; //force applied to bunny to accelerate
     public float decelerationTime; //time it should take for bunny to decelerate from max speed to 0
     [HideInInspector] public float runDeccelAmount; //force applied to bunny to decelerate
-    [HideInInspector] public Vector2 direction;
+    [HideInInspector] public float direction;
+    [HideInInspector] public bool doNotRun;
  
 
-    
+    [Space(10)]
+    [Header("Attack Settings")]
+    public float timeBetweenAttacks = 0.4f;
 
 
     [Space(10)]
     [Header("JumpAttack")]
     public float timeBetweenJumps = 0.5f;
-    [Range(0.01f, 1)]public float arialSpeedMultiplier;
+    [Range(0.01f, 10)]public float arialSpeedMultiplier;
     public float jumpAttackDirectDamage = 10f;
     public float jumpAttackDirectKnockback = 10f;
     public float jumpAttackDirectStunDuration = 0.7f;
@@ -64,7 +67,17 @@ public class RabbitBoss : Boss
     [Header("DashAttack")]
     public float dashAttackDamage = 8f;
     public float dashAttackSpeed = 30f;
-    [HideInInspector] public Vector2 dashAttackDirection;
+    public bool isDashing;
+
+    [Space(10)]
+    [Header("Gun Attack")]
+    public float gunAttackDamage = 5f;
+    public float gunAttackKnockback = 5f;
+    public float gunAttackStunDuration = 0.1f;
+    public float gunAttackSpeed = 30f;
+    public float mininumShots = 4f;
+    public float maximumShots = 30f;
+    [HideInInspector] public bool isShooting;
 
     private void OnValidate()
     {
@@ -95,13 +108,27 @@ public class RabbitBoss : Boss
         isJumping = false;
         ChangeDirection();
         rb.gravityScale = jumpAttackGravityScale;
+        currentHealth = maxHealth;
+        doNotRun = false;
+        bunnyExplosion = GetComponentInChildren<BunnyExplosion>();
+        isDashing = false;
     }
 
-    void fixedUpdate()
+
+    void FixedUpdate()
     {
         isTouchingWallRight = Physics2D.OverlapBox(wallCheckRight.position, wallCheckSize, 0, LayerMask.GetMask("Ground"));
         isTouchingWallLeft = Physics2D.OverlapBox(wallCheckLeft.position, wallCheckSize, 0, LayerMask.GetMask("Ground"));
         isGrounded = Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0, LayerMask.GetMask("Ground"));
+        if(!doNotRun)
+            Run();
+        // if(!isJumping)
+        //     StartCoroutine(JumpAttack());
+        // if(!isDashing)
+        //     StartCoroutine(DashAttack());
+        bool isAttacking = isJumping || isDashing || isShooting;
+        if (!isAttacking)
+            StartCoroutine(chooseAttack());
     }
 
     public override void DamageBoss(float damageAmount)
@@ -111,13 +138,14 @@ public class RabbitBoss : Boss
 
     private void Run()
     {
-        float targetSpeed = (isGrounded) ? direction.x * maxSpeed :
-                                           direction.x * maxSpeed * arialSpeedMultiplier;
+        // Debug.Log("Running");
+        float targetSpeed = (isGrounded) ? direction * maxSpeed :
+                                           direction * maxSpeed * arialSpeedMultiplier;
 
         #region Apply Movement
         float speedDifference = targetSpeed - rb.velocity.x;
         float movement = speedDifference * runAccelAmount;
-        rb.AddForce(movement * Vector2.right, ForceMode2D.Impulse);
+        rb.AddForce(movement * Vector2.right, ForceMode2D.Force);
         #endregion
 
     }
@@ -128,24 +156,80 @@ public class RabbitBoss : Boss
         ChangeDirection();
         while (!isTouchingWallLeft && !isFacingRight() || !isTouchingWallRight && isFacingRight())
         {
-            Run();
             if (isGrounded)
             {
                 yield return new WaitForSeconds(timeBetweenJumps);
                 Jump();
+                StartCoroutine(StopRunning(timeBetweenJumps));
+                yield return new WaitForSeconds(0.1f);
             }
             else if (rb.velocity.y < 0)
             {
                 rb.velocity = new Vector2(0, -jumpAttackSlamSpeed);
-                while (!isGrounded && rb.velocity.y < -0.1f)
+                while (!isGrounded)
                 {
                     yield return null;
                     rb.velocity = new Vector2(0, -jumpAttackSlamSpeed);
                 }
-                Instantiate(jumpAttackExplosion, transform.position, Quaternion.identity);
+                StartCoroutine(bunnyExplosion.Explode());
                 yield return new WaitForSeconds(0.1f);
-                isJumping = false;
             }
+            else
+            {
+                yield return null;
+            }
+        }
+        isJumping = false;
+    }
+    private IEnumerator GunAttack()
+    {
+        int shotsToFire = (int) Random.Range(mininumShots, maximumShots);
+        doNotRun = true;
+        isShooting = true;
+        for(int i = 0; i < shotsToFire; i++)
+        {
+            // GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+            yield return new WaitForSeconds(0.1f);
+        }
+        doNotRun = false;
+        isShooting = false;
+    }
+    private IEnumerator DashAttack()
+    {
+        doNotRun = true;
+        isDashing = true;
+        Vector2 DashAttackDirection = target.transform.position - transform.position;
+        Vector2 targetPosition = new Vector2   (target.transform.position.x, transform.position.y);
+        DashAttackDirection.Normalize();
+        while (Vector2.Distance(transform.position, targetPosition) > 3f)
+        {
+            DashAttackDirection = targetPosition - (Vector2) transform.position;
+            DashAttackDirection.Normalize();
+            rb.velocity = DashAttackDirection * dashAttackSpeed;
+            yield return null;
+        }
+        // StartCoroutine(bunnyExplosion.Explode());
+        yield return new WaitForSeconds(0.7f);
+        doNotRun = false;
+        isDashing = false;
+    }
+
+    private IEnumerator chooseAttack()
+    {
+        ChangeDirection();
+        int attack = Random.Range(0, 2);
+        yield return new WaitForSeconds(timeBetweenAttacks);
+        switch (attack)
+        {
+            case 0:
+                StartCoroutine(JumpAttack());
+                break;
+            case 1:
+                StartCoroutine(DashAttack());
+                break;
+            case 2:
+                StartCoroutine(GunAttack());
+                break;
         }
     }
 
@@ -154,22 +238,31 @@ public class RabbitBoss : Boss
         float force = jumpAttackJumpForce;
         rb.velocity = new Vector2(0, 0);
         rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+        isGrounded = false;
     }
 
     public void ChangeDirection()
     {
         if (transform.position.x - target.transform.position.x > 0)
         {
-            direction = Vector2.left;
+            direction = -1;
         }
         else
         {
-            direction = Vector2.right;
+            direction = 1;
         }
+        // Debug.Log("Direction: " + direction);
     }
 
     private bool isFacingRight()
     {
-        return direction.x > 0;
+        return direction > 0;
+    }
+
+    IEnumerator StopRunning(float time)
+    {
+        doNotRun = false;
+        yield return new WaitForSeconds(time);
+        doNotRun = true;
     }
 }
