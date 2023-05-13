@@ -31,6 +31,7 @@ public class RabbitBoss : Boss
     [HideInInspector] public float runDeccelAmount; //force applied to bunny to decelerate
     [HideInInspector] public float direction;
     [HideInInspector] public bool doNotRun;
+    [HideInInspector] public bool choosingAttack;
  
 
     [Space(10)]
@@ -61,7 +62,7 @@ public class RabbitBoss : Boss
     [HideInInspector] public float jumpAttackGravityScale;
     #endregion
 
-    [HideInInspector] public bool isJumping;
+    public bool isJumping;
 
     [Space(10)]
     [Header("DashAttack")]
@@ -112,6 +113,7 @@ public class RabbitBoss : Boss
         doNotRun = false;
         bunnyExplosion = GetComponentInChildren<BunnyExplosion>();
         isDashing = false;
+        isShooting = false;
     }
 
 
@@ -122,14 +124,14 @@ public class RabbitBoss : Boss
         isGrounded = Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0, LayerMask.GetMask("Ground"));
         if(!doNotRun)
             Run();
-        // if(!isJumping)
-        //     StartCoroutine(JumpAttack());
-        // if(!isDashing)
-        //     StartCoroutine(DashAttack());
-        bool isAttacking = isJumping || isDashing || isShooting;
-        if (!isAttacking)
+        bool isAttacking = isJumping || isDashing || isShooting || choosingAttack;
+        if (!isAttacking && isGrounded)
             StartCoroutine(chooseAttack());
+        if (!isAttacking && (isTouchingWallLeft && !isFacingRight() || isTouchingWallRight && isFacingRight()))
+            ChangeDirection();
+        
     }
+
 
     public override void DamageBoss(float damageAmount)
     {
@@ -180,9 +182,12 @@ public class RabbitBoss : Boss
             }
         }
         isJumping = false;
+        ChangeDirection();
+        Debug.Log("JumpAttack Finished");
     }
     private IEnumerator GunAttack()
     {
+        ChangeDirection();
         int shotsToFire = (int) Random.Range(mininumShots, maximumShots);
         doNotRun = true;
         isShooting = true;
@@ -193,6 +198,7 @@ public class RabbitBoss : Boss
         }
         doNotRun = false;
         isShooting = false;
+        ChangeDirection();
     }
     private IEnumerator DashAttack()
     {
@@ -208,14 +214,15 @@ public class RabbitBoss : Boss
             rb.velocity = DashAttackDirection * dashAttackSpeed;
             yield return null;
         }
-        // StartCoroutine(bunnyExplosion.Explode());
-        yield return new WaitForSeconds(0.7f);
         doNotRun = false;
         isDashing = false;
+        ChangeDirection();
+        // Debug.Log("DashAttack Finished");
     }
 
     private IEnumerator chooseAttack()
     {
+        choosingAttack = true;
         ChangeDirection();
         int attack = Random.Range(0, 2);
         yield return new WaitForSeconds(timeBetweenAttacks);
@@ -231,6 +238,8 @@ public class RabbitBoss : Boss
                 StartCoroutine(GunAttack());
                 break;
         }
+        choosingAttack = false;
+        ChangeDirection();
     }
 
     private void Jump()

@@ -57615,7 +57615,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2200620227612680906, guid: 98164006b16aec44b97334f9c1e0c02a, type: 3}
       propertyPath: timeBetweenAttacks
-      value: 1.36
+      value: 4.12
       objectReference: {fileID: 0}
     - target: {fileID: 2200620227612680906, guid: 98164006b16aec44b97334f9c1e0c02a, type: 3}
       propertyPath: jumpAttackSlamSpeed
@@ -57631,11 +57631,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2200620227612680910, guid: 98164006b16aec44b97334f9c1e0c02a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 155.35
+      value: 154.52
       objectReference: {fileID: 0}
     - target: {fileID: 2200620227612680910, guid: 98164006b16aec44b97334f9c1e0c02a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.09
+      value: -0.48
       objectReference: {fileID: 0}
     - target: {fileID: 2200620227612680910, guid: 98164006b16aec44b97334f9c1e0c02a, type: 3}
       propertyPath: m_LocalPosition.z
