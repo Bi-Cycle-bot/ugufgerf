@@ -13,12 +13,12 @@ public class Oscillation : MonoBehaviour {
     // Public Variables
     public bool destroyOnIdle = true; // If set to true and if either stretch or period become 0, it will destroy the oscillation
     public bool idle = false; // Haults the oscillation. Can set this after the creation of the oscillation to pause the oscillation.
+    public int updateTick = 1; // Every # of ticks it takes before values get updated
 
     // Private Variables
     private float value = 0f;
     private int currUpdateTick = 0;
     private int tick = 0; // The current tick the oscillation is at
-    private int updateTick = 2; // Every # of ticks it takes before values get updated
 
     // Sine Wave Variables
     public float stretch = 1f;
