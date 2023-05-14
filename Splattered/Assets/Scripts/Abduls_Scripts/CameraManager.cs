@@ -63,6 +63,22 @@ public class CameraManager : MonoBehaviour {
             }
         }
 
+        // Updating Pos Oscillations
+        for (int i = 0; i < xPosOsc.Count; i++) {
+            if (xPosOsc[i] == null) {
+                xPosOsc.RemoveAt(i);
+            } else {
+                xCamPos += xPosOsc[i].getValue();
+            }
+        }
+        for (int i = 0; i < yPosOsc.Count; i++) {
+            if (yPosOsc[i] == null) {
+                yPosOsc.RemoveAt(i);
+            } else {
+                yCamPos += yPosOsc[i].getValue();
+            }
+        }
+
         // Offsets
         xCamPos += offsets.x;
         yCamPos += offsets.y;
