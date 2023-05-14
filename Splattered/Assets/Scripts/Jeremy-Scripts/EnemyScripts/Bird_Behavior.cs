@@ -12,6 +12,7 @@ public class Bird_Behavior : MonoBehaviour
     private float lastGunShot;
     private bool canMove;
     private float currentHealth;
+    private float stunTime = 0;
     
 
     
@@ -79,5 +80,9 @@ public class Bird_Behavior : MonoBehaviour
 
     public void DamageBird(float damage){
         currentHealth -= damage;
+    }
+    public void DamageBird(float damage, Vector2 knockback){
+        currentHealth -= damage;
+        rb.AddForce(knockback, ForceMode2D.Impulse);
     }
 }

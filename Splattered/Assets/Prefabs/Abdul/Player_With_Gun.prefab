@@ -619,6 +619,7 @@ MonoBehaviour:
   maxCapacity: 30
   reloadTime: 1
   chamberBehavior: 1
+  autoReload: 1
   chamberTime: 1
   inaccuracyBase: 0.4
   inaccuracyDistance: 20
@@ -1096,7 +1097,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4131355967301580532, guid: 6d63d7cdf438e0341a1704386f77f579, type: 3}
       propertyPath: m_Name
-      value: Player
+      value: Player_With_Gun
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d63d7cdf438e0341a1704386f77f579, type: 3}
@@ -1129,6 +1130,25 @@ MonoBehaviour:
   rightRotationOffset: {x: 0, y: 0, z: 0}
   leftGripOffset: {x: 0, y: 0}
   leftRotationOffset: {x: 0, y: 0, z: 0}
+--- !u!114 &8648309241922281704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6639137180472107181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8f612ea9842014d98a478249da84c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyOnIdle: 1
+  idle: 0
+  stretch: 1
+  period: 2
+  yIntercept: 0
+  stretchDecay: 0.3
+  periodDecay: 0.3
 --- !u!114 &6639137180472107190 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4131355967301580527, guid: 6d63d7cdf438e0341a1704386f77f579, type: 3}
