@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     BoxCollider2D hitbox;
     public PlayerMovementData Data;
     private SpriteRenderer spriteRenderer;
-    private Oscillation oscillation;
+    private Oscillation[] oscillations;
     private Camera cam;
     private CameraManager cameraManager;
 
@@ -74,10 +74,10 @@ public class PlayerMovement : MonoBehaviour
         health = Data.maxHealth;
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
-        oscillation = GetComponent<Oscillation>();
+        oscillations = gameObject.GetComponents<Oscillation>();
         cam = Camera.main;
         cameraManager = cam.GetComponent<CameraManager>();
-        cameraManager.addPosOscillation(oscillation, oscillation);
+        cameraManager.addPosOscillation(oscillations[0], oscillations[1]);
     }
 
     // Update is called once per frame
@@ -290,7 +290,8 @@ public class PlayerMovement : MonoBehaviour
             isInvincible = true;
             isStunned = true;
             StartCoroutine(hitAnimation());
-            oscillation.reset();
+            oscillations[0].reset();
+            oscillations[1].reset();
             return true;
         }
         return false;

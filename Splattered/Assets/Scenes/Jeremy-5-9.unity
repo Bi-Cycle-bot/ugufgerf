@@ -877,6 +877,26 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6639137180472107181, guid: 4c23f693855a1f84ba4cb08920c4dad4, type: 3}
   m_PrefabInstance: {fileID: 925470033}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &907961222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 907961213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8f612ea9842014d98a478249da84c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyOnIdle: 0
+  idle: 1
+  updateTick: 1
+  stretch: 2.2
+  period: 0.9
+  yIntercept: 0
+  stretchDecay: 0.028
+  periodDecay: 0.01
 --- !u!1001 &925470033
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1050,6 +1070,34 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6639137180472107195, guid: 4c23f693855a1f84ba4cb08920c4dad4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8648309241922281704, guid: 4c23f693855a1f84ba4cb08920c4dad4, type: 3}
+      propertyPath: idle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8648309241922281704, guid: 4c23f693855a1f84ba4cb08920c4dad4, type: 3}
+      propertyPath: period
+      value: 0.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 8648309241922281704, guid: 4c23f693855a1f84ba4cb08920c4dad4, type: 3}
+      propertyPath: stretch
+      value: 2.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 8648309241922281704, guid: 4c23f693855a1f84ba4cb08920c4dad4, type: 3}
+      propertyPath: yIntercept
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8648309241922281704, guid: 4c23f693855a1f84ba4cb08920c4dad4, type: 3}
+      propertyPath: periodDecay
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 8648309241922281704, guid: 4c23f693855a1f84ba4cb08920c4dad4, type: 3}
+      propertyPath: stretchDecay
+      value: 0.026
+      objectReference: {fileID: 0}
+    - target: {fileID: 8648309241922281704, guid: 4c23f693855a1f84ba4cb08920c4dad4, type: 3}
+      propertyPath: destroyOnIdle
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
