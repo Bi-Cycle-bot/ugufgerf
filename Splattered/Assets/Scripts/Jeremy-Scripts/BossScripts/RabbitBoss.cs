@@ -69,6 +69,8 @@ public class RabbitBoss : Boss
     [Space(10)]
     [Header("DashAttack")]
     public float dashAttackDamage = 12f;
+    public float dashAttackKnockback = 10f;
+    public float dashAttackStunDuration = 0.7f;
     public float dashAttackSpeed = 38f;
     public float timeBeforeDashing = 0.6f;
     [HideInInspector] public bool isDashing;
@@ -119,6 +121,7 @@ public class RabbitBoss : Boss
         isShooting = false;
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        playerMovement = target.GetComponent<PlayerMovement>();
     }
 
 
@@ -293,5 +296,20 @@ public class RabbitBoss : Boss
         doNotRun = false;
         yield return new WaitForSeconds(time);
         doNotRun = true;
+    }
+
+    void OnColliionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            if(isDashing)
+            {
+                playerMovement.damagePlayer(dashAttackDamage, dashAttackStunDuration, rb.velocity, dashAttackKnockback, true);
+            }
+            if(isJumping)
+            {
+                playerMovement.damagePlayer(jumpAttackDirectDamage, jumpAttackDirectStunDuration, rb.velocity, jumpAttackDirectKnockback, true);
+            }
+        }
     }
 }
