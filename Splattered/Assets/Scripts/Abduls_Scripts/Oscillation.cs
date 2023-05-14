@@ -21,11 +21,11 @@ public class Oscillation : MonoBehaviour {
     private int updateTick = 2; // Every # of ticks it takes before values get updated
 
     // Sine Wave Variables
-    private float stretch = 1f;
-    private float period = 1f;
-    private float yIntercept = 0f;
-    private float stretchDecay = .3f;
-    private float periodDecay = .3f;
+    public float stretch = 1f;
+    public float period = 1f;
+    public float yIntercept = 0f;
+    public float stretchDecay = .3f;
+    public float periodDecay = .3f;
 
     // Update is called once per frame
     void Update() {
