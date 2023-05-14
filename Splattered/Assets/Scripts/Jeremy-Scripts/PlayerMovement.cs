@@ -13,6 +13,9 @@ public class PlayerMovement : MonoBehaviour
     BoxCollider2D hitbox;
     public PlayerMovementData Data;
     private SpriteRenderer spriteRenderer;
+    private Oscillation oscillation;
+    private Camera cam;
+    private CameraManager cameraManager;
 
     #region INPUT PARAMETERS
     private Vector2 moveInput;
@@ -71,6 +74,10 @@ public class PlayerMovement : MonoBehaviour
         health = Data.maxHealth;
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
+        oscillation = GetComponent<Oscillation>();
+        cam = Camera.main;
+        cameraManager = cam.GetComponent<CameraManager>();
+        cameraManager.addPosOscillation(oscillation, oscillation);
     }
 
     // Update is called once per frame
@@ -259,7 +266,7 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(direction * force, ForceMode2D.Impulse);
     }
 
-    public void directionalKnockbackWithHorizontalMultiplier(Vector2 direction, float force, float horizontalForceMultiplier)
+    public void directionalKnockback(Vector2 direction, float force, float horizontalForceMultiplier)
     {
         rb.velocity = Vector2.zero;
         isJumping = false;
@@ -283,6 +290,7 @@ public class PlayerMovement : MonoBehaviour
             isInvincible = true;
             isStunned = true;
             StartCoroutine(hitAnimation());
+            oscillation.reset();
             return true;
         }
         return false;
