@@ -145,6 +145,8 @@ public class RabbitBoss : Boss
         spriteRenderer.flipX = !isFacingRight();
         if(currentHealth < 0)
             GameObject.Destroy(gameObject);
+        if(Physics2D.OverlapBox(transform.position, hitbox.bounds.size, 0, LayerMask.GetMask("Player")))
+            playerMovement.damagePlayer(dashAttackDamage, dashAttackStunDuration, rb.velocity, dashAttackKnockback, true);
     }
 
 
