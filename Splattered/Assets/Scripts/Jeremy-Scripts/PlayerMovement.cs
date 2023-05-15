@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
     #region Health and Damage
-    private float health;
+    [HideInInspector] public float health;
     private float maxHealth;
     public float stunDuration;
     private float invincibilityDuration;

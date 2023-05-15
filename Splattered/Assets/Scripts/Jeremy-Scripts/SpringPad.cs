@@ -22,7 +22,7 @@ public class SpringPad : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             playerMovement.isSliding = false;
-            Vector2 direction = Vector2.one;
+            Vector2 direction;
             if (useManualDirection)
             {
                 direction = manualDirection.normalized;
@@ -31,7 +31,7 @@ public class SpringPad : MonoBehaviour
             {
                 direction = new Vector2(transform.up.x * horizontalForceMultiplier, transform.up.y);
             }
-            playerMovement.directionalKnockback((Vector2)transform.up, springForce, horizontalForceMultiplier);
+            playerMovement.directionalKnockback(direction, springForce, horizontalForceMultiplier);
             playerMovement.stunDuration = stunDuration;
             playerMovement.isStunned = true;
             Debug.Log(transform.up);

@@ -122,6 +122,7 @@ public class RabbitBoss : Boss
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         playerMovement = target.GetComponent<PlayerMovement>();
+        // DashAttack.bulletPrefab = GameObject.Find
     }
 
 
@@ -142,6 +143,8 @@ public class RabbitBoss : Boss
     void Update()
     {
         spriteRenderer.flipX = !isFacingRight();
+        if(currentHealth < 0)
+            GameObject.Destroy(gameObject);
     }
 
 
