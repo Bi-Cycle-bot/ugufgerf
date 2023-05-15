@@ -57312,6 +57312,10 @@ PrefabInstance:
       propertyPath: crosshair
       value: 
       objectReference: {fileID: 1672604280}
+    - target: {fileID: 4607413017519883907, guid: f11a63f9b9bbed940b8144958780c58c, type: 3}
+      propertyPath: maxHealth
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 4607413017519883918, guid: f11a63f9b9bbed940b8144958780c58c, type: 3}
       propertyPath: m_RootOrder
       value: 10
