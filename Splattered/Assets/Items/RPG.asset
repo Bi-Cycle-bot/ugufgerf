@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b356dfeea27f2e47909ffd0eb42b1a3, type: 3}
-  m_Name: Grenade
+  m_Name: RPG
   m_EditorClassIdentifier: 
   cooldown: 0
-  item_type: 0
-  item_sprite: {fileID: 21300000, guid: 897c3a3f5c4038345a7143573bbb4a40, type: 3}
+  item_type: 1
+  item_sprite: {fileID: 21300000, guid: 4ba3eb70cac3bb949a0215164b84ca4f, type: 3}

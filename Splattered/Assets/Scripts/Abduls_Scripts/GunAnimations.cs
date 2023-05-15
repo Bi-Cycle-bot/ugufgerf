@@ -134,9 +134,13 @@ public class GunAnimations : MonoBehaviour {
 
     // Cancels all animations
     public void cancel() {
-        reset();
         playing = false;
         currentFrames = null;
+        if (attachedObject) {
+            attachedObject.parent = gunTrans;
+            attachedObject.localPosition = new Vector3(0, 0, 0);
+            attachedObject.localEulerAngles = new Vector3(0, 0, 0);
+        }
         handManager.resetLeftOffsets();
     }
 
