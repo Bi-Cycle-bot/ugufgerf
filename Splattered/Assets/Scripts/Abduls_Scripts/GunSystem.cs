@@ -86,7 +86,8 @@ public class GunSystem : Tool {
 
     // ---------------------- PRIVATE VARIABLES ----------------------
     // Gun Status
-    private int currentCapacity;
+    [HideInInspector] public int currentCapacity;
+    //private int currentCapacity;
     private float lastShotTime;
     private float currentBloom;
     private bool ready;

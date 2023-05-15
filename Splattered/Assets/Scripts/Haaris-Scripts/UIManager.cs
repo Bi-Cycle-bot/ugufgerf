@@ -39,6 +39,6 @@ public class UIManager : MonoBehaviour
     public void UpdateHealth(float currentHealth)
     {
         healthBar.value = currentHealth;
-        Debug.Log("health value: " + playerScript.health);
+        //Debug.Log("health value: " + playerScript.health);
     }
 }
