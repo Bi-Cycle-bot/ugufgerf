@@ -305,14 +305,7 @@ public class RabbitBoss : Boss
     {
         if(collision.gameObject.tag == "Player")
         {
-            if(isDashing)
-            {
-                playerMovement.damagePlayer(dashAttackDamage, dashAttackStunDuration, rb.velocity, dashAttackKnockback, true);
-            }
-            if(isJumping)
-            {
-                playerMovement.damagePlayer(jumpAttackDirectDamage, jumpAttackDirectStunDuration, rb.velocity, jumpAttackDirectKnockback, true);
-            }
+            playerMovement.damagePlayer(dashAttackDamage, dashAttackStunDuration, rb.velocity, dashAttackKnockback, true);
         }
     }
 }

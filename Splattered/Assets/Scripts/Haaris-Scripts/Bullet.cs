@@ -15,6 +15,9 @@ public class Bullet : MonoBehaviour {
     [Header("Bullet Settings")]
     public float bulletVelocity = 5f; // Speed of the bullet
     public float bulletKnockback = 1f; // Knockback of the bullet
+    public bool isRocket = false; // If its a rocket
+    public GameObject explosion;
+    
 
     // Debounces
     private bool hitDebounce = false;
@@ -29,10 +32,8 @@ public class Bullet : MonoBehaviour {
         transform.position += bulletVelocity * Time.smoothDeltaTime * transform.right;
     }
 
-    // Collisions
-    void OnTriggerEnter2D(Collider2D other) {
-        if (hitDebounce) { return; }
-        hitDebounce = true;
+    // Colliding
+    void checkCollision(Collider2D other) {
         if (other.gameObject.layer == 9) {
             SoldierMovement mainScript = other.gameObject.GetComponent<SoldierMovement>();
             mainScript.damageSoldier(baseDamage, transform.right, bulletKnockback);
@@ -45,6 +46,23 @@ public class Bullet : MonoBehaviour {
         } else if (other.gameObject.layer == 14) {
             Boss mainScript = other.gameObject.GetComponent<Boss>();
             mainScript.DamageBoss(baseDamage);
+        }
+    }
+
+    // Collisions
+    void OnTriggerEnter2D(Collider2D other) {
+        if (hitDebounce) { return; }
+        hitDebounce = true;
+
+        checkCollision(other);
+
+        if (isRocket) {
+            GameObject newExplosion = GameObject.Instantiate(explosion, transform.position, transform.rotation);
+            ParticleSystem explosEffect = newExplosion.GetComponent<ParticleSystem>();
+            RPGExplosion rpgExplos = explosEffect.GetComponent<RPGExplosion>();
+            explosEffect.Play();
+            StartCoroutine(rpgExplos.Explode());
+            Destroy(newExplosion, explosEffect.main.duration);
         }
 
         Destroy(gameObject);

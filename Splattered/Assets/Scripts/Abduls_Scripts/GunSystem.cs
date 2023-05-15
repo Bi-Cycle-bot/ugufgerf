@@ -82,6 +82,7 @@ public class GunSystem : Tool {
     public float boltBackValue; // Value the bolt will go back when shooting
     public GunAnimations gunAnims; // Set this if you have a GunAnimation script setup for this gun
     public GameObject spentShell; // Shell that will come out every time you shoot
+    public GameObject fakeBullet; // A fake bullet that will dissapear when the currentCapacity becomes 0; assumes it becomes active with an animation
 
     // ---------------------- PRIVATE VARIABLES ----------------------
     // Gun Status
@@ -116,6 +117,7 @@ public class GunSystem : Tool {
         ready = true;
         needsChambering = false;
         currentBloom = 0;
+        handManager.currToolLength = toolLength;
     }
 
     // Update is called once per frame
@@ -250,7 +252,12 @@ public class GunSystem : Tool {
             }
         }
         currentCapacity--;
-        if (currentCapacity == 0) { needsChambering = true; }
+        if (currentCapacity == 0) { 
+            needsChambering = true;
+            if (fakeBullet) {
+                fakeBullet.SetActive(false);
+            }
+        }
 
         // Setting Values
         lastShotTime = 0;

@@ -82,8 +82,14 @@ public class GunAnimations : MonoBehaviour {
 
             // Inactivity
             if (currentFrames[currentGoal].inactive) {
+                if (attachedObject) {
+                    attachedObject.gameObject.SetActive(false);
+                }
                 leftHand.SetActive(false);
             } else {
+                if (attachedObject) {
+                    attachedObject.gameObject.SetActive(true);
+                }
                 leftHand.SetActive(true);
             }
 
