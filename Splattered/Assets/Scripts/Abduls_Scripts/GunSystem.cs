@@ -112,7 +112,7 @@ public class GunSystem : Tool {
         started = true;
         player = GameObject.FindGameObjectWithTag("Player");
         handManager = player.GetComponent<HandManager>();
-        soundEmitter = GetComponent<AudioSource>();
+        soundEmitter = player.GetComponent<AudioSource>();
         currentCapacity = maxCapacity;
         lastShotTime = fireRate;
         ready = true;
@@ -233,7 +233,7 @@ public class GunSystem : Tool {
         handManager.yAdjust = yAdjust;
         handManager.currToolLength = toolLength;
         if (needsChambering && chamberBehavior) {
-            if (ready && !chambering) {
+            if (ready && !chambering && (currentCapacity > 0)) {
                 chamber();
                 return;
             }

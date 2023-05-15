@@ -54,7 +54,7 @@ public class GunAnimations : MonoBehaviour {
         // Setting values
         player = GameObject.FindGameObjectWithTag("Player");
         handManager = player.GetComponent<HandManager>();
-        soundEmitter = GetComponent<AudioSource>();
+        soundEmitter = player.GetComponent<AudioSource>();
         gunTrans = GetComponent<Transform>();
         leftHand = GameObject.Find("/Player/LeftHand");
     }
