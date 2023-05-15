@@ -8,7 +8,7 @@ public class PlayerInventory : MonoBehaviour
 
     [Header("General")]
     public List<itemType> inventoryList;
-    public int selectedItem;
+    public int selectedItem = -1;
 
     [Space(20)]
     [Header("Items")]
@@ -21,8 +21,8 @@ public class PlayerInventory : MonoBehaviour
     private Dictionary<itemType, GameObject> itemSetActive = new Dictionary<itemType, GameObject>();
     private Dictionary<itemType, GameObject> itemInstantiate = new Dictionary<itemType, GameObject>();
 
-    public Image[] inventorySlotImage = new Image[3];
-    public Image[] inventoryBackgroundImage = new Image[3];
+    public Image[] inventorySlotImage = new Image[2];
+    public Image[] inventoryBackgroundImage = new Image[2];
 
 
 
@@ -30,12 +30,16 @@ public class PlayerInventory : MonoBehaviour
     {
         itemSetActive.Add(itemType.Gun, item1);
         itemSetActive.Add(itemType.Grenade, item2);
-        itemSetActive.Add(itemType.Skill1, item3);
+        // itemSetActive.Add(itemType.Skill1, item3);
 
         itemInstantiate.Add(itemType.Gun, item1);
         itemInstantiate.Add(itemType.Grenade, item2);
-        itemInstantiate.Add(itemType.Skill1, item3);
+        // itemInstantiate.Add(itemType.Skill1, item3);
 
+        selectedItem = 0;
+        item1.SetActive(false);
+        item2.SetActive(false);
+        // item3.SetActive(false);
         NewItemSelected();
     }
 
@@ -45,21 +49,24 @@ public class PlayerInventory : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha1) && inventoryList.Count > 0)
         {
+            unequipTools();
             selectedItem = 0;
             NewItemSelected();
         }
         if (Input.GetKeyDown(KeyCode.Alpha2) && inventoryList.Count > 1)
         {
+            unequipTools();
             selectedItem = 1;
             NewItemSelected();
         }
         if (Input.GetKeyDown(KeyCode.Alpha3) && inventoryList.Count > 2)
         {
+            unequipTools();
             selectedItem = 2;
             NewItemSelected();
         }
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 2; i++)
         {
             if (i < inventoryList.Count)
             {
@@ -86,13 +93,36 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
+    private void unequipTools() {
+        if (selectedItem == 0) {
+            Tool toolScript = item1.GetComponent<Tool>();
+            toolScript.unequip();
+        } else if (selectedItem == 1) {
+            Tool toolScript = item2.GetComponent<Tool>();
+            toolScript.unequip();
+        } else if (selectedItem == 2) {
+            Tool toolScript = item3.GetComponent<Tool>();
+            toolScript.unequip();
+        }
+    }
+
     private void NewItemSelected()
     {
-        item1.SetActive(false);
-        item2.SetActive(false);
-        item3.SetActive(false);
+        // item1.SetActive(false);
+        // item2.SetActive(false);
+        // item3.SetActive(false);
 
         GameObject selectedItemGameObject = itemSetActive[inventoryList[selectedItem]];
+        if (selectedItem == 0) {
+            Tool toolScript = item1.GetComponent<Tool>();
+            toolScript.equip();
+        } else if (selectedItem == 1) {
+            Tool toolScript = item2.GetComponent<Tool>();
+            toolScript.equip();
+        } else if (selectedItem == 2) {
+            Tool toolScript = item3.GetComponent<Tool>();
+            toolScript.equip();
+        }
         selectedItemGameObject.SetActive(true);
     }
 

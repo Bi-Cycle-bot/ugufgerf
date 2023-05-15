@@ -18,9 +18,8 @@ public abstract class Tool : MonoBehaviour {
     public float yAdjust; // Adjust this to lower the tool to match any barrels if you need it
     public Vector2 leftHandGrip; // Where you want the left hand to be on the tool
     public Vector3 leftHandGripRotOffset = new Vector3(0, 0, 0); // Probably dont need to change this
-
-    // Private Variables
-    protected bool equipped = false;
+    public bool equipped = false;
+    
 
     // Must-Have Methods
     public abstract void unequip(); // Unequipping the tool

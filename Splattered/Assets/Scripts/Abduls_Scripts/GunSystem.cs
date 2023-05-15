@@ -95,6 +95,7 @@ public class GunSystem : Tool {
     private bool mouse0Down;
     private bool recoilEnabled;
     private bool needsChambering = true;
+    private bool started = false;
 
     // Other
     private AudioSource soundEmitter; // Place to have audio
@@ -108,12 +109,12 @@ public class GunSystem : Tool {
     // Start is called before the first frame update
     void Start() {
         // Setting values
+        started = true;
         player = GameObject.FindGameObjectWithTag("Player");
         handManager = player.GetComponent<HandManager>();
         soundEmitter = GetComponent<AudioSource>();
         currentCapacity = maxCapacity;
         lastShotTime = fireRate;
-        equipped = true;
         ready = true;
         needsChambering = false;
         currentBloom = 0;
@@ -200,6 +201,9 @@ public class GunSystem : Tool {
         if (gunAnims) {
             gunAnims.cancel();
         }
+        if (fakeBullet && currentCapacity == 0) {
+            fakeBullet.SetActive(false);
+        }
     }
 
     // Unequip
@@ -214,13 +218,18 @@ public class GunSystem : Tool {
     }
 
     // Equip
+
     public override void equip() {
+        if (!started) {
+            Start();
+        }
+        gameObject.SetActive(true);
         equipped = true;
         reset();
         ready = true;
-        gameObject.SetActive(true);
         handManager.leftHandGrip = leftHandGrip;
         handManager.leftHandGripRotOffset = leftHandGripRotOffset;
+        handManager.resetLeftOffsets();
         handManager.yAdjust = yAdjust;
         handManager.currToolLength = toolLength;
         if (needsChambering && chamberBehavior) {
