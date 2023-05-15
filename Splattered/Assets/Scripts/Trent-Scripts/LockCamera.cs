@@ -43,6 +43,14 @@ public class LockCamera : MonoBehaviour
             camManager.mouseLimit = 0.0f;
         }
 
+        // floor4 checker
+        else if (player.transform.position.y >= 88 && player.transform.position.x > 72) {
+            Vector2 floor4 = new Vector2(1, 91);
+            Vector2 floor42 = new Vector2(1000, 1000);
+            camManager.minLimits = floor4;
+            camManager.maxLimits = floor42;
+        }
+
         // vent checker
         else if ((player.transform.position.x >= 82 && player.transform.position.x <= 101) && (player.transform.position.y >= 22 && player.transform.position.y <= 23)) {
             cam.orthographicSize = 2.0f;
