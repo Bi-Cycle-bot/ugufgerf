@@ -42,6 +42,9 @@ public class Bullet : MonoBehaviour {
         } else if (other.gameObject.layer == 8) {
             Bird_Behavior mainScript = other.gameObject.GetComponent<Bird_Behavior>();
             mainScript.DamageBird(baseDamage);
+        } else if (other.gameObject.layer == 14) {
+            Boss mainScript = other.gameObject.GetComponent<Boss>();
+            mainScript.DamageBoss(baseDamage);
         }
 
         Destroy(gameObject);
