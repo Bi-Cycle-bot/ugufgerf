@@ -225,6 +225,7 @@ public class RabbitBoss : Boss
     {
         isDashing = true;
         doNotRun = true;
+        float startTime = Time.time;
         animator.SetTrigger("Duck");
         rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(timeBeforeDashing);
@@ -232,7 +233,7 @@ public class RabbitBoss : Boss
         Vector2 DashAttackDirection = target.transform.position - transform.position;
         Vector2 targetPosition = new Vector2   (target.transform.position.x, transform.position.y);
         DashAttackDirection.Normalize();
-        while (Vector2.Distance(transform.position, targetPosition) > 0.5f)
+        while (Vector2.Distance(transform.position, targetPosition) > 0.5f && Time.time - startTime < 3f)
         {
             DashAttackDirection = targetPosition - (Vector2) transform.position;
             DashAttackDirection.Normalize();
