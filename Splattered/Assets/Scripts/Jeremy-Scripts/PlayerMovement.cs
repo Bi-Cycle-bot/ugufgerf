@@ -176,7 +176,7 @@ public class PlayerMovement : MonoBehaviour
         if(health <= 0)
         {
             // onDeath();
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
         #region Animations
