@@ -327,12 +327,12 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.229
   m_Pitch: 1.05
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 92
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
@@ -369,7 +369,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.514
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
