@@ -7,6 +7,7 @@ public class Bird_Behavior : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] public GameObject target;
     Rigidbody2D rb;
+    private SpriteRenderer spriteRenderer;
     CircleCollider2D hitbox;
     private Bird_Data data;
     private float lastGunShot;
@@ -25,6 +26,7 @@ public class Bird_Behavior : MonoBehaviour
         data = GetComponent<Bird_Data>();
         currentHealth = data.maxHealth;
         target = GameObject.FindGameObjectWithTag("Player");
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -47,6 +49,7 @@ public class Bird_Behavior : MonoBehaviour
             lastGunShot = Time.time;
             GameObject bullet = Instantiate(data.bulletPrefab, transform.position, Quaternion.identity);
         }
+        spriteRenderer.flipX = rb.velocity.x > 0;
     }
 
     void fly(){

@@ -122,6 +122,7 @@ public class RabbitBoss : Boss
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         playerMovement = target.GetComponent<PlayerMovement>();
+        // DashAttack.bulletPrefab = GameObject.Find
     }
 
 
@@ -142,6 +143,8 @@ public class RabbitBoss : Boss
     void Update()
     {
         spriteRenderer.flipX = !isFacingRight();
+        if(currentHealth < 0)
+            GameObject.Destroy(gameObject);
     }
 
 
@@ -302,14 +305,7 @@ public class RabbitBoss : Boss
     {
         if(collision.gameObject.tag == "Player")
         {
-            if(isDashing)
-            {
-                playerMovement.damagePlayer(dashAttackDamage, dashAttackStunDuration, rb.velocity, dashAttackKnockback, true);
-            }
-            if(isJumping)
-            {
-                playerMovement.damagePlayer(jumpAttackDirectDamage, jumpAttackDirectStunDuration, rb.velocity, jumpAttackDirectKnockback, true);
-            }
+            playerMovement.damagePlayer(dashAttackDamage, dashAttackStunDuration, rb.velocity, dashAttackKnockback, true);
         }
     }
 }
