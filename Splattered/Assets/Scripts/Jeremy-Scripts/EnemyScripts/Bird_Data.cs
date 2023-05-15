@@ -22,7 +22,7 @@ public class Bird_Data : MonoBehaviour
     [Header ("Attack")]
     public float attackRange = 12;
     [Range(0.01f, 10)]public float attackSpeed = 2;
-    public GameObject bulletPrefab;
+    [HideInInspector] public GameObject bulletPrefab;
 
     [Space (10)]
 
