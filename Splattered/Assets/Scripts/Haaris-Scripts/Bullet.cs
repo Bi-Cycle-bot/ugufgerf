@@ -36,7 +36,7 @@ public class Bullet : MonoBehaviour {
     void checkCollision(Collider2D other) {
         if (other.gameObject.layer == 9) {
             SoldierMovement mainScript = other.gameObject.GetComponent<SoldierMovement>();
-            mainScript.damageSoldier(baseDamage, transform.right, bulletKnockback);
+            mainScript.damageSoldier(baseDamage, transform.forward, bulletKnockback);
         } else if (other.gameObject.layer == 13) {
             DropperBehavior mainScript = other.gameObject.GetComponent<DropperBehavior>();
             mainScript.DamageDropper(baseDamage);
