@@ -128,7 +128,7 @@ MonoBehaviour:
   targetFollowRange: {x: 20, y: 20}
   attackRange: 12
   attackSpeed: 2
-  bulletPrefab: {fileID: 0}
+  bulletPrefab: {fileID: 8995957109914404324, guid: 09e0367564672584c829de03944d3eaa, type: 3}
   maxHealth: 10
 --- !u!50 &3774666329453246218
 Rigidbody2D:
