@@ -14,6 +14,11 @@ public class UIAnimation : MonoBehaviour
     private int m_IndexSprite;
     Coroutine m_CorotineAnim;
     bool IsDone;
+
+    void Start() {
+        Func_PlayUIAnim();
+    }
+
     public void Func_PlayUIAnim()
     {
         IsDone = false;
