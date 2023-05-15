@@ -162,7 +162,7 @@ public class GunSystem : Tool {
             }
 
             // Auto Reload
-            if (Input.GetKeyDown(KeyCode.Mouse0) && autoReload) {
+            if (mouse0Down && autoReload && !reloading) {
                 if (currentCapacity == 0) {
                     reload();
                 }

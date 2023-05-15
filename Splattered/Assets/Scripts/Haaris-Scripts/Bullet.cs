@@ -21,10 +21,12 @@ public class Bullet : MonoBehaviour {
 
     // Debounces
     private bool hitDebounce = false;
+    private Rigidbody2D rigidBody;
 
     // Start is called before the first frame update
     void Start() {
         Destroy(gameObject, 5);
+        rigidBody = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -36,7 +38,7 @@ public class Bullet : MonoBehaviour {
     void checkCollision(Collider2D other) {
         if (other.gameObject.layer == 9) {
             SoldierMovement mainScript = other.gameObject.GetComponent<SoldierMovement>();
-            mainScript.damageSoldier(baseDamage, transform.forward, bulletKnockback);
+            mainScript.damageSoldier(baseDamage, transform.right, bulletKnockback);
         } else if (other.gameObject.layer == 13) {
             DropperBehavior mainScript = other.gameObject.GetComponent<DropperBehavior>();
             mainScript.DamageDropper(baseDamage);

@@ -115,7 +115,7 @@ public class SoldierMovement : MonoBehaviour
     public void damageSoldier(float damage, Vector2 bulletDirection, float knockbackforce)
     {
         // rb.AddForce((bulletDirection).normalized * knockbackforce, ForceMode2D.Impulse);
-        rb.AddForce(transform.right * knockbackforce, ForceMode2D.Impulse);
+        rb.AddForce(bulletDirection * knockbackforce, ForceMode2D.Impulse);
         StartCoroutine(Stun());
         currentHealth -= damage;
     }
