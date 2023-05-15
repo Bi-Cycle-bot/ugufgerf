@@ -49,6 +49,8 @@ public class LockCamera : MonoBehaviour
             Vector2 floor42 = new Vector2(1000, 1000);
             camManager.minLimits = floor4;
             camManager.maxLimits = floor42;
+            camManager.mouseFactor = 0.15f;
+            camManager.mouseLimit = 3.0f;
         }
 
         // vent checker
