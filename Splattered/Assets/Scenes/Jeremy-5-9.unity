@@ -1002,6 +1002,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RabbitBoss
       objectReference: {fileID: 0}
+    - target: {fileID: 2200620227612680906, guid: 98164006b16aec44b97334f9c1e0c02a, type: 3}
+      propertyPath: maxHealth
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 2200620227612680910, guid: 98164006b16aec44b97334f9c1e0c02a, type: 3}
       propertyPath: m_RootOrder
       value: 31
