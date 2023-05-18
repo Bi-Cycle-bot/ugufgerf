@@ -38,6 +38,6 @@ public class AmmoManager : MonoBehaviour
     public void UpdateAmmo(int currentAmmo)
     {
         ammoSlider.value = currentAmmo;
-        Debug.Log("ammo value: " + gunData.currentCapacity);
+        //Debug.Log("ammo value: " + gunData.currentCapacity);
     }
 }

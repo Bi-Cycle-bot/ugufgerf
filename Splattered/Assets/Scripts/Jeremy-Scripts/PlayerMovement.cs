@@ -72,6 +72,7 @@ public class PlayerMovement : MonoBehaviour
         Data.lastSlideTime = Time.time - 4f;
         Data.lastSlideTimeStart = Time.time - 4f;
         health = Data.maxHealth;
+        maxHealth = Data.maxHealth;
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
         oscillations = gameObject.GetComponents<Oscillation>();
@@ -305,9 +306,12 @@ public class PlayerMovement : MonoBehaviour
 
     public void heal(int amount)
     {
-        health += amount;
-        if (health > maxHealth)
+        if ((health + amount) <= maxHealth) {
+            health += amount;
+        }
+        else if ((health + amount) > maxHealth) {
             health = maxHealth;
+        }
     }
 
     IEnumerator hitAnimation()

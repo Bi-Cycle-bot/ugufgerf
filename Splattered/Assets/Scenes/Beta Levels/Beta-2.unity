@@ -809,6 +809,14 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 242843857}
     m_ColliderPaths:
+    - - X: 1010000000
+        Y: 90000000
+      - X: 1000000000
+        Y: 90000000
+      - X: 1000000000
+        Y: 80000000
+      - X: 1010000000
+        Y: 80000000
     - - X: 1270000000
         Y: 60000000
       - X: 1260000000
@@ -819,6 +827,10 @@ CompositeCollider2D:
         Y: 40000000
   m_CompositePaths:
     m_Paths:
+    - - {x: 100.99997, y: 8}
+      - {x: 100.99997, y: 9}
+      - {x: 100, y: 8.99997}
+      - {x: 100.00003, y: 8}
     - - {x: 126.99998, y: 4}
       - {x: 126.99998, y: 6}
       - {x: 126, y: 5.999971}
@@ -958,6 +970,16 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: 100, y: 8, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 3
+      m_TileSpriteIndex: 2
+      m_TileMatrixIndex: 1
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
   - m_RefCount: 0
@@ -966,8 +988,8 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 39afa4afaaf54a34b8b5452a045820a7, type: 2}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: f96c54dbd8820cb49aa0072adaa88d17, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: b23bb71c62986254b845aaaad55cafbe, type: 2}
   m_TileSpriteArray:
@@ -975,8 +997,8 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 1463342981, guid: fd75be10ff0d98b4985c0e753271d28e, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -264153739, guid: 419d591ab028c154581854e7c15d13a2, type: 3}
   - m_RefCount: 1
@@ -1000,8 +1022,26 @@ Tilemap:
       e31: 0
       e32: 0
       e33: 1
+  - m_RefCount: 1
+    m_Data:
+      e00: -1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
   m_TileColorArray:
-  - m_RefCount: 2
+  - m_RefCount: 3
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
