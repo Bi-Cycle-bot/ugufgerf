@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     UnityEventQueueSystem eventQueue;
     Rigidbody2D rb;
     BoxCollider2D hitbox;
+    SpawnPoint spawnPoint;
     public PlayerMovementData Data;
     private SpriteRenderer spriteRenderer;
     private Oscillation[] oscillations;
@@ -66,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         hitbox = GetComponent<BoxCollider2D>();
         Data = GetComponent<PlayerMovementData>();
+        spawnPoint = GetComponent<SpawnPoint>();
         isSliding = false;
         isJumping = false;
         isFacingRight = true;
@@ -177,7 +179,10 @@ public class PlayerMovement : MonoBehaviour
         if(health <= 0)
         {
             // onDeath();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            spawnPoint.respawnAtCheckpoint();
+            health = maxHealth;
+
         }
 
         #region Animations

@@ -12,6 +12,7 @@ public class LockCamera : MonoBehaviour
     private CameraManager camManager;
     private Vector2 oldMinLimits;
     private Vector2 oldMaxLimits;
+    private SpawnPoint spawnPoint;
 
     void Start() {
         cam = gameObject.GetComponent<Camera>();
@@ -33,6 +34,8 @@ public class LockCamera : MonoBehaviour
         else if (player.transform.position.y >= 16 && player.transform.position.x <= 55) {
             Vector2 floor3 = new Vector2(5, 11);
             camManager.minLimits = floor3;
+            spawnPoint = GameObject.Find("Player").GetComponent<SpawnPoint>();
+            spawnPoint.checkpoint = 1;
         }
 
         // vertical room checker
