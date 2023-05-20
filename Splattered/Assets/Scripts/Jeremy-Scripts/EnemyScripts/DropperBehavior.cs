@@ -10,7 +10,8 @@ public class DropperBehavior : MonoBehaviour
     #region Movement
     public float maxSpeed = 8;
     public Direction direction = Direction.Left;
-    public Vector2 targetFollowRange = new Vector2(20, 20);
+    public Vector2 targetMaxCoordinates = new Vector2(20, 20);
+    public Vector2 targetMinCoordinates = new Vector2(-20, -20);
     public bool followTarget = false;
     private bool canMove;
     #endregion
@@ -44,8 +45,10 @@ public class DropperBehavior : MonoBehaviour
             }
             Destroy(gameObject);
         }
-        canMove = Mathf.Abs(transform.position.x - target.transform.position.x) < targetFollowRange.x &&
-                  Mathf.Abs(transform.position.y - target.transform.position.y) < targetFollowRange.y;
+        canMove = Mathf.Abs(transform.position.x - target.transform.position.x) < targetMaxCoordinates.x &&
+                  Mathf.Abs(transform.position.y - target.transform.position.y) < targetMaxCoordinates.y &&
+                  Mathf.Abs(transform.position.x - target.transform.position.x) > targetMinCoordinates.x &&
+                  Mathf.Abs(transform.position.y - target.transform.position.y) > targetMinCoordinates.y;
         if (followTarget && target.transform.position.x > transform.position.x)
         {
             direction = Direction.Right;
@@ -80,7 +83,7 @@ public class DropperBehavior : MonoBehaviour
     void Move()
     {
         float targetSpeed = Mathf.Abs(transform.position.x - target.transform.position.x) < 0.15f ? 0 : maxSpeed;
-        if (Mathf.Abs(transform.position.x - target.transform.position.x) < targetFollowRange.x && Mathf.Abs(transform.position.y - target.transform.position.y) < targetFollowRange.y)
+        if (canMove)
             rb.velocity = (direction == Direction.Left) ? Vector2.left * targetSpeed : Vector2.right * targetSpeed;
         else
             rb.velocity = Vector2.zero;

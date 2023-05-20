@@ -53,8 +53,10 @@ public class SoldierMovement : MonoBehaviour
             deathParticles.Play();
             Destroy(gameObject);
         }
-        canMove = Mathf.Abs(transform.position.x - target.transform.position.x) < Data.targetFollowRange.x &&
-                  Mathf.Abs(transform.position.y - target.transform.position.y) < Data.targetFollowRange.y;
+        canMove = Mathf.Abs(transform.position.x - target.transform.position.x) < Data.targetMaxCoordinates.x &&
+                  Mathf.Abs(transform.position.y - target.transform.position.y) < Data.targetMaxCoordinates.y &&
+                  Mathf.Abs(transform.position.x - target.transform.position.x) > Data.targetMinCoordinates.x &&
+                  Mathf.Abs(transform.position.y - target.transform.position.y) > Data.targetMinCoordinates.y;
         if (Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0, LayerMask.GetMask("Ground")))
         {
             isGrounded = true;
