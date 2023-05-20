@@ -5,9 +5,12 @@ using UnityEngine;
 public class OneWayCollider : MonoBehaviour
 {
     private Collider2D hitbox;
-    [SerializeField] private Rigidbody2D playerRB;
-    [SerializeField] private Collider2D playerHitbox;
-    [SerializeField] private Rigidbody2D platformRB;
+    private Bounds hitboxBounds;
+    private GameObject player;
+    private Rigidbody2D playerRB;
+    private Collider2D playerHitbox;
+    private Bounds playerHitboxBounds;
+    private Rigidbody2D platformRB;
     private float timeToGoTrough;
     private float timeSinceButton;
 
@@ -15,9 +18,12 @@ public class OneWayCollider : MonoBehaviour
     {
         hitbox = GetComponent<Collider2D>();
         platformRB = GetComponent<Rigidbody2D>();
-        playerRB = GameObject.Find("Player").GetComponent<Rigidbody2D>();
-        playerHitbox = GameObject.Find("Player").GetComponent<Collider2D>();
+        player = GameObject.Find("Player");
+        playerRB = player.GetComponent<Rigidbody2D>();
+        playerHitbox = player.GetComponent<Collider2D>();
         timeToGoTrough = 0.1f;
+        hitboxBounds = hitbox.bounds;
+        playerHitboxBounds = playerHitbox.bounds;
     }
 
     // Update is called once per frame
@@ -27,7 +33,7 @@ public class OneWayCollider : MonoBehaviour
         {
             timeSinceButton = Time.time;
         }
-        if(playerRB.velocity.y > 0 || Time.time - timeSinceButton < timeToGoTrough)
+        if(/*playerRB.velocity.y > 0 ||*/ Time.time - timeSinceButton < timeToGoTrough || player.transform.position.y - playerHitboxBounds.extents.y < transform.position.y + hitboxBounds.extents.y)
         {
             Physics2D.IgnoreCollision(hitbox, playerHitbox, true);
         }
