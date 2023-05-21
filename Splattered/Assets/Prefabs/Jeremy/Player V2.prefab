@@ -698,6 +698,7 @@ MonoBehaviour:
   yAdjust: -0.18
   leftHandGrip: {x: 0.841, y: 0.11}
   leftHandGripRotOffset: {x: 0, y: 0, z: 0}
+  equipped: 0
   fireMode: 0
   fireRate: 0.085
   maxCapacity: 30
@@ -728,6 +729,8 @@ MonoBehaviour:
   boltBackValue: -0.695
   gunAnims: {fileID: 1461868237}
   spentShell: {fileID: 0}
+  fakeBullet: {fileID: 0}
+  currentCapacity: 0
 --- !u!82 &1461868234
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1087,6 +1090,14 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 6200000, guid: df29124581897244d8e067564608e160, type: 2}
+    - target: {fileID: 4131355967301580521, guid: 6d63d7cdf438e0341a1704386f77f579, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4131355967301580521, guid: 6d63d7cdf438e0341a1704386f77f579, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.4375
+      objectReference: {fileID: 0}
     - target: {fileID: 4131355967301580524, guid: 6d63d7cdf438e0341a1704386f77f579, type: 3}
       propertyPath: Data
       value: 
@@ -1099,6 +1110,10 @@ PrefabInstance:
       propertyPath: groundCheckSize.y
       value: 0.35
       objectReference: {fileID: 0}
+    - target: {fileID: 4131355967301580525, guid: 6d63d7cdf438e0341a1704386f77f579, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1914303679, guid: 936c9320bac04ab4ebb1355a17412422, type: 3}
     - target: {fileID: 4131355967301580525, guid: 6d63d7cdf438e0341a1704386f77f579, type: 3}
       propertyPath: m_Color.b
       value: 0.13914871
@@ -1197,7 +1212,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4131355967301580532, guid: 6d63d7cdf438e0341a1704386f77f579, type: 3}
       propertyPath: m_Name
-      value: Player
+      value: Player V2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d63d7cdf438e0341a1704386f77f579, type: 3}
@@ -1246,26 +1261,6 @@ MonoBehaviour:
   rightRotationOffset: {x: 0, y: 0, z: 0}
   leftGripOffset: {x: 0, y: 0}
   leftRotationOffset: {x: 0, y: 0, z: 0}
---- !u!114 &8648309242310749625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4607413017519883928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c8f612ea9842014d98a478249da84c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destroyOnIdle: 0
-  idle: 1
-  updateTick: 1
-  stretch: 2.58
-  period: 0.54
-  yIntercept: 0
-  stretchDecay: 0.026
-  periodDecay: 0.01
 --- !u!114 &907961222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1286,3 +1281,44 @@ MonoBehaviour:
   yIntercept: 0
   stretchDecay: 0.028
   periodDecay: 0.01
+--- !u!114 &8648309242310749625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4607413017519883928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8f612ea9842014d98a478249da84c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyOnIdle: 0
+  idle: 1
+  updateTick: 1
+  stretch: 2.58
+  period: 0.54
+  yIntercept: 0
+  stretchDecay: 0.026
+  periodDecay: 0.01
+--- !u!95 &8178824570312961650
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4607413017519883928}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
