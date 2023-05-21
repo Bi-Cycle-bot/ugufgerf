@@ -9,6 +9,7 @@ public class PlayerInventory : MonoBehaviour
     [Header("General")]
     public List<itemType> inventoryList;
     public int selectedItem = -1;
+    public int totalTools = 2;
 
     [Space(20)]
     [Header("Items")]
@@ -63,6 +64,22 @@ public class PlayerInventory : MonoBehaviour
         {
             unequipTools();
             selectedItem = 2;
+            NewItemSelected();
+        }
+
+        if (Input.mouseScrollDelta.y < 0) {
+            unequipTools();
+            selectedItem--;
+            if (selectedItem < 0) {
+                selectedItem = totalTools - 1;
+            }
+            NewItemSelected();
+        } else if (Input.mouseScrollDelta.y > 0) {
+            unequipTools();
+            selectedItem++;
+            if (selectedItem > (totalTools - 1)) {
+                selectedItem = 0;
+            }
             NewItemSelected();
         }
 

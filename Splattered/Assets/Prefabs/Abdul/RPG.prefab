@@ -273,12 +273,14 @@ MonoBehaviour:
   yAdjust: -0.18
   leftHandGrip: {x: 0.375, y: 0.009}
   leftHandGripRotOffset: {x: 0, y: 0, z: 0}
+  equipped: 0
   fireMode: 1
   fireRate: 0.1
   maxCapacity: 1
-  reloadTime: 1.5
+  reloadTime: 1
   chamberBehavior: 0
   autoReload: 1
+  unequipReload: 1
   chamberTime: 1
   inaccuracyBase: 0.8
   inaccuracyDistance: 25
@@ -304,6 +306,7 @@ MonoBehaviour:
   gunAnims: {fileID: 5785859166008634824}
   spentShell: {fileID: 0}
   fakeBullet: {fileID: 5785859165347182373}
+  currentCapacity: 0
 --- !u!82 &5785859166008634825
 AudioSource:
   m_ObjectHideFlags: 0
@@ -452,13 +455,13 @@ MonoBehaviour:
   - attachedObject: {fileID: 5785859165347182372}
     newLocalPos: {x: 1.151, y: 0.172, z: 0}
     newLocalRot: {x: 0, y: 0, z: 0}
-    positionFactor: 0.779
+    positionFactor: 0.856
     inactive: 0
     sound: {fileID: 8300000, guid: 36342c4407dd2de429a897f5c8d4b7d0, type: 3}
   - attachedObject: {fileID: 0}
     newLocalPos: {x: 0.375, y: 0.009, z: 0}
     newLocalRot: {x: 0, y: 0, z: 0}
-    positionFactor: 0.968
+    positionFactor: 0.959
     inactive: 0
     sound: {fileID: 0}
   chamber_frames: []

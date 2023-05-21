@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3520469729967469301}
   - component: {fileID: -3565593100321213704}
   m_Layer: 10
-  m_Name: RPG_Explosion
+  m_Name: RPG_Explosion 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

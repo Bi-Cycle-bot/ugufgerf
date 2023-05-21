@@ -2,7 +2,7 @@
 ------------------------------------------
 By: Abdul Ahad Naveed
 Created: 5/5/2023
-Updated: 5/6/2023 @ 4:46 pm
+Updated: 5/20/2023 @ 4:46 pm
 
 Used to be a gun system
 */
@@ -27,6 +27,7 @@ public class GunSystem : Tool {
     public float reloadTime = 2f; // How long it takes to reload
     public bool chamberBehavior = false; // To enable chambering behavior (if using animations, make sure u make them!)
     public bool autoReload = true; // If the gun is empty (0) it will automatically reload when Mouse0 is pressed
+    public bool unequipReload = true; // If true, the gun will automatically reload if it was unequipped for at least the lenght of the reload time
     public float chamberTime = 1f; // How long it takes to chamber a round
 
 
@@ -90,6 +91,7 @@ public class GunSystem : Tool {
     //private int currentCapacity;
     private float lastShotTime;
     private float currentBloom;
+    private float lastEquipped;
     private bool ready;
     private bool reloading;
     private bool chambering;
@@ -119,12 +121,17 @@ public class GunSystem : Tool {
         ready = true;
         needsChambering = false;
         currentBloom = 0;
+        lastEquipped = 0;
         handManager.currToolLength = toolLength;
     }
 
     // Update is called once per frame
     void Update() {
-        if (!equipped) { return; }
+        if (!equipped) {
+            return; 
+        } else {
+            lastEquipped = Time.time;
+        }
 
         // Mouse Down
         if (Input.GetKey(KeyCode.Mouse0)) {
@@ -223,6 +230,12 @@ public class GunSystem : Tool {
     public override void equip() {
         if (!started) {
             Start();
+        }
+        if (((Time.time - lastEquipped) >= reloadTime) && unequipReload) {
+            if (fakeBullet) {
+                fakeBullet.SetActive(true);
+            }
+            currentCapacity = maxCapacity;
         }
         gameObject.SetActive(true);
         equipped = true;

@@ -1,8 +1,8 @@
 /*
 ------------------------------------------
 By: Abdul Ahad Naveed
-Created: 5/5/2023
-Updated: 5/5/2023 @ 8:56 pm
+Created: 5/6/2023
+Updated: 5/20/2023 @ 8:56 pm
 
 Used to house the animation info for guns
 */

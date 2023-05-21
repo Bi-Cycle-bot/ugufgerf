@@ -12,10 +12,13 @@ public class EnemyBullets : MonoBehaviour {
 
     // Debounces
     private bool hitDebounce = false;
+    private GameObject player;
 
     // Start is called before the first frame update
     void Start() {
-        Destroy(gameObject, 5);
+        player = GameObject.FindGameObjectWithTag("Player");
+        transform.right = player.transform.position - transform.position;
+        Destroy(gameObject, 15);
     }
 
     // Update is called once per frame

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -2730934356215137703}
   m_Layer: 10
   m_Name: M4A1_Bullet
-  m_TagString: Untagged
+  m_TagString: Player Bullets
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,6 +102,9 @@ MonoBehaviour:
   baseDamage: 30
   headshotMultiplier: 2
   bulletVelocity: 5
+  bulletKnockback: 1
+  isRocket: 0
+  explosion: {fileID: 0}
 --- !u!50 &2075218514772154050
 Rigidbody2D:
   serializedVersion: 4

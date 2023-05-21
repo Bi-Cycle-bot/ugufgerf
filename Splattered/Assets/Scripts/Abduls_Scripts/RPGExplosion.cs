@@ -27,7 +27,7 @@ public class RPGExplosion : MonoBehaviour
         isExploding = true;
         hitbox.enabled = true;
         explosionParticles.Play();
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.068f);
         hitbox.enabled = false;
         isExploding = false;
     }
