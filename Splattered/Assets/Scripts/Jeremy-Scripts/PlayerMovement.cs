@@ -60,6 +60,25 @@ public class PlayerMovement : MonoBehaviour
     public static event deathEvent onDeath;
     #endregion
 
+    #region CheckGround
+    //set in inspector
+    [Header("wall check")]
+    [SerializeField] private Transform wallCheckLeft;
+    [SerializeField] private Transform wallCheckRight;
+    [SerializeField] private LayerMask wallLayer;
+    [SerializeField] private Vector2 wallJumpingPower;
+
+    private bool isWallSliding;
+    private bool isWalled;
+    private float lastOnWall;
+    private bool isWallJumping;
+    private float wallJumpingDirection;
+    private float wallJumpingTime = 0.01f;
+    private float wallJumpingCounter;
+    private float wallJumpingDuration = 0.01f;
+    private float wallSlidingSpeed = 2.0f;
+    #endregion
+
 
     // Start is called before the first frame update
     void Start()
@@ -178,12 +197,13 @@ public class PlayerMovement : MonoBehaviour
 
         if(health <= 0)
         {
-            // onDeath();
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             spawnPoint.respawnAtCheckpoint();
             health = maxHealth;
-
         }
+
+        IsWalled();
+        WallSlide();
+        WallJump();
 
         #region Animations
         if(wasSliding && Time.time - Data.lastSlideTime >= Data.slideCoolodown)
@@ -342,5 +362,55 @@ public class PlayerMovement : MonoBehaviour
         spriteRenderer.color = originalColor;
     }
 
+    private void IsWalled() {
+        lastOnWall -= (lastOnWall > -0.1) ? Time.deltaTime : 0;
+
+        if (Physics2D.OverlapCircle(wallCheckLeft.position, 0.2f, wallLayer)) {
+            lastOnWall = 0.1f;
+            wallJumpingDirection = transform.localScale.x;
+        } else if (Physics2D.OverlapCircle(wallCheckRight.position, 0.2f, wallLayer)) {
+            lastOnWall = 0.1f;
+            wallJumpingDirection = -transform.localScale.x;
+        }
+
+        if (lastOnWall > 0) {
+            isWalled = true;
+        } else {
+            isWalled = false;
+        }
+    }
+
+    private void WallSlide() {
+        if (isWalled && !isGrounded && lastOnWall >= 0.1f) {
+            isWallSliding = true;
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
+        } else {
+            isWallSliding = false;
+        }
+    }
+
+    private void WallJump() {
+        if (isWallSliding || lastOnWall >= 0.0f) {
+            isWallJumping = false;
+            wallJumpingCounter = wallJumpingTime;
+
+            CancelInvoke(nameof(StopWallJumping));
+        } else {
+            wallJumpingCounter -= Time.deltaTime;
+        }
+
+        if (Input.GetButtonDown("Jump") && wallJumpingCounter > 0.0f) {
+            lastOnWall = 0;
+            isWallJumping = true;
+            rb.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
+            wallJumpingCounter = 0.0f;
+
+            Invoke(nameof(StopWallJumping), wallJumpingDuration);
+        }
+    }
+
+    private void StopWallJumping() {
+        isWallJumping = false;
+    }
 
 }

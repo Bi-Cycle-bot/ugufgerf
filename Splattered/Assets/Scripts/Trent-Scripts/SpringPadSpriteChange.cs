@@ -17,7 +17,6 @@ public class SpringPadSpriteChange : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             anim.SetBool("onSpring", true);
-            Debug.Log("on");
         }
     }
 
@@ -26,7 +25,6 @@ public class SpringPadSpriteChange : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             anim.SetBool("onSpring", false);
-            Debug.Log("off");
         }
     }
 }
