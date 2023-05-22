@@ -11,7 +11,7 @@ public class FadeManager : MonoBehaviour
         source = GetComponent<AudioSource>();
         source.volume = 0f;
         StartCoroutine(Fade(true, source, 5f, 0.165f));
-        StartCoroutine(Fade(false, source, 3f, 0f));
+        //StartCoroutine(Fade(false, source, 3f, 0f));
     }
 
     // Update is called once per frame
