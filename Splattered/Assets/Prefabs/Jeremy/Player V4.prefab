@@ -178,16 +178,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data: {fileID: 1955140355145820696}
   groundCheck: {fileID: 1955140354429759134}
-  groundCheckSize: {x: 0.95, y: 0.35}
+  groundCheckSize: {x: 0.95, y: 0.45}
   lastOnGround: 0
   isGrounded: 0
-  isJumping: 0
   isSliding: 0
   isFacingRight: 0
   slideDirection: 0
   isStunned: 0
   isInvincible: 0
-  isFalling: 0
   health: 0
   stunDuration: 0
   wallCheckLeft: {fileID: 6788414933736156666}
@@ -278,7 +276,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.15, y: 0.75}
+  m_Size: {x: 0.9, y: 0.75}
   m_EdgeRadius: 0
 --- !u!114 &5116363901148084823
 MonoBehaviour:
@@ -1148,12 +1146,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 16
-  m_Sprite: {fileID: 21300000, guid: 6f31f0770a9ed90418e6612c2b7a510f, type: 3}
+  m_Sprite: {fileID: -1730073167, guid: 6f31f0770a9ed90418e6612c2b7a510f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.28, y: 0.64}
+  m_Size: {x: 1, y: 0.85714287}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1570,12 +1568,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 16
-  m_Sprite: {fileID: 21300000, guid: 6f31f0770a9ed90418e6612c2b7a510f, type: 3}
+  m_Sprite: {fileID: -1730073167, guid: 6f31f0770a9ed90418e6612c2b7a510f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.28, y: 0.64}
+  m_Size: {x: 1, y: 0.85714287}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

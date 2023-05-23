@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
 
     #region State
     [HideInInspector] private bool usingFasterGravity;
-    [HideInInspector] public bool isJumping;
+    private bool isJumping;
     [HideInInspector] public bool isSliding;
     [HideInInspector] private bool wasSliding;
     [HideInInspector] public bool isFacingRight;
@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public bool isStunned;
     [HideInInspector] public bool isInvincible;
     [HideInInspector] private bool isFlashing;
-    [HideInInspector] public bool isFalling;
+    private bool isFalling;
 
     #endregion
 
@@ -150,7 +150,7 @@ public class PlayerMovement : MonoBehaviour
         else
             isGrounded = false;
         // Debug.Log(lastOnGround);
-        if (rb.velocity.y < 0.01f && !isWalled)
+        if (rb.velocity.y < -0.01f /*&& !isWalled*/)
         {
             if(!isFalling)
             {
@@ -223,10 +223,12 @@ public class PlayerMovement : MonoBehaviour
             spawnPoint.respawnAtCheckpoint();
             health = maxHealth;
         }
-
-        IsWalled();
-        WallSlide();
-        WallJump();
+        if(!isGrounded)
+        {
+            IsWalled();
+            WallSlide();
+            WallJump();
+        }
 
         #region Animations
         if (wasSliding && Time.time - Data.lastSlideTime >= Data.slideCoolodown)
@@ -241,6 +243,10 @@ public class PlayerMovement : MonoBehaviour
             setAnimationTo("PlayerJump");
         #endregion
         spriteRenderer.flipX = !isFacingRight;
+        if(isGrounded && !animator.GetCurrentAnimatorStateInfo(3).IsName("PlayerWalk") && !isJumping && !isSliding && !isFalling)
+        {
+            setAnimationTo("PlayerWalk");
+        }
     }
 
     void FixedUpdate()
@@ -388,7 +394,7 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator canSlideAnimation()
     {
-        spriteRenderer.color = Color.blue;
+        spriteRenderer.color = new Color(0.35f, 0.35f, 0.9f, 1);
         yield return new WaitForSeconds(0.1f);
         spriteRenderer.color = originalColor;
     }
