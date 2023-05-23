@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private Oscillation[] oscillations;
     private Camera cam;
     private CameraManager cameraManager;
+    private Animator animator;
 
     #region INPUT PARAMETERS
     private Vector2 moveInput;
@@ -41,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public bool isStunned;
     [HideInInspector] public bool isInvincible;
     [HideInInspector] private bool isFlashing;
+    [HideInInspector] public bool isFalling;
 
     #endregion
 
@@ -83,6 +85,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         hitbox = GetComponent<BoxCollider2D>();
         Data = GetComponent<PlayerMovementData>();
@@ -90,6 +93,7 @@ public class PlayerMovement : MonoBehaviour
         isSliding = false;
         isJumping = false;
         isFacingRight = true;
+        isFalling = false;
         Data.lastSlideTime = Time.time - 4f;
         Data.lastSlideTimeStart = Time.time - 4f;
         health = Data.maxHealth;
@@ -106,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         #region State Calculations
-        if(stunDuration > 0)
+        if (stunDuration > 0)
         {
             stunDuration -= Time.deltaTime;
             isStunned = true;
@@ -117,20 +121,20 @@ public class PlayerMovement : MonoBehaviour
             isStunned = false;
         }
 
-        if(invincibilityDuration > 0)
+        if (invincibilityDuration > 0)
         {
             invincibilityDuration -= Time.deltaTime;
         }
 
         isInvincible = (invincibilityDuration > 0 || isStunned || isSliding) ? true : false;
         lastOnGround -= (lastOnGround > -0.1) ? Time.deltaTime : 0;
-        
+
         moveInput.x = Input.GetAxisRaw("Horizontal");
-        if(moveInput.x > 0)
+        if (moveInput.x > 0)
         {
             isFacingRight = true;
         }
-        else if(moveInput.x < 0)
+        else if (moveInput.x < 0)
         {
             isFacingRight = false;
         }
@@ -138,12 +142,31 @@ public class PlayerMovement : MonoBehaviour
         if (Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0, LayerMask.GetMask("Ground")))
             lastOnGround = Data.coyoteTime;
         if (lastOnGround > 0)
+        {
+            if (isGrounded == false)
+                setAnimationTo("PlayerLanding");
             isGrounded = true;
+        }
         else
             isGrounded = false;
         // Debug.Log(lastOnGround);
-        if (rb.velocity.y < 0.0f)
+        if (rb.velocity.y < 0.01f && !isWalled)
+        {
+            if(!isFalling)
+            {
+                setAnimationTo("PlayerFall");
+            }
+            isFalling = true;
             isJumping = false;
+        }
+        else
+        {
+            if(isFalling && !isSliding && !isJumping)
+            {
+                setAnimationTo("PlayerWalk");
+            }
+            isFalling = false;
+        }
         #endregion
 
         #region Gravity
@@ -159,15 +182,15 @@ public class PlayerMovement : MonoBehaviour
         #endregion
 
         #region Slide Stop
-        if(isSliding && Input.GetAxisRaw("Horizontal") == -slideDirection)
+        if (isSliding && Input.GetAxisRaw("Horizontal") == -slideDirection)
         {
-            // Debug.Log("Slide ended");
+            setAnimationTo("PlayerWalk");
             isSliding = false;
             rb.velocity = new Vector2(Data.maxSpeed * Input.GetAxisRaw("Horizontal"), rb.velocity.y);
         }
-        else if(Time.time - Data.lastSlideTimeStart > Data.slideTime && isSliding)
+        else if (Time.time - Data.lastSlideTimeStart > Data.slideTime && isSliding)
         {
-            // Debug.Log("Slide ended");
+            setAnimationTo("PlayerWalk");
             isSliding = false;
             rb.velocity = new Vector2(Data.maxSpeed * Input.GetAxisRaw("Horizontal"), rb.velocity.y);
         }
@@ -190,12 +213,12 @@ public class PlayerMovement : MonoBehaviour
 
         #endregion
 
-        if(rb.velocity.y < -Data.maxFallSpeed)
+        if (rb.velocity.y < -Data.maxFallSpeed)
         {
             rb.velocity = new Vector2(rb.velocity.x, -Data.maxFallSpeed);
         }
 
-        if(health <= 0)
+        if (health <= 0)
         {
             spawnPoint.respawnAtCheckpoint();
             health = maxHealth;
@@ -206,24 +229,29 @@ public class PlayerMovement : MonoBehaviour
         WallJump();
 
         #region Animations
-        if(wasSliding && Time.time - Data.lastSlideTime >= Data.slideCoolodown)
+        if (wasSliding && Time.time - Data.lastSlideTime >= Data.slideCoolodown)
         {
             StartCoroutine(canSlideAnimation());
         }
         wasSliding = Time.time - Data.lastSlideTime < Data.slideCoolodown;
+
+        if(isSliding)
+            setAnimationTo("PlayerSlide");
+        else if (rb.velocity.y > 0.01f && !isWalled && !isJumping)
+            setAnimationTo("PlayerJump");
         #endregion
-        
+        spriteRenderer.flipX = !isFacingRight;
     }
 
     void FixedUpdate()
     {
-        if(!isSliding)
+        if (!isSliding)
             Run();
-        else    
+        else
             Slide();
-        if(-rb.velocity.y > Data.maxFallSpeed)
+        if (-rb.velocity.y > Data.maxFallSpeed)
             rb.velocity = new Vector2(rb.velocity.x, -Data.maxFallSpeed);
-        
+
     }
 
     private void Run()
@@ -256,7 +284,7 @@ public class PlayerMovement : MonoBehaviour
     private void Slide()
     {
         Data.lastSlideTime = Time.time;
-        if(Data.slideStopsYMovement)
+        if (Data.slideStopsYMovement)
             rb.velocity = new Vector2(slideDirection * Data.slideSpeed, 0);
         else
             rb.velocity = new Vector2(slideDirection * Data.slideSpeed, rb.velocity.y);
@@ -265,7 +293,7 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         lastOnGround = 0;
-
+        animator.Play("PlayerJumpUp");
         float force = Data.jumpForce;
         rb.velocity = new Vector2(rb.velocity.x, 0);
         rb.AddForce(force * Vector2.up, ForceMode2D.Impulse);
@@ -301,8 +329,9 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(direction * force, ForceMode2D.Impulse);
     }
 
-    public bool damagePlayer(float damage, float stunDuration, Vector2 knockbackDirectionOrPosition, float knockbackForce, bool usingDirectionalKnockback) {
-        if(!isInvincible)
+    public bool damagePlayer(float damage, float stunDuration, Vector2 knockbackDirectionOrPosition, float knockbackForce, bool usingDirectionalKnockback)
+    {
+        if (!isInvincible)
         {
             health -= damage;
             if (usingDirectionalKnockback)
@@ -331,10 +360,12 @@ public class PlayerMovement : MonoBehaviour
 
     public void heal(int amount)
     {
-        if ((health + amount) <= maxHealth) {
+        if ((health + amount) <= maxHealth)
+        {
             health += amount;
         }
-        else if ((health + amount) > maxHealth) {
+        else if ((health + amount) > maxHealth)
+        {
             health = maxHealth;
         }
     }
@@ -343,12 +374,12 @@ public class PlayerMovement : MonoBehaviour
     {
         // float startTime = Time.time;
         bool isInvisible = false;
-        while(isStunned || invincibilityDuration > 0)
+        while (isStunned || invincibilityDuration > 0)
         {
             spriteRenderer.color = (isInvisible) ? originalColor : Color.clear;
             isInvisible = !isInvisible;
-            if(isInvisible)
-                yield return new WaitForSeconds(Data.hitFlashTime/2);
+            if (isInvisible)
+                yield return new WaitForSeconds(Data.hitFlashTime / 2);
             else
                 yield return new WaitForSeconds(Data.hitFlashTime);
         }
@@ -362,55 +393,81 @@ public class PlayerMovement : MonoBehaviour
         spriteRenderer.color = originalColor;
     }
 
-    private void IsWalled() {
+    private void IsWalled()
+    {
         lastOnWall -= (lastOnWall > -0.1) ? Time.deltaTime : 0;
 
-        if (Physics2D.OverlapCircle(wallCheckLeft.position, 0.2f, wallLayer)) {
+        if (Physics2D.OverlapCircle(wallCheckLeft.position, 0.2f, wallLayer))
+        {
             lastOnWall = 0.1f;
             wallJumpingDirection = transform.localScale.x;
-        } else if (Physics2D.OverlapCircle(wallCheckRight.position, 0.2f, wallLayer)) {
+        }
+        else if (Physics2D.OverlapCircle(wallCheckRight.position, 0.2f, wallLayer))
+        {
             lastOnWall = 0.1f;
             wallJumpingDirection = -transform.localScale.x;
         }
 
-        if (lastOnWall > 0) {
+        if (lastOnWall > 0)
+        {
+            if (isWalled == false)
+                setAnimationTo("PlayerIdle");
             isWalled = true;
-        } else {
+            isFalling = false;
+        }
+        else
+        {
             isWalled = false;
         }
     }
 
-    private void WallSlide() {
-        if (isWalled && !isGrounded && lastOnWall >= 0.1f) {
+    private void WallSlide()
+    {
+        if (isWalled && !isGrounded && lastOnWall >= 0.1f)
+        {
             isWallSliding = true;
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
-        } else {
+        }
+        else
+        {
             isWallSliding = false;
         }
     }
 
-    private void WallJump() {
-        if (isWallSliding || lastOnWall >= 0.0f) {
+    private void WallJump()
+    {
+        if (isWallSliding || lastOnWall >= 0.0f)
+        {
             isWallJumping = false;
             wallJumpingCounter = wallJumpingTime;
 
             CancelInvoke(nameof(StopWallJumping));
-        } else {
+        }
+        else
+        {
             wallJumpingCounter -= Time.deltaTime;
         }
 
-        if (Input.GetButtonDown("Jump") && wallJumpingCounter > 0.0f) {
+        if (Input.GetButtonDown("Jump") && wallJumpingCounter > 0.0f)
+        {
             lastOnWall = 0;
             isWallJumping = true;
             rb.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
             wallJumpingCounter = 0.0f;
+            setAnimationTo("PlayerJumpUp");
 
             Invoke(nameof(StopWallJumping), wallJumpingDuration);
         }
     }
 
-    private void StopWallJumping() {
+    private void StopWallJumping()
+    {
         isWallJumping = false;
+    }
+
+    public void setAnimationTo(string animationName)
+    {
+        animator.Play(animationName);
     }
 
 }

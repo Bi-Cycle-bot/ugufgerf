@@ -34,7 +34,7 @@ public class RabbitBoss : Boss
     [HideInInspector] public float direction;
     [HideInInspector] public bool doNotRun;
     [HideInInspector] public bool choosingAttack;
- 
+
 
     [Space(10)]
     [Header("Attack Settings")]
@@ -44,7 +44,7 @@ public class RabbitBoss : Boss
     [Space(10)]
     [Header("JumpAttack")]
     public float timeBetweenJumps = 0.5f;
-    [Range(0.01f, 10)]public float arialSpeedMultiplier;
+    [Range(0.01f, 10)] public float arialSpeedMultiplier;
     public float jumpAttackDirectDamage = 12f;
     public float jumpAttackDirectKnockback = 10f;
     public float jumpAttackDirectStunDuration = 0.7f;
@@ -128,8 +128,8 @@ public class RabbitBoss : Boss
 
     void FixedUpdate()
     {
-        isTouchingWallRight = Physics2D.OverlapBox(wallCheckRight.position, wallCheckSize, 0, LayerMask.GetMask("Ground"));
-        isTouchingWallLeft = Physics2D.OverlapBox(wallCheckLeft.position, wallCheckSize, 0, LayerMask.GetMask("Ground"));
+        isTouchingWallRight = Physics2D.OverlapBox(wallCheckRight.position, wallCheckSize, 0, LayerMask.GetMask("Ground")) || Physics2D.OverlapBox(wallCheckRight.position, wallCheckSize, 0, LayerMask.GetMask("Wall"));
+        isTouchingWallLeft = Physics2D.OverlapBox(wallCheckLeft.position, wallCheckSize, 0, LayerMask.GetMask("Ground")) || Physics2D.OverlapBox(wallCheckLeft.position, wallCheckSize, 0, LayerMask.GetMask("Wall"));
         isGrounded = Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0, LayerMask.GetMask("Ground"));
         Run();
         bool isAttacking = isJumping || isDashing || isShooting || choosingAttack;
@@ -137,15 +137,15 @@ public class RabbitBoss : Boss
             StartCoroutine(chooseAttack());
         if (!isAttacking && (isTouchingWallLeft && !isFacingRight() || isTouchingWallRight && isFacingRight()))
             ChangeDirection();
-        
+
     }
 
     void Update()
     {
         spriteRenderer.flipX = !isFacingRight();
-        if(currentHealth < 0)
+        if (currentHealth < 0)
             GameObject.Destroy(gameObject);
-        if(Physics2D.OverlapBox(transform.position, hitbox.bounds.size, 0, LayerMask.GetMask("Player")))
+        if (Physics2D.OverlapBox(transform.position, hitbox.bounds.size, 0, LayerMask.GetMask("Player")))
             playerMovement.damagePlayer(dashAttackDamage, dashAttackStunDuration, rb.velocity, dashAttackKnockback, true);
     }
 
@@ -160,7 +160,7 @@ public class RabbitBoss : Boss
         // Debug.Log("Running");
         float targetSpeed = (isGrounded) ? direction * maxSpeed :
                                            direction * maxSpeed * arialSpeedMultiplier;
-        if(doNotRun)
+        if (doNotRun)
             targetSpeed = 0;
 
         #region Apply Movement
@@ -211,12 +211,13 @@ public class RabbitBoss : Boss
     private IEnumerator GunAttack()
     {
         ChangeDirection();
-        int shotsToFire = (int) Random.Range(mininumShots, maximumShots);
+        int shotsToFire = (int)Random.Range(mininumShots, maximumShots);
         doNotRun = true;
         isShooting = true;
-        for(int i = 0; i < shotsToFire; i++)
+        for (int i = 0; i < shotsToFire; i++)
         {
-            // GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+            GameObject NewBullet =Instantiate(bullet, transform.position, Quaternion.identity);
+            NewBullet.SetActive(true);
             yield return new WaitForSeconds(0.1f);
         }
         doNotRun = false;
@@ -233,15 +234,17 @@ public class RabbitBoss : Boss
         yield return new WaitForSeconds(timeBeforeDashing);
         animator.SetTrigger("Run");
         Vector2 DashAttackDirection = target.transform.position - transform.position;
-        Vector2 targetPosition = new Vector2   (target.transform.position.x, transform.position.y);
+        Vector2 targetPosition = new Vector2(target.transform.position.x, target.transform.position.y);
         DashAttackDirection.Normalize();
+        rb.gravityScale = 0;
         while (Vector2.Distance(transform.position, targetPosition) > 0.5f && Time.time - startTime < 3f)
         {
-            DashAttackDirection = targetPosition - (Vector2) transform.position;
+            DashAttackDirection = targetPosition - (Vector2)transform.position;
             DashAttackDirection.Normalize();
             rb.velocity = DashAttackDirection * dashAttackSpeed;
             yield return null;
         }
+        rb.gravityScale = jumpAttackGravityScale;
         doNotRun = false;
         isDashing = false;
         ChangeDirection();
@@ -251,7 +254,7 @@ public class RabbitBoss : Boss
     {
         choosingAttack = true;
         ChangeDirection();
-        int attack = Random.Range(0, 2);
+        int attack = Random.Range(0, 3);
         yield return new WaitForSeconds(timeBetweenAttacks);
         switch (attack)
         {
@@ -263,6 +266,7 @@ public class RabbitBoss : Boss
                 break;
             case 2:
                 StartCoroutine(GunAttack());
+                Debug.Log("Gun Attack");
                 break;
         }
         choosingAttack = false;
@@ -306,7 +310,7 @@ public class RabbitBoss : Boss
 
     void OnColliionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
             playerMovement.damagePlayer(dashAttackDamage, dashAttackStunDuration, rb.velocity, dashAttackKnockback, true);
         }
