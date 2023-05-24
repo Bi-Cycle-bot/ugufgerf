@@ -184,9 +184,9 @@ public class GunSystem : Tool {
         } else {
             mainGripPosOffset = Vector2.Lerp(mainGripPosOffset, new Vector2(0, 0), recoilRelief / 2);
             mainGripRotOffset = Vector3.Lerp(mainGripRotOffset, new Vector3(0, 0, 0), recoilRelief / 2);
-            if (bolt) {
-                bolt.localPosition = Vector3.Lerp(bolt.localPosition, new Vector3(0, 0, 0), .05f);
-            }
+            if (bolt && !reloading && !chambering) {
+                bolt.localPosition = Vector3.Lerp(bolt.localPosition, new Vector3(0, 0, 0), .15f);
+            } 
         }
         handManager.rightGripOffset = mainGripPosOffset;
         handManager.rightRotationOffset = mainGripRotOffset;
@@ -258,6 +258,9 @@ public class GunSystem : Tool {
     private void chamber() {
         chambering = true;
         ready = false;
+        if (bolt) {
+            bolt.localPosition = new Vector3(0, 0, 0);
+        }
         if (gunAnims) {
             gunAnims.chamber(chamberTime);
         }
@@ -337,6 +340,9 @@ public class GunSystem : Tool {
         if (reloading) { return; }
         reloading = true;
         ready = false;
+        if (bolt) {
+            bolt.localPosition = new Vector3(0, 0, 0);
+        }
         if (gunAnims) {
             gunAnims.reload(reloadTime);
         }

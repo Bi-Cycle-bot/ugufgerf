@@ -17,7 +17,7 @@ public class EnemyBullets : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         player = GameObject.FindGameObjectWithTag("Player");
-        transform.right = player.transform.position - transform.position;
+        transform.right = (Vector2)player.transform.position - (Vector2)transform.position;
         Destroy(gameObject, 15);
     }
 

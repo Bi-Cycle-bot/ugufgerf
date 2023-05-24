@@ -50,21 +50,27 @@ public class PlayerInventory : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha1) && inventoryList.Count > 0)
         {
-            unequipTools();
-            selectedItem = 0;
-            NewItemSelected();
+            if (selectedItem != 0) {
+                unequipTools();
+                selectedItem = 0;
+                NewItemSelected();
+            }
         }
         if (Input.GetKeyDown(KeyCode.Alpha2) && inventoryList.Count > 1)
         {
-            unequipTools();
-            selectedItem = 1;
-            NewItemSelected();
+            if (selectedItem != 1) {
+                unequipTools();
+                selectedItem = 1;
+                NewItemSelected();
+            }
         }
         if (Input.GetKeyDown(KeyCode.Alpha3) && inventoryList.Count > 2)
         {
-            unequipTools();
-            selectedItem = 2;
-            NewItemSelected();
+            if (selectedItem != 2) {
+                unequipTools();
+                selectedItem = 2;
+                NewItemSelected();
+            }
         }
 
         if (Input.mouseScrollDelta.y < 0) {

@@ -151,4 +151,4 @@ MonoBehaviour:
   bulletVelocity: 5
   bulletKnockback: 1
   isRocket: 1
-  explosion: {fileID: 5492950704676681715, guid: c1f8ca5a77164f64a9c051f878fe88d7, type: 3}
+  explosion: {fileID: 5492950704676681715, guid: cfee6340b215dc749a7c1ac7cb390017, type: 3}

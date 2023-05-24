@@ -142,6 +142,7 @@ public class GunAnimations : MonoBehaviour {
             attachedObject.localEulerAngles = new Vector3(0, 0, 0);
         }
         handManager.resetLeftOffsets();
+        leftHand.SetActive(true);
     }
 
     // Do the reload animation
