@@ -36,15 +36,19 @@ namespace Dan.Demo
                 entryField.text = "";
             }
 
-            for (int i = 0; i < entries.Length; i++)
+            for (int i = entries.Length - 1; i >= 0; i--)
             {
-                _entryFields[i].text = $"{i+1}. {entries[i].Username} : {entries[i].Score}";
+                float temp = entries[i].Score;
+                temp = temp / 100;
+                _entryFields[i].text = $"{i+1}. {entries[i].Username} : {temp}";
             }
         }
 
         public void Submit()
         {
-            LeaderboardCreator.UploadNewEntry(_leaderboardPublicKey, _playerUsernameInput.text, _playerScore, Callback);
+            float loadedtime = PlayerPrefs.GetFloat("time");
+            Debug.Log(loadedtime);
+            LeaderboardCreator.UploadNewEntry(_leaderboardPublicKey, _playerUsernameInput.text, (int) (loadedtime * 100) + 1, Callback);
         }
         
         public void DeleteEntry()
@@ -62,5 +66,16 @@ namespace Dan.Demo
             if (success)
                 Load();
         }
+
+        public void loadLeaderboard() {
+        LeaderboardCreator.GetLeaderboard(_leaderboardPublicKey, ((msg) => {
+            int loopLength = (msg.Length < _entryFields.Length) ? msg.Length : _entryFields.Length;
+            for (int i = loopLength - 1; i >= 0; --i) {
+                float temp = msg[i].Score;
+                temp = temp / 100;
+                _entryFields[i].text = $"{i+1}. {msg[i].Username} : {temp}";
+            }
+        }));
+    }
     }
 }

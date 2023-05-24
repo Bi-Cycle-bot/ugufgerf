@@ -217,7 +217,7 @@ MonoBehaviour:
   jumpToApexTime: 0.45
   coyoteTime: 0.07
   jumpForce: 12.444445
-  slideStopsYMovement: 0
+  slideStopsYMovement: 1
   slideTime: 0.25
   slideSpeed: 23
   slideCoolodown: 0.6

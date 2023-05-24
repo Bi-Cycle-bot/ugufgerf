@@ -13,6 +13,7 @@ public class NextLevel : MonoBehaviour
     public Vector2 minXY;
     public Vector2 maxXY;
     public bool onDeath;
+    public Timer timer;
 
     void Update()
     {
@@ -25,6 +26,11 @@ public class NextLevel : MonoBehaviour
     }
 
     void loadLevel(int level) {
+        timer.StopTimer();
         SceneManager.LoadScene(level);
+    }
+
+    void OnDisable() {
+        PlayerPrefs.SetFloat("time", Mathf.Round(timer.currentTime * 100f) / 100f);
     }
 }
