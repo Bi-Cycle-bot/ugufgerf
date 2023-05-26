@@ -11,6 +11,7 @@ public class SoldierMovement : MonoBehaviour
     GameObject deathParticlesInstance;
     private SpriteRenderer spriteRenderer;
     private PlayerMovement playerMovement;
+    private Animator animator;
     Rigidbody2D rb;
     BoxCollider2D hitbox;
     private SoldierData Data;
@@ -28,6 +29,7 @@ public class SoldierMovement : MonoBehaviour
     [HideInInspector] public float currentHealth;
     private bool isStunned;
     private Color originalColor;
+    public new Transform transform;
 
     void Start()
     {
@@ -35,6 +37,7 @@ public class SoldierMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         hitbox = GetComponent<BoxCollider2D>();
         Data = GetComponent<SoldierData>();
+        animator = GetComponent<Animator>();
         isUsingSlowSpeed = false;
         playerMovement = target.GetComponent<PlayerMovement>();
         lastAttackTime = Time.time;
@@ -47,6 +50,7 @@ public class SoldierMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        
         if (currentHealth <= 0)
         {
             deathParticles.transform.position = transform.position;
@@ -85,6 +89,10 @@ public class SoldierMovement : MonoBehaviour
 
     }
 
+    void Update() {
+        spriteRenderer.flipX = direction == 1 ? true : false;
+    }
+
     void Run()
     {
         float targetSpeed = direction * Data.maxSpeed;
@@ -94,15 +102,25 @@ public class SoldierMovement : MonoBehaviour
         {
             targetSpeed *= Data.slowSpeedMultiplier;
         }
-        if (Vector2.Distance(target.transform.position, transform.position) < 0.05f || !canMove)
+        // if ( Mathf.Abs(target.transform.position.x - transform.position.x) < 0.5f)
+        // {
+        //     targetSpeed = 0.1f;
+        //     Debug.Log("Soldier is close to player");
+        // }
+        if(!canMove || Mathf.Abs(target.transform.position.x - transform.position.x) < 0.5f)
         {
+            animator.SetTrigger("Stun");
             targetSpeed = 0;
+        }
+        else
+        {
+            animator.SetTrigger("Unstun");
         }
 
         #region Acceleration Calculation
         float accelerationRate = Data.accelAmount;
         float slowDistance = Data.attackRange * 2 / 3;
-        targetSpeed = (Vector2.Distance(target.transform.position, transform.position) < slowDistance) ? targetSpeed * Data.slowSpeedMultiplier : targetSpeed;
+        // targetSpeed = (Vector2.Distance(target.transform.position, transform.position) < slowDistance) ? targetSpeed * Data.slowSpeedMultiplier : targetSpeed;
         #endregion
 
         #region Apply Movement
@@ -117,9 +135,11 @@ public class SoldierMovement : MonoBehaviour
     public void damageSoldier(float damage, Vector2 bulletDirection, float knockbackforce)
     {
         // rb.AddForce((bulletDirection).normalized * knockbackforce, ForceMode2D.Impulse);
+        // animator.SetTrigger("Stun");
         rb.AddForce(bulletDirection * knockbackforce, ForceMode2D.Impulse);
         StartCoroutine(Stun());
         currentHealth -= damage;
+        // animator.SetTrigger("Unstun");
     }
 
     IEnumerator Stun()

@@ -109,6 +109,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        animator.SetBool("isGrounded", isGrounded);
         #region State Calculations
         if (stunDuration > 0)
         {
@@ -243,10 +244,10 @@ public class PlayerMovement : MonoBehaviour
             setAnimationTo("PlayerJump");
         #endregion
         spriteRenderer.flipX = !isFacingRight;
-        if(isGrounded && !animator.GetCurrentAnimatorStateInfo(3).IsName("PlayerWalk") && !isJumping && !isSliding && !isFalling)
-        {
-            setAnimationTo("PlayerWalk");
-        }
+        // if(isGrounded && !animator.GetCurrentAnimatorStateInfo(3).IsName("PlayerWalk") && !animator.GetCurrentAnimatorStateInfo(3).IsName("PlayerLanding") && !isJumping && !isSliding && !isFalling)
+        // {
+        //     setAnimationTo("PlayerWalk");
+        // }
     }
 
     void FixedUpdate()
