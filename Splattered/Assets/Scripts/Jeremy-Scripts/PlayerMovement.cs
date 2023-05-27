@@ -72,7 +72,11 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isWallSliding;
     private bool isWalled;
+    private bool isWalledLeft;
+    private bool isWalledRight;
     private float lastOnWall;
+    private float lastOnLeftWall;
+    private float lastOnRightWall;
     private bool isWallJumping;
     private float wallJumpingDirection;
     private float wallJumpingTime = 0.01f;
@@ -144,7 +148,7 @@ public class PlayerMovement : MonoBehaviour
             isFacingRight = false;
         }
         moveInput.y = Input.GetAxisRaw("Vertical");
-        if (Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0, LayerMask.GetMask("Ground")))
+        if (Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0, LayerMask.GetMask("Ground")) && rb.velocity.y <= 0.01f && rb.velocity.y >= -0.01f)
             lastOnGround = Data.coyoteTime;
         if (lastOnGround > 0)
         {
@@ -234,6 +238,8 @@ public class PlayerMovement : MonoBehaviour
             WallSlide();
             WallJump();
         }
+        if(isWalledLeft && isFacingRight == false || isWalledRight && isFacingRight == true)
+            isSliding = false;
 
         #region Animations
         if (wasSliding && Time.time - Data.lastSlideTime >= Data.slideCoolodown)
@@ -407,15 +413,19 @@ public class PlayerMovement : MonoBehaviour
     private void IsWalled()
     {
         lastOnWall -= (lastOnWall > -0.1) ? Time.deltaTime : 0;
+        lastOnLeftWall -= (lastOnLeftWall > -0.1) ? Time.deltaTime : 0;
+        lastOnRightWall -= (lastOnRightWall > -0.1) ? Time.deltaTime : 0;
 
         if (Physics2D.OverlapCircle(wallCheckLeft.position, 0.2f, wallLayer))
         {
             lastOnWall = 0.1f;
+            lastOnLeftWall = 0.1f;
             wallJumpingDirection = transform.localScale.x;
         }
         else if (Physics2D.OverlapCircle(wallCheckRight.position, 0.2f, wallLayer))
         {
             lastOnWall = 0.1f;
+            lastOnRightWall = 0.1f;
             wallJumpingDirection = -transform.localScale.x;
         }
 
@@ -430,6 +440,17 @@ public class PlayerMovement : MonoBehaviour
         {
             isWalled = false;
         }
+
+        if(lastOnLeftWall > 0)
+            isWalledLeft = true;
+        else
+            isWalledLeft = false;
+        
+        if(lastOnRightWall > 0)
+            isWalledRight = true;
+        else
+            isWalledRight = false;
+
     }
 
     private void WallSlide()
