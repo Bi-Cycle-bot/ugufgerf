@@ -110,6 +110,10 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         animator.SetBool("isGrounded", isGrounded);
+        if(rb.velocity.y < 0.01f)
+        {
+            isJumping = false;
+        }
         #region State Calculations
         if (stunDuration > 0)
         {
