@@ -4085,6 +4085,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: LaboratoryTilesetV2_189
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 29
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ee469d4543af254ab5a8b8d91abc514
+      internalID: 2142203855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LaboratoryTilesetV2_190
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 29
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53fe3626ac3117d47b2c5fab7823d49f
+      internalID: -751256209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -4196,7 +4238,9 @@ TextureImporter:
       LaboratoryTilesetV2_186: 1510168843
       LaboratoryTilesetV2_187: 995152664
       LaboratoryTilesetV2_188: 1115850973
+      LaboratoryTilesetV2_189: 2142203855
       LaboratoryTilesetV2_19: -1414142427
+      LaboratoryTilesetV2_190: -751256209
       LaboratoryTilesetV2_2: -1077932261
       LaboratoryTilesetV2_20: -327528704
       LaboratoryTilesetV2_21: 1370566378

@@ -24,8 +24,16 @@ public class LockCamera : MonoBehaviour
     void Update()
     {
 
+        //floor 1 checker
+        if ((player.transform.position.x >= -208 && player.transform.position.x < -3) && player.transform.position.y < -2) {
+            Vector2 floor1 = new Vector2(-194, -17);
+            Vector2 floor12 = new Vector2(0, 0);
+            camManager.minLimits = floor1;
+            camManager.maxLimits = floor12;
+        }
+
         //floor 2 checker
-        if ((player.transform.position.y >= 7 && player.transform.position.y < 13) && player.transform.position.x <= 51) {
+        else if ((player.transform.position.y >= 7 && player.transform.position.y < 16) && player.transform.position.x <= 51) {
             Vector2 floor2 = new Vector2(5, 11);
             camManager.minLimits = floor2;
         }
@@ -34,8 +42,6 @@ public class LockCamera : MonoBehaviour
         else if (player.transform.position.y >= 16 && player.transform.position.x <= 55) {
             Vector2 floor3 = new Vector2(5, 11);
             camManager.minLimits = floor3;
-            spawnPoint = GameObject.Find("Player").GetComponent<SpawnPoint>();
-            spawnPoint.checkpoint = 1;
         }
 
         // vertical room checker

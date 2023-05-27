@@ -31,6 +31,7 @@ TagManager:
   - Grounded Enemy Hitbox
   - Dropper
   - Boss
+  - StickyWall
   - Wall
   - 
   - 
@@ -47,8 +48,40 @@ TagManager:
   - 
   - 
   - 
-  - 
   m_SortingLayers:
+  - name: Sky
+    uniqueID: 2469415947
+    locked: 0
+  - name: Outside
+    uniqueID: 2370147241
+    locked: 0
+  - name: GroundCeiling
+    uniqueID: 1982930147
+    locked: 0
+  - name: Background1
+    uniqueID: 2465028601
+    locked: 0
+  - name: Background2
+    uniqueID: 1302345615
+    locked: 0
+  - name: Background3
+    uniqueID: 2976525249
+    locked: 0
+  - name: Rooms
+    uniqueID: 2213178321
+    locked: 0
+  - name: Decor
+    uniqueID: 3480985289
+    locked: 0
+  - name: Platforms
+    uniqueID: 3843918975
+    locked: 0
+  - name: Tank
+    uniqueID: 575491461
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 3067110481
     locked: 0

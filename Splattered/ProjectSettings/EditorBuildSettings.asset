@@ -9,12 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Beta Levels/Beta-Menu.unity
     guid: 8264b0527d7be4547aa0f2815071bd5b
   - enabled: 1
-    path: Assets/Scenes/Beta Levels/Beta-1.unity
-    guid: 45f02912898f53d4b8ae92fb13ff80af
+    path: Assets/Scenes/Final Scenes/Trent 5-12 1.unity
+    guid: eb9249b427c104a469778653a49f909a
   - enabled: 1
-    path: Assets/Scenes/Beta Levels/Beta-2.unity
-    guid: 0923da5c4bd6e054d91425a024d84390
-  - enabled: 1
-    path: Assets/LeaderboardCreator/Scenes/DemoScene.unity
+    path: Assets/Scenes/Final Scenes/Leaderboard.unity
     guid: a864ccbe3a968094ba55cfc99b8c4bc3
   m_configObjects: {}
