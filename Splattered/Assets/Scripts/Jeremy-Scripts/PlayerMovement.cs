@@ -416,13 +416,13 @@ public class PlayerMovement : MonoBehaviour
         lastOnLeftWall -= (lastOnLeftWall > -0.1) ? Time.deltaTime : 0;
         lastOnRightWall -= (lastOnRightWall > -0.1) ? Time.deltaTime : 0;
 
-        if (Physics2D.OverlapCircle(wallCheckLeft.position, 0.2f, wallLayer))
+        if (Physics2D.OverlapCircle(wallCheckLeft.position, 0.1f, wallLayer))
         {
             lastOnWall = 0.1f;
             lastOnLeftWall = 0.1f;
             wallJumpingDirection = transform.localScale.x;
         }
-        else if (Physics2D.OverlapCircle(wallCheckRight.position, 0.2f, wallLayer))
+        else if (Physics2D.OverlapCircle(wallCheckRight.position, 0.1f, wallLayer))
         {
             lastOnWall = 0.1f;
             lastOnRightWall = 0.1f;
@@ -459,6 +459,7 @@ public class PlayerMovement : MonoBehaviour
         {
             isWallSliding = true;
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
+            // directionalKnockback(new Vector2(-wallJumpingDirection, 0), 0, 0);
         }
         else
         {
