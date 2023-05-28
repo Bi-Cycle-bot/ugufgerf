@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Collision script for checkpoint triggers
+//////////////////////////////////////////////////////////
+
 public class Checkpoint : MonoBehaviour
 {
     

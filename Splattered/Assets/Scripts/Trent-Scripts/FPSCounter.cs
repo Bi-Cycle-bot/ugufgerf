@@ -11,7 +11,7 @@ public class FPSCounter : MonoBehaviour
 
     void Awake () {
         QualitySettings.vSyncCount = 0;  // VSync must be disabled
-        Application.targetFrameRate = 120;
+        Application.targetFrameRate = 300;
     }
  
     private void Update()

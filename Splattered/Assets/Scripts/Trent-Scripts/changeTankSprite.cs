@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Script animator for the green tank decor
+//////////////////////////////////////////////////////////
+
 public class changeTankSprite : MonoBehaviour
 {
-
     public Animator anim;
     private int num;
 
@@ -20,7 +22,8 @@ public class changeTankSprite : MonoBehaviour
         else {
             num = 0;
         }
-        Debug.Log(num);
+        
+        // change to next sprite
         anim.SetInteger("changeTank", num);
     }
 }

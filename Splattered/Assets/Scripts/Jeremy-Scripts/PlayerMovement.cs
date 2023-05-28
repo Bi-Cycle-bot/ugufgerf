@@ -73,7 +73,6 @@ public class PlayerMovement : MonoBehaviour
     private bool isWallSliding;
     private bool isWalled;
     private float lastOnWall;
-    private bool isWallJumping;
     private float wallJumpingDirection;
     private float wallJumpingTime = 0.01f;
     private float wallJumpingCounter;
@@ -445,10 +444,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isWallSliding || lastOnWall >= 0.0f)
         {
-            isWallJumping = false;
             wallJumpingCounter = wallJumpingTime;
-
-            CancelInvoke(nameof(StopWallJumping));
         }
         else
         {
@@ -458,18 +454,10 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && wallJumpingCounter > 0.0f)
         {
             lastOnWall = 0;
-            isWallJumping = true;
             rb.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
             wallJumpingCounter = 0.0f;
             setAnimationTo("PlayerJumpUp");
-
-            Invoke(nameof(StopWallJumping), wallJumpingDuration);
         }
-    }
-
-    private void StopWallJumping()
-    {
-        isWallJumping = false;
     }
 
     public void setAnimationTo(string animationName)
