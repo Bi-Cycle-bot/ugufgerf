@@ -36,10 +36,10 @@ public class Bird_Behavior : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        canMove = Mathf.Abs(transform.position.x - target.transform.position.x) < data.targetMaxCoordinates.x &&
-                  Mathf.Abs(transform.position.y - target.transform.position.y) < data.targetMaxCoordinates.y &&
-                  Mathf.Abs(transform.position.x - target.transform.position.x) > data.targetMinCoordinates.x &&
-                  Mathf.Abs(transform.position.y - target.transform.position.y) > data.targetMinCoordinates.y;
+        canMove = (target.transform.position.x - transform.position.x) < data.targetMaxCoordinates.x &&
+                  (target.transform.position.y - transform.position.y) < data.targetMaxCoordinates.y &&
+                  (target.transform.position.x - transform.position.x) > data.targetMinCoordinates.x &&
+                  (target.transform.position.y - transform.position.y) > data.targetMinCoordinates.y;
         data.targetLocation = (Vector2)target.transform.position + new Vector2(0, data.heightAboveTarget);
         if(Vector2.Distance(data.targetLocation, (Vector2)transform.position) > data.slowDistance)
             data.isUsingSlowSpeed = false;
@@ -50,6 +50,7 @@ public class Bird_Behavior : MonoBehaviour
         if(Vector2.Distance(transform.position, target.transform.position) < data.attackRange && Time.time - lastGunShot > data.attackSpeed && canMove){
             lastGunShot = Time.time;
             GameObject bullet = Instantiate(data.bulletPrefab, transform.position, Quaternion.identity);
+            bullet.SetActive(true);
         }
         spriteRenderer.flipX = rb.velocity.x > 0;
     }

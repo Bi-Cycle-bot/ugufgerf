@@ -20,11 +20,20 @@ public class SoldierMovement : MonoBehaviour
     [HideInInspector] public float direction;
     [HideInInspector] public bool isUsingSlowSpeed;
     [SerializeField] private Transform groundCheck;
+    [SerializeField] private Transform wallCheckLeft;
+    [SerializeField] private Transform wallCheckRight;
+    [SerializeField] private Vector2 wallCheckSize;
     [SerializeField] private Vector2 groundCheckSize;
     [HideInInspector] public bool canMove;
     [HideInInspector] public bool isGrounded;
+    [HideInInspector] public bool isWalledLeft;
+    [HideInInspector] public bool isWalledRight;
+    private float lastJumpTime;
+    private float jumpCooldown = 0.04f;
+
 
     private float lastAttackTime;
+    private float lastLandTime;
 
     [HideInInspector] public float currentHealth;
     private bool isStunned;
@@ -46,33 +55,53 @@ public class SoldierMovement : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
         deathParticles = GameObject.FindGameObjectWithTag("EnemyDeathParticles").GetComponent<ParticleSystem>();
+        setJumpCooldown();
+        rb.gravityScale = 3.5f;
+        lastLandTime = Time.time;
     }
 
     void FixedUpdate()
     {
-        
+
         if (currentHealth <= 0)
         {
             deathParticles.transform.position = transform.position;
             deathParticles.Play();
             Destroy(gameObject);
         }
-        canMove = Mathf.Abs(transform.position.x - target.transform.position.x) < Data.targetMaxCoordinates.x &&
-                  Mathf.Abs(transform.position.y - target.transform.position.y) < Data.targetMaxCoordinates.y &&
-                  Mathf.Abs(transform.position.x - target.transform.position.x) > Data.targetMinCoordinates.x &&
-                  Mathf.Abs(transform.position.y - target.transform.position.y) > Data.targetMinCoordinates.y;
+        canMove = (target.transform.position.x - transform.position.x) < Data.targetMaxCoordinates.x &&
+                  (target.transform.position.y - transform.position.y) < Data.targetMaxCoordinates.y &&
+                  (target.transform.position.x - transform.position.x) > Data.targetMinCoordinates.x &&
+                  (target.transform.position.y - transform.position.y) > Data.targetMinCoordinates.y && lastLandTime + 0.5 < Time.time;
         if (Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0, LayerMask.GetMask("Ground")))
         {
+            if(!isGrounded) {
+                animator.SetTrigger("Land");
+                lastLandTime = Time.time;
+                setJumpCooldown();
+            }
             isGrounded = true;
         }
         else
             isGrounded = false;
-
+        if (Physics2D.OverlapBox(wallCheckLeft.position, wallCheckSize, 0, LayerMask.GetMask("Ground")))
+        {
+            isWalledLeft = true;
+        }
+        else
+            isWalledLeft = false;
+        if (Physics2D.OverlapBox(wallCheckRight.position, wallCheckSize, 0, LayerMask.GetMask("Ground")))
+        {
+            isWalledRight = true;
+        }
+        else
+            isWalledRight = false;
         direction = (target.transform.position.x - transform.position.x > 0) ? 1 : -1;
 
         if (!isStunned)
         {
             Run();
+            jump();
         }
 
         if (Physics2D.OverlapBox(transform.position, hitbox.size, 0, LayerMask.GetMask("Player")))
@@ -89,7 +118,8 @@ public class SoldierMovement : MonoBehaviour
 
     }
 
-    void Update() {
+    void Update()
+    {
         spriteRenderer.flipX = direction == 1 ? true : false;
     }
 
@@ -107,7 +137,7 @@ public class SoldierMovement : MonoBehaviour
         //     targetSpeed = 0.1f;
         //     Debug.Log("Soldier is close to player");
         // }
-        if(!canMove || Mathf.Abs(target.transform.position.x - transform.position.x) < 0.5f)
+        if (!canMove || Mathf.Abs(target.transform.position.x - transform.position.x) < 0.5f)
         {
             animator.SetTrigger("Stun");
             targetSpeed = 0;
@@ -132,6 +162,36 @@ public class SoldierMovement : MonoBehaviour
 
     }
 
+    public void jump()
+    {
+        if (isGrounded && !isStunned && (isWalledRight && direction >= 0 || isWalledLeft && direction <= 0 || target.transform.position.y > transform.position.y + 1) &&
+        Mathf.Abs(target.transform.position.x - transform.position.x) < Data.attackRange * 2 / 3&& Time.time - lastJumpTime > jumpCooldown && canMove)
+        {
+            rb.velocity = Vector2.zero;
+            rb.AddForce(Vector2.up * 20, ForceMode2D.Impulse);
+            lastJumpTime = Time.time;
+            setJumpCooldown();
+            animator.SetTrigger("Jump");
+        }
+    }
+
+    void OnCollisionStay2D(Collider2D other)
+    {
+        if (other.tag == "OneWayGround" && target.transform.position.y < transform.position.y - 0.3 && Mathf.Abs(transform.position.x - target.transform.position.x) < 0.5f)
+        {
+            Physics2D.IgnoreCollision(other, GetComponent<Collider2D>());
+            Debug.Log("Ignoring collision");
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D other)
+    {
+        // if (other.gameObject.tag == "OneWayPlatform")
+        // {
+        //     Physics2D.AllowCollision(other.collider, GetComponent<Collider2D>());
+        // }
+    }
+
     public void damageSoldier(float damage, Vector2 bulletDirection, float knockbackforce)
     {
         // rb.AddForce((bulletDirection).normalized * knockbackforce, ForceMode2D.Impulse);
@@ -150,5 +210,9 @@ public class SoldierMovement : MonoBehaviour
     }
 
 
+    private void setJumpCooldown()
+    {
+        jumpCooldown = Random.Range(0.9f, 1.8f);
+    }
 
 }
