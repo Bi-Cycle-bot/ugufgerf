@@ -128,8 +128,10 @@ public class RabbitBoss : Boss
 
     void FixedUpdate()
     {
-        isTouchingWallRight = Physics2D.OverlapBox(wallCheckRight.position, wallCheckSize, 0, LayerMask.GetMask("Ground")) || Physics2D.OverlapBox(wallCheckRight.position, wallCheckSize, 0, LayerMask.GetMask("Wall"));
-        isTouchingWallLeft = Physics2D.OverlapBox(wallCheckLeft.position, wallCheckSize, 0, LayerMask.GetMask("Ground")) || Physics2D.OverlapBox(wallCheckLeft.position, wallCheckSize, 0, LayerMask.GetMask("Wall"));
+        isTouchingWallRight = Physics2D.OverlapBox(wallCheckRight.position, wallCheckSize, 0, LayerMask.GetMask("Ground")) || Physics2D.OverlapBox(wallCheckRight.position, wallCheckSize, 0, LayerMask.GetMask("Wall")) ||
+            Physics2D.OverlapBox(wallCheckRight.position, wallCheckSize, 0, LayerMask.GetMask("StickyWall"));
+        isTouchingWallLeft = Physics2D.OverlapBox(wallCheckLeft.position, wallCheckSize, 0, LayerMask.GetMask("Ground")) || Physics2D.OverlapBox(wallCheckLeft.position, wallCheckSize, 0, LayerMask.GetMask("Wall")) ||
+            Physics2D.OverlapBox(wallCheckLeft.position, wallCheckSize, 0, LayerMask.GetMask("StickyWall"));
         isGrounded = Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0, LayerMask.GetMask("Ground"));
         Run();
         bool isAttacking = isJumping || isDashing || isShooting || choosingAttack;
@@ -142,7 +144,7 @@ public class RabbitBoss : Boss
 
     void Update()
     {
-        spriteRenderer.flipX = !isFacingRight();
+        spriteRenderer.flipX = direction < 0;
         if (currentHealth < 0)
             GameObject.Destroy(gameObject);
         if (Physics2D.OverlapBox(transform.position, hitbox.bounds.size, 0, LayerMask.GetMask("Player")))
@@ -175,7 +177,7 @@ public class RabbitBoss : Boss
     {
         isJumping = true;
         ChangeDirection();
-        while (!isTouchingWallLeft && !isFacingRight() || !isTouchingWallRight && isFacingRight())
+        while (!isTouchingWallLeft && direction < 0 || !isTouchingWallRight && direction > 0)
         {
             if (isGrounded)
             {
