@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5570752610873699509}
   m_Layer: 3
   m_Name: Glock
-  m_TagString: Untagged
+  m_TagString: Gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,6 +137,8 @@ MonoBehaviour:
   gunShotVolume: 0.355
   bolt: {fileID: 5570752612090008425}
   boltBackValue: -0.4
+  realReloadTime: 0
+  realChamberTime: 0
   gunAnims: {fileID: 5570752610873699509}
   spentShell: {fileID: 0}
   fakeBullet: {fileID: 0}
