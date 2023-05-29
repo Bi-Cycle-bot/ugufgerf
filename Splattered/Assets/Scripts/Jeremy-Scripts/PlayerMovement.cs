@@ -369,6 +369,29 @@ public class PlayerMovement : MonoBehaviour
         return false;
     }
 
+    public bool damagePlayer(float damage, float stunDuration, Vector2 knockbackDirectionOrPosition, float knockbackForce, bool usingDirectionalKnockback, float horizontalForceMultiplier)
+    {
+        if (!isInvincible)
+        {
+            health -= damage;
+            if (usingDirectionalKnockback)
+                directionalKnockback(knockbackDirectionOrPosition, knockbackForce, horizontalForceMultiplier);
+            else
+                knockbackFromPosition(knockbackDirectionOrPosition, knockbackForce);
+            this.stunDuration = stunDuration;
+            invincibilityDuration = Data.invincibilityTime;
+            spriteRenderer.color -= new Color(0, 0, 0, 0);
+            // Debug.Log("Player health = " + health);
+            isInvincible = true;
+            isStunned = true;
+            StartCoroutine(hitAnimation());
+            oscillations[0].reset();
+            oscillations[1].reset();
+            return true;
+        }
+        return false;
+    }
+
     public void increaseMaxHealth(int amount)
     {
         maxHealth += amount;

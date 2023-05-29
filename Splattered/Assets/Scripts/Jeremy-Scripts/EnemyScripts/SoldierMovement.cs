@@ -75,7 +75,8 @@ public class SoldierMovement : MonoBehaviour
                   (target.transform.position.y - transform.position.y) > Data.targetMinCoordinates.y && lastLandTime + 0.5 < Time.time;
         if (Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0, LayerMask.GetMask("Ground")))
         {
-            if(!isGrounded) {
+            if (!isGrounded)
+            {
                 animator.SetTrigger("Land");
                 lastLandTime = Time.time;
                 setJumpCooldown();
@@ -165,7 +166,7 @@ public class SoldierMovement : MonoBehaviour
     public void jump()
     {
         if (isGrounded && !isStunned && (isWalledRight && direction >= 0 || isWalledLeft && direction <= 0 || target.transform.position.y > transform.position.y + 1) &&
-        Mathf.Abs(target.transform.position.x - transform.position.x) < Data.attackRange * 2 / 3&& Time.time - lastJumpTime > jumpCooldown && canMove)
+        Mathf.Abs(target.transform.position.x - transform.position.x) < Data.attackRange * 2 / 3 && Time.time - lastJumpTime > jumpCooldown && canMove)
         {
             rb.velocity = Vector2.zero;
             rb.AddForce(Vector2.up * 20, ForceMode2D.Impulse);
@@ -175,21 +176,22 @@ public class SoldierMovement : MonoBehaviour
         }
     }
 
-    void OnCollisionStay2D(Collider2D other)
+    void OnCollisionStay2D(Collision2D other)
     {
-        if (other.tag == "OneWayGround" && target.transform.position.y < transform.position.y - 0.3 && Mathf.Abs(transform.position.x - target.transform.position.x) < 0.5f)
+        if (other.gameObject.tag == "OneWayGround" && target.transform.position.y < transform.position.y && Mathf.Abs(transform.position.x - target.transform.position.x) < 0.5f &&
+            Time.time - lastJumpTime > jumpCooldown && canMove)
         {
-            Physics2D.IgnoreCollision(other, GetComponent<Collider2D>());
-            Debug.Log("Ignoring collision");
+            Physics2D.IgnoreCollision(other.collider, hitbox, true);
+            StartCoroutine(addCollision(other));
+            lastJumpTime = Time.time;
+            setJumpCooldown();
         }
     }
 
-    void OnCollisionExit2D(Collision2D other)
+    IEnumerator addCollision(Collision2D other)
     {
-        // if (other.gameObject.tag == "OneWayPlatform")
-        // {
-        //     Physics2D.AllowCollision(other.collider, GetComponent<Collider2D>());
-        // }
+        yield return new WaitForSeconds(0.3f);
+        Physics2D.IgnoreCollision(other.collider, hitbox, false);
     }
 
     public void damageSoldier(float damage, Vector2 bulletDirection, float knockbackforce)
@@ -212,7 +214,7 @@ public class SoldierMovement : MonoBehaviour
 
     private void setJumpCooldown()
     {
-        jumpCooldown = Random.Range(0.9f, 1.8f);
+        jumpCooldown = Random.Range(1.5f, 2f);
     }
 
 }

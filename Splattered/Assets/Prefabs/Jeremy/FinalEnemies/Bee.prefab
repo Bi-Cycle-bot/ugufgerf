@@ -100,7 +100,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletVelocity: 9
-  baseDamage: 13.85
+  baseDamage: 3.77
+  stunTime: 0.7
+  knockbackForce: 10
+  horizontalForceMultiplier: 3
 --- !u!50 &7328264671533801857
 Rigidbody2D:
   serializedVersion: 4
@@ -111,7 +114,7 @@ Rigidbody2D:
   m_GameObject: {fileID: 1060871787319182370}
   m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
@@ -132,12 +135,12 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0038962662, y: 0}
-  m_Size: {x: 0.10353559, y: 0.140625}
-  m_Direction: 0
+  m_Offset: {x: 0.0029221782, y: 0.0045454204}
+  m_Size: {x: 0.26003543, y: 0.20419094}
+  m_Direction: 1
 --- !u!1 &3774666329453246216
 GameObject:
   m_ObjectHideFlags: 0
