@@ -39,6 +39,8 @@ public class RabbitBoss : Boss
     [Space(10)]
     [Header("Attack Settings")]
     public float timeBetweenAttacks = 0.4f;
+    public float timeBetweenAttacksMin = 0.3f;
+    public float timeBetweenAttacksMax = 0.6f;
 
 
     [Space(10)]
@@ -139,7 +141,8 @@ public class RabbitBoss : Boss
             StartCoroutine(chooseAttack());
         if (!isAttacking && (isTouchingWallLeft && !isFacingRight() || isTouchingWallRight && isFacingRight()))
             ChangeDirection();
-
+        if(choosingAttack && (isTouchingWallLeft || isTouchingWallRight))
+            ChangeDirection();
     }
 
     void Update()
@@ -255,6 +258,7 @@ public class RabbitBoss : Boss
     private IEnumerator chooseAttack()
     {
         choosingAttack = true;
+        setTimeBetweenAttacks();
         ChangeDirection();
         int attack = Random.Range(0, 3);
         yield return new WaitForSeconds(timeBetweenAttacks);
@@ -316,5 +320,10 @@ public class RabbitBoss : Boss
         {
             playerMovement.damagePlayer(dashAttackDamage, dashAttackStunDuration, rb.velocity, dashAttackKnockback, true);
         }
+    }
+
+    private void setTimeBetweenAttacks()
+    {
+        timeBetweenAttacks = Random.Range(timeBetweenAttacksMin, timeBetweenAttacksMax);
     }
 }
