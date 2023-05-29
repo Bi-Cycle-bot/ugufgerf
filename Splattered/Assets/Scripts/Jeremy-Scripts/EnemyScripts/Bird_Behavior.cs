@@ -50,7 +50,8 @@ public class Bird_Behavior : MonoBehaviour
         if(Vector2.Distance(transform.position, target.transform.position) < data.attackRange && Time.time - lastGunShot > data.attackSpeed && canMove){
             lastGunShot = Time.time;
             GameObject bullet = Instantiate(data.bulletPrefab, transform.position, Quaternion.identity);
-            bullet.SetActive(true);
+            if(bullet != null)
+                bullet.SetActive(true);
         }
         spriteRenderer.flipX = rb.velocity.x > 0;
     }
