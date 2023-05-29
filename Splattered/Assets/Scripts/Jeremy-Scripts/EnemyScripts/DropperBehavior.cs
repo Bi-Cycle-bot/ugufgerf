@@ -6,6 +6,7 @@ public class DropperBehavior : MonoBehaviour
 {
     [SerializeField] private GameObject target;
     [SerializeField] private GameObject dropObject;
+    private Animator animator;
     public enum Direction { Left, Right };
     #region Movement
     public float maxSpeed = 8;
@@ -14,6 +15,9 @@ public class DropperBehavior : MonoBehaviour
     public Vector2 targetMinCoordinates = new Vector2(-20, -20);
     public bool followTarget = false;
     private bool canMove;
+    public bool isWalledLeft;
+    public bool isWalledRight;
+    
     #endregion
 
     #region Drop
@@ -35,6 +39,7 @@ public class DropperBehavior : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player");
         currentHealth = maxHealth;
         lastDropTime = Time.time-10;
+        animator = GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -45,10 +50,22 @@ public class DropperBehavior : MonoBehaviour
             }
             Destroy(gameObject);
         }
-        canMove = Mathf.Abs(transform.position.x - target.transform.position.x) < targetMaxCoordinates.x &&
-                  Mathf.Abs(transform.position.y - target.transform.position.y) < targetMaxCoordinates.y &&
-                  Mathf.Abs(transform.position.x - target.transform.position.x) > targetMinCoordinates.x &&
-                  Mathf.Abs(transform.position.y - target.transform.position.y) > targetMinCoordinates.y;
+        if ((target.transform.position.x - transform.position.x) < targetMaxCoordinates.x &&
+            (target.transform.position.y - transform.position.y) < targetMaxCoordinates.y &&
+            (target.transform.position.x - transform.position.x) > targetMinCoordinates.x &&
+            (target.transform.position.y - transform.position.y) > targetMinCoordinates.y &&
+            (direction == Direction.Left && !isWalledLeft || direction == Direction.Right && !isWalledRight))
+        {
+            if(!canMove)
+                animator.SetTrigger("StartRunning");
+            canMove = true;
+        }
+        else
+        {
+            if(canMove)
+                animator.SetTrigger("StopRunning");
+            canMove = false;
+        }
         if (followTarget && target.transform.position.x > transform.position.x)
         {
             direction = Direction.Right;
@@ -57,7 +74,8 @@ public class DropperBehavior : MonoBehaviour
         {
             direction = Direction.Left;
         }
-        Move();
+        if(canMove)
+            Move();
 
     }
 
@@ -68,7 +86,7 @@ public class DropperBehavior : MonoBehaviour
 
     void Drop()
     {
-        if (transform.position.x - target.transform.position.x < dropRange &&
+        if (Mathf.Abs(transform.position.x - target.transform.position.x) < dropRange &&
             Time.time - lastDropTime > dropCooldown && canMove)
         {
             Instantiate(dropObject, transform.position, Quaternion.identity);

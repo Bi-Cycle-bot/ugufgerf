@@ -16,8 +16,8 @@ public class Bird_Data : MonoBehaviour
     [HideInInspector] public bool isUsingSlowSpeed;
     public float heightAboveTarget = 3;
     [HideInInspector] public Vector2 targetLocation;
-    public Vector2 targetMaxCoordinates = new Vector2(20, 20);
-    public Vector2 targetMinCoordinates = new Vector2(-20, -20);
+    public Vector2 targetMaxCoordinates = new Vector2(13, 6);
+    public Vector2 targetMinCoordinates = new Vector2(-13, -6);
     [Space(10)]
 
     [Header ("Attack")]

@@ -15,6 +15,7 @@ using UnityEngine;
 public enum FireMode {
     FullAuto,
     SemiAuto,
+    ShotGun,
 };
 
 public class GunSystem : Tool {
@@ -81,6 +82,8 @@ public class GunSystem : Tool {
     [Header("Optional Settings")]
     public Transform bolt; // Bolt that goes back when shooting
     public float boltBackValue; // Value the bolt will go back when shooting
+    public float realReloadTime; // If you want the gun to have ammo at a specified time instead of at the end of the full reload
+    public float realChamberTime; // If you want the gun to be chambered at a specified time instead of at the end of the full chamber
     public GunAnimations gunAnims; // Set this if you have a GunAnimation script setup for this gun
     public GameObject spentShell; // Shell that will come out every time you shoot
     public GameObject fakeBullet; // A fake bullet that will dissapear when the currentCapacity becomes 0; assumes it becomes active with an animation
@@ -136,6 +139,16 @@ public class GunSystem : Tool {
         // Mouse Down
         if (Input.GetKey(KeyCode.Mouse0)) {
             mouse0Down = true;
+
+            // If using a shotgun and has ammo, it will cancel the reload if there is one
+            if (reloading && currentCapacity > 0 && fireMode == FireMode.ShotGun) {
+                CancelInvoke();
+                if (gunAnims) {
+                    gunAnims.cancel();
+                }
+                reloading = false;
+                ready = true;
+            }
         } else {
             mouse0Down = false;
         }
@@ -148,6 +161,8 @@ public class GunSystem : Tool {
                     shoot(); // Semi-Auto
                 } else if ((fireMode == FireMode.FullAuto) && mouse0Down) {
                     shoot(); // Full-Auto
+                } else if ((fireMode == FireMode.ShotGun) && Input.GetKeyDown(KeyCode.Mouse0)) {
+                    shoot(); // Shotgun
                 }
             }
         }
@@ -186,7 +201,10 @@ public class GunSystem : Tool {
             mainGripRotOffset = Vector3.Lerp(mainGripRotOffset, new Vector3(0, 0, 0), recoilRelief / 2);
             if (bolt && !reloading && !chambering) {
                 bolt.localPosition = Vector3.Lerp(bolt.localPosition, new Vector3(0, 0, 0), .15f);
-            } 
+            }
+            if (ready && !reloading && !chambering && currentCapacity > 0 && needsChambering && fireMode == FireMode.ShotGun) {
+                chamber();
+            }
         }
         handManager.rightGripOffset = mainGripPosOffset;
         handManager.rightRotationOffset = mainGripRotOffset;
@@ -226,17 +244,27 @@ public class GunSystem : Tool {
     }
 
     // Equip
-
     public override void equip() {
+        // Just in case it didnt get a chance to start yet
         if (!started) {
             Start();
         }
+
+        // Auto-Reload
         if (((Time.time - lastEquipped) >= reloadTime) && unequipReload) {
             if (fakeBullet) {
                 fakeBullet.SetActive(true);
             }
-            currentCapacity = maxCapacity;
+            if (fireMode == FireMode.ShotGun) {
+                if (currentCapacity < maxCapacity) {
+                    currentCapacity++;
+                }
+            } else {
+                currentCapacity = maxCapacity;
+            }
         }
+
+        // Other Equip Stuff
         gameObject.SetActive(true);
         equipped = true;
         reset();
@@ -264,7 +292,11 @@ public class GunSystem : Tool {
         if (gunAnims) {
             gunAnims.chamber(chamberTime);
         }
-        Invoke("finishChamber", chamberTime);
+        float finishTime = chamberTime;
+        if (realChamberTime > 0.01) {
+            finishTime = realChamberTime;
+        }
+        Invoke("finishChamber", finishTime);
     }
 
     // Shoots one bullet
@@ -278,7 +310,7 @@ public class GunSystem : Tool {
             }
         }
         currentCapacity--;
-        if (currentCapacity == 0) { 
+        if (currentCapacity == 0 || fireMode == FireMode.ShotGun) { 
             needsChambering = true;
             if (fakeBullet) {
                 fakeBullet.SetActive(false);
@@ -308,20 +340,26 @@ public class GunSystem : Tool {
         handManager.resetRightOffsets();
         
         // Shooting Bullet
-        Vector3 position = fireObject.transform.position;
-        Vector3 endPosition = fireObject.transform.position + fireObject.transform.right * inaccuracyDistance;
-        float totalInaccuracy = currentBloom + inaccuracyBase;
-        endPosition += transform.up * Random.Range(totalInaccuracy * -1, totalInaccuracy);
-        GameObject newBullet = Instantiate(bulletPrefab, position, transform.rotation);
-        newBullet.transform.right = endPosition - newBullet.transform.position;
+        int repeat = 0;
+        if (fireMode == FireMode.ShotGun) {
+            repeat = 4;
+        }
+        for (int i = -1; i < repeat; i++) {
+            Vector3 position = fireObject.transform.position;
+            Vector3 endPosition = fireObject.transform.position + fireObject.transform.right * inaccuracyDistance;
+            float totalInaccuracy = currentBloom + inaccuracyBase;
+            endPosition += transform.up * Random.Range(totalInaccuracy * -1, totalInaccuracy);
+            GameObject newBullet = Instantiate(bulletPrefab, position, transform.rotation);
+            newBullet.transform.right = endPosition - newBullet.transform.position;
 
-        // Setting Bullet Values
-        Bullet bulletInfo = newBullet.GetComponent<Bullet>();
-        bulletInfo.baseDamage = baseDamage;
-        bulletInfo.bulletVelocity = bulletVelocity;
-        bulletInfo.headshotMultiplier = headshotMultiplier;
-        bulletInfo.bulletKnockback = bulletKnockback;
-
+            // Setting Bullet Values
+            Bullet bulletInfo = newBullet.GetComponent<Bullet>();
+            bulletInfo.baseDamage = baseDamage;
+            bulletInfo.bulletVelocity = bulletVelocity;
+            bulletInfo.headshotMultiplier = headshotMultiplier;
+            bulletInfo.bulletKnockback = bulletKnockback;
+        }
+        
         // Recoil
         recoilEnabled = true;
         Invoke("finishRecoil", recoilTime);
@@ -344,20 +382,33 @@ public class GunSystem : Tool {
             bolt.localPosition = new Vector3(0, 0, 0);
         }
         if (gunAnims) {
-            gunAnims.reload(reloadTime);
+            gunAnims.reload(reloadTime, (maxCapacity - currentCapacity));
         }
-        Invoke("finishReload", reloadTime);
+        float finishTime = reloadTime;
+        if (realReloadTime > 0.01) {
+            finishTime = realReloadTime;
+        }
+        Invoke("finishReload", finishTime);
     }
 
     // Used when reloading is done
     private void finishReload() {
-        currentCapacity = maxCapacity;
-        if (needsChambering && chamberBehavior) {
-            chamber();
-        } else {
-            ready = true;
-        }
         reloading = false;
+        if (fireMode == FireMode.ShotGun) {
+            currentCapacity++;
+            if (currentCapacity < maxCapacity) {
+                reload();
+            } else {
+                ready = true;
+            }
+        } else {
+            currentCapacity = maxCapacity;
+            if (needsChambering && chamberBehavior) {
+                chamber();
+            } else {
+                ready = true;
+            }
+        }
     }
 
     // Used for finishing recoil

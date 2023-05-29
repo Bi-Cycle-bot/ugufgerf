@@ -32,22 +32,23 @@ public class GunAnimations : MonoBehaviour {
     public List<keyframe> chamber_frames; // Make sure the last keyframe contains the default position/rotation values!
 
     // ---------------------- OTHER PRIVATE VARIABLES ----------------------
-    private GameObject player; // Player Game Object
-    private HandManager handManager; // The hand manager this keyframe is acting upon
-    private AudioSource soundEmitter; // Place to have audio
-    private Transform gunTrans; // Gun of these animations
-    private GameObject leftHand; // Left hand of the player
+    protected GameObject player; // Player Game Object
+    protected HandManager handManager; // The hand manager this keyframe is acting upon
+    protected AudioSource soundEmitter; // Place to have audio
+    protected Transform gunTrans; // Gun of these animations
+    protected GameObject leftHand; // Left hand of the player
 
     // Animation Variables
-    private float currentTime = 0;
-    private float animationTime = 1;
-    private Vector3 startPos;
-    private Vector3 startRot;
-    private int currentGoal = 0;
+    protected float currentTime = 0;
+    protected float animationTime = 1;
+    protected Vector3 startPos;
+    protected Vector3 startRot;
+    protected int currentGoal = 0;
 
-    private Transform attachedObject;
-    private bool playing = false;
-    private List<keyframe> currentFrames;
+    protected Transform attachedObject;
+    protected bool playing = false;
+    protected List<keyframe> currentFrames;
+    protected int ammoNeeded = 0;
 
     // Start is called before the first frame update
     void Start() {
@@ -146,10 +147,11 @@ public class GunAnimations : MonoBehaviour {
     }
 
     // Do the reload animation
-    public void reload(float reloadTime) {
+    public void reload(float reloadTime, int amountNeeded) {
         reset();
         animationTime = reloadTime;
         currentFrames = reload_frames;
+        ammoNeeded = amountNeeded;
     }
 
     // Do the chamber animation
@@ -159,7 +161,7 @@ public class GunAnimations : MonoBehaviour {
         currentFrames = chamber_frames;
     }
 
-    private void reset() {
+    protected void reset() {
         playing = true;
         currentGoal = 0;
         currentTime = 0;
