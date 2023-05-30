@@ -33,6 +33,7 @@ public class DropperBehavior : MonoBehaviour
     [HideInInspector] public float currentHealth;
     #endregion
     private Rigidbody2D rb;
+    private Collider2D hitbox;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -40,6 +41,7 @@ public class DropperBehavior : MonoBehaviour
         currentHealth = maxHealth;
         lastDropTime = Time.time-10;
         animator = GetComponent<Animator>();
+        hitbox = GetComponent<Collider2D>();
     }
 
     void FixedUpdate()
@@ -101,7 +103,9 @@ public class DropperBehavior : MonoBehaviour
     void Move()
     {
         float targetSpeed = Mathf.Abs(transform.position.x - target.transform.position.x) < 0.15f ? 0 : maxSpeed;
-        if (canMove)
+        if (canMove && !(hitbox.IsTouchingLayers(LayerMask.GetMask("Ground")) ||
+            hitbox.IsTouchingLayers(LayerMask.GetMask("Wall")) ||
+            hitbox.IsTouchingLayers(LayerMask.GetMask("StickyWall"))))
             rb.velocity = (direction == Direction.Left) ? Vector2.left * targetSpeed : Vector2.right * targetSpeed;
         else
             rb.velocity = Vector2.zero;

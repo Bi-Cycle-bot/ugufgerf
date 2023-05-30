@@ -14,12 +14,12 @@ public class SpawnPoint : MonoBehaviour
 
     void Start() {
         checkpoint = 0;
-        enemies = Instantiate(enemies, Vector3.one, Quaternion.identity);
+        currentEnemies = Instantiate(enemies, Vector3.zero, Quaternion.identity);
     }
 
     public void respawnAtCheckpoint() {
         player.transform.position = spawnpoint[checkpoint].position;
         Destroy(currentEnemies);
-        enemies = Instantiate(enemies, Vector3.one, Quaternion.identity);
+        currentEnemies = Instantiate(enemies, Vector3.zero, Quaternion.identity);
     }
 }
