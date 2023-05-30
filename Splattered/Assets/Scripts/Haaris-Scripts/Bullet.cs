@@ -17,6 +17,8 @@ public class Bullet : MonoBehaviour {
     public float bulletKnockback = 1f; // Knockback of the bullet
     public bool isRocket = false; // If its a rocket
     public GameObject explosion;
+    public GameObject genericHitParticle;
+    public GameObject enemyHitParticle;
     
 
     // Debounces
@@ -36,18 +38,35 @@ public class Bullet : MonoBehaviour {
 
     // Colliding
     void checkCollision(Collider2D other) {
+        bool enemyHit = false;
         if (other.gameObject.layer == 9) {
             SoldierMovement mainScript = other.gameObject.GetComponent<SoldierMovement>();
             mainScript.damageSoldier(baseDamage, transform.right, bulletKnockback);
+            enemyHit = true;
         } else if (other.gameObject.layer == 13) {
             DropperBehavior mainScript = other.gameObject.GetComponent<DropperBehavior>();
             mainScript.DamageDropper(baseDamage);
+            enemyHit = true;
         } else if (other.gameObject.layer == 8) {
             Bird_Behavior mainScript = other.gameObject.GetComponent<Bird_Behavior>();
             mainScript.DamageBird(baseDamage);
+            enemyHit = true;
         } else if (other.gameObject.layer == 14) {
             Boss mainScript = other.gameObject.GetComponent<Boss>();
             mainScript.DamageBoss(baseDamage);
+            enemyHit = true;
+        } else {
+            if (genericHitParticle) {
+                GameObject newEffect = GameObject.Instantiate(genericHitParticle, transform.position, transform.rotation);
+                newEffect.GetComponent<ParticleSystem>().Play();
+                Destroy(newEffect, 3);
+            }
+        }
+
+        if (enemyHit && enemyHitParticle) {
+            GameObject newEffect = GameObject.Instantiate(enemyHitParticle, transform.position, transform.rotation);
+            newEffect.GetComponent<ParticleSystem>().Play();
+            Destroy(newEffect, 3);
         }
     }
 
