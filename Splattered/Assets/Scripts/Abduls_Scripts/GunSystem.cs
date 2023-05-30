@@ -88,6 +88,8 @@ public class GunSystem : Tool {
     public GameObject spentShell; // Shell that will come out every time you shoot
     public GameObject fakeBullet; // A fake bullet that will dissapear when the currentCapacity becomes 0; assumes it becomes active with an animation
     public ParticleSystem shotParticle; // Particles for the gun shot
+    public GameObject genericHitParticle; // Particle for when a bullet hits the ground or the wall
+    public GameObject enemyHitParticle; // Particle for when a bullet hits an enemy
 
     // ---------------------- PRIVATE VARIABLES ----------------------
     // Gun Status
@@ -362,6 +364,8 @@ public class GunSystem : Tool {
             bulletInfo.bulletVelocity = bulletVelocity;
             bulletInfo.headshotMultiplier = headshotMultiplier;
             bulletInfo.bulletKnockback = bulletKnockback;
+            bulletInfo.genericHitParticle = genericHitParticle;
+            bulletInfo.enemyHitParticle = enemyHitParticle;
         }
         
         // Recoil
