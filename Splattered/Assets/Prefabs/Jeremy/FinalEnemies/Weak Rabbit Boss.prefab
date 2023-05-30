@@ -152,7 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   playerMovement: {fileID: 0}
-  maxHealth: 40
+  maxHealth: 47
   currentHealth: 300
   bullet: {fileID: 7062735025051592971}
   bunnyExplosion: {fileID: 0}
@@ -182,7 +182,7 @@ MonoBehaviour:
   jumpAttackDirectDamage: 0.5
   jumpAttackDirectKnockback: 4
   jumpAttackDirectStunDuration: 0.1
-  jumpAttackExplosionDamage: 3
+  jumpAttackExplosionDamage: 4
   jumpAttackExplosionKnockback: 5
   jumpAttackExplosionStunDuration: 0.2
   jumpAttackHeight: 5
@@ -192,7 +192,7 @@ MonoBehaviour:
   jumpAttackGravityStrength: -24.414062
   jumpAttackGravityScale: 2.4886913
   isJumping: 0
-  dashAttackDamage: 3
+  dashAttackDamage: 4
   dashAttackKnockback: 4
   dashAttackStunDuration: 0.1
   dashAttackSpeed: 15

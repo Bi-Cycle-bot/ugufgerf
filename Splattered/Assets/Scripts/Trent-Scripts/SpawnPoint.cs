@@ -6,16 +6,20 @@ public class SpawnPoint : MonoBehaviour
 {
     
     public GameObject player;
+    public GameObject enemies;
+    private GameObject currentEnemies;
     public Transform[] spawnpoint = new Transform[0];
     [HideInInspector]
     public int checkpoint;
 
     void Start() {
         checkpoint = 0;
+        currentEnemies = Instantiate(enemies, Vector3.zero, Quaternion.identity);
     }
 
     public void respawnAtCheckpoint() {
-        Debug.Log(checkpoint);
         player.transform.position = spawnpoint[checkpoint].position;
+        Destroy(currentEnemies);
+        currentEnemies = Instantiate(enemies, Vector3.zero, Quaternion.identity);
     }
 }
