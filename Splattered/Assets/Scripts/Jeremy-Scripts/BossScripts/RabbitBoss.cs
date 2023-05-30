@@ -326,4 +326,10 @@ public class RabbitBoss : Boss
     {
         timeBetweenAttacks = Random.Range(timeBetweenAttacksMin, timeBetweenAttacksMax);
     }
+
+    public void despawn() {
+        if (currentHealth >= 0) {
+            Destroy(gameObject);
+        }
+    }
 }

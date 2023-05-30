@@ -49,4 +49,14 @@ public class SpawnBoss : MonoBehaviour
     bool trueCondition(bool value) {
         return value == true;
     }
+
+    public void DespawnBosses() {
+        if (spawned == true) {
+            for (int i = 0; i < bossCopy.Length; i++) {
+                bossCopy[i].despawn();
+            }
+
+            Start();
+        }
+    }
 }

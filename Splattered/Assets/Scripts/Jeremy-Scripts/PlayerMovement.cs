@@ -12,6 +12,10 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D rb;
     BoxCollider2D hitbox;
     SpawnPoint spawnPoint;
+    SpawnBoss spawnFirstBoss;
+    SpawnBoss spawnFinalBoss;
+    Door firstBossDoor;
+    Door floor4Door;
     public PlayerMovementData Data;
     private SpriteRenderer spriteRenderer;
     private Oscillation[] oscillations;
@@ -94,6 +98,10 @@ public class PlayerMovement : MonoBehaviour
         hitbox = GetComponent<BoxCollider2D>();
         Data = GetComponent<PlayerMovementData>();
         spawnPoint = GetComponent<SpawnPoint>();
+        spawnFirstBoss = GameObject.Find("First Boss Spawner").GetComponent<SpawnBoss>();
+        spawnFinalBoss = GameObject.Find("Final Boss Spawner").GetComponent<SpawnBoss>();
+        firstBossDoor = GameObject.Find("First Boss Doors").GetComponent<Door>();
+        floor4Door = GameObject.Find("Floor 4 Starting Door").GetComponent<Door>();
         isSliding = false;
         isJumping = false;
         isFacingRight = true;
@@ -229,7 +237,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (health <= 0)
         {
+            spawnFirstBoss.DespawnBosses();
+            spawnFinalBoss.DespawnBosses();
             spawnPoint.respawnAtCheckpoint();
+            firstBossDoor.reset();
+            floor4Door.reset();
             health = maxHealth;
         }
         if(!isGrounded)

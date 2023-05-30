@@ -17,6 +17,7 @@ public class Door : MonoBehaviour
 
     [HideInInspector] public Vector2 endMinXY;
     [HideInInspector] public Vector2 endMaxXY;
+    [HideInInspector] public bool playerDied;
 
     void Start() {
         if (isClosed == true) {
@@ -36,12 +37,16 @@ public class Door : MonoBehaviour
             }
         }
 
-        if ((player.transform.position.x > endMinXY[0] && player.transform.position.x < endMaxXY[0]) && (player.transform.position.y > endMinXY[1] && player.transform.position.y < endMaxXY[1])) {
+        if (((player.transform.position.x > endMinXY[0] && player.transform.position.x < endMaxXY[0]) && (player.transform.position.y > endMinXY[1] && player.transform.position.y < endMaxXY[1]))) {
             if (isClosed == true) {
                 door.SetActive(true);
             } else { 
                 door.SetActive(false);
             }
         }
+    }
+
+    public void reset() {
+        Start();
     }
 }

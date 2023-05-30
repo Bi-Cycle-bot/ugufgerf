@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class HealthPickup : MonoBehaviour
 {
-    public PlayerMovement player;
+    private PlayerMovement player;
     public int healAmount;
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "Player")
         {
-            Destroy(gameObject);
+
+            if (player == null) {
+                player = collision.gameObject.GetComponent<PlayerMovement>();
+            }
             player.heal(healAmount);
+            Destroy(gameObject);
         }
     }
 }
