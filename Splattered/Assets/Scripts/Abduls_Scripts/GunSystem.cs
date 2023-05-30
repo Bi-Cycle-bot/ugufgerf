@@ -87,6 +87,7 @@ public class GunSystem : Tool {
     public GunAnimations gunAnims; // Set this if you have a GunAnimation script setup for this gun
     public GameObject spentShell; // Shell that will come out every time you shoot
     public GameObject fakeBullet; // A fake bullet that will dissapear when the currentCapacity becomes 0; assumes it becomes active with an animation
+    public ParticleSystem shotParticle; // Particles for the gun shot
 
     // ---------------------- PRIVATE VARIABLES ----------------------
     // Gun Status
@@ -316,6 +317,9 @@ public class GunSystem : Tool {
                 fakeBullet.SetActive(false);
             }
         }
+        if (shotParticle) {
+            shotParticle.Play();
+        }
 
         // Setting Values
         lastShotTime = 0;
@@ -326,7 +330,7 @@ public class GunSystem : Tool {
         if (bolt) {
             bolt.localPosition = new Vector3(boltBackValue, 0, 0);
         }
-        if (spentShell) {
+        if (spentShell && (fireMode != FireMode.ShotGun)) {
             GameObject newShell = GameObject.Instantiate(spentShell, transform.position, transform.rotation);
             Destroy(newShell, 5);
         }
@@ -418,6 +422,10 @@ public class GunSystem : Tool {
 
     // Used for finishing chambering
     private void finishChamber() {
+        if (spentShell && (fireMode == FireMode.ShotGun)) {
+            GameObject newShell = GameObject.Instantiate(spentShell, transform.position, transform.rotation);
+            Destroy(newShell, 5);
+        }
         needsChambering = false;
         chambering = false;
         ready = true;
