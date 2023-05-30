@@ -80,6 +80,8 @@ public class Bird_Behavior : MonoBehaviour
         float speedDifference = data.targetSpeed - rb.velocity.magnitude;
         float movement = speedDifference * accelerationRate;
         rb.velocity = rb.velocity.magnitude * direction;
+        if(rb.velocity.magnitude > data.maxSpeed)
+            rb.velocity = data.maxSpeed * direction;
         rb.AddForce(movement * direction, ForceMode2D.Force);
         #endregion
         

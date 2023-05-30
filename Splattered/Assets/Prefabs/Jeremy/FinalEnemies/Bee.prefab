@@ -267,7 +267,7 @@ MonoBehaviour:
   isUsingSlowSpeed: 0
   heightAboveTarget: 3
   targetLocation: {x: 0, y: 0}
-  targetMaxCoordinates: {x: 13, y: 6}
+  targetMaxCoordinates: {x: 13, y: 8}
   targetMinCoordinates: {x: -13, y: -6}
   attackRange: 12
   attackSpeed: 2
