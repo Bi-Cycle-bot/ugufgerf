@@ -186,7 +186,7 @@ MonoBehaviour:
   knockbackForce: 20
   knockbackDirection: {x: 0, y: 0}
   hasDirectionalKnockback: 0
-  maxHealth: 20
+  maxHealth: 25
   hitStunDuration: 0.1
 --- !u!114 &7775146671806627867
 MonoBehaviour:

@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletVelocity: 9
-  baseDamage: 3.77
+  baseDamage: 7
   stunTime: 0.7
   knockbackForce: 10
   horizontalForceMultiplier: 3
@@ -272,7 +272,7 @@ MonoBehaviour:
   attackRange: 12
   attackSpeed: 2
   bulletPrefab: {fileID: 1060871787319182370}
-  maxHealth: 10
+  maxHealth: 15
 --- !u!50 &3774666329453246218
 Rigidbody2D:
   serializedVersion: 4
