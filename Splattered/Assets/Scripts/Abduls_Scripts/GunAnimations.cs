@@ -50,6 +50,8 @@ public class GunAnimations : MonoBehaviour {
     protected List<keyframe> currentFrames;
     protected int ammoNeeded = 0;
 
+    private bool started = false;
+
     // Start is called before the first frame update
     void Start() {
         // Setting values
@@ -58,6 +60,7 @@ public class GunAnimations : MonoBehaviour {
         soundEmitter = player.GetComponent<AudioSource>();
         gunTrans = GetComponent<Transform>();
         leftHand = GameObject.Find("/Player/LeftHand");
+        started = true;
     }
 
     // Update is called once per frame
@@ -135,6 +138,9 @@ public class GunAnimations : MonoBehaviour {
 
     // Cancels all animations
     public void cancel() {
+        if (!started) {
+            Start();
+        }
         playing = false;
         currentFrames = null;
         if (attachedObject) {
