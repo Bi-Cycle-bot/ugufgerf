@@ -15,6 +15,7 @@ TagManager:
   - Gun
   - EnemyDeathParticles
   - Boss
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -33,7 +34,7 @@ TagManager:
   - Boss
   - StickyWall
   - Wall
-  - 
+  - Penguin
   - 
   - 
   - 
