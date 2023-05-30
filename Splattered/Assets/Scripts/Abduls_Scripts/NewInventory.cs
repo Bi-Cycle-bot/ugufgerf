@@ -38,6 +38,20 @@ public class NewInventory : MonoBehaviour
                 }
             }
         }
+
+        if (Input.mouseScrollDelta.y < 0) {
+            int newTool = currentlyEquipped - 1;
+            if (newTool < 1) {
+                newTool = toolSize;
+            }
+            equipTool(newTool);
+        } else if (Input.mouseScrollDelta.y > 0) {
+            int newTool = currentlyEquipped + 1;
+            if (newTool > toolSize) {
+                newTool = 1;
+            }
+            equipTool(newTool);
+        }
     }
 
     private void equipTool(int tool) {
