@@ -15,7 +15,6 @@ public class SpawnPoint : MonoBehaviour
     }
 
     public void respawnAtCheckpoint() {
-        Debug.Log(checkpoint);
         player.transform.position = spawnpoint[checkpoint].position;
     }
 }
