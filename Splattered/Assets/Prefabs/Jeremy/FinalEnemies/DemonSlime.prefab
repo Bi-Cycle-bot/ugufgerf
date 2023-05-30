@@ -177,7 +177,7 @@ MonoBehaviour:
   accelAmount: 0.25
   slowDistance: 3
   isUsingSlowSpeed: 0
-  targetMaxCoordinates: {x: 21, y: 21}
+  targetMaxCoordinates: {x: 21, y: 9}
   targetMinCoordinates: {x: -21, y: -6}
   attackRange: 3
   attackSpeed: 2
