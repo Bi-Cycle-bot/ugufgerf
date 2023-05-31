@@ -145,6 +145,7 @@ public class GunAnimations : MonoBehaviour {
         currentFrames = null;
         if (attachedObject) {
             attachedObject.parent = gunTrans;
+            attachedObject.gameObject.SetActive(true);
             attachedObject.localPosition = new Vector3(0, 0, 0);
             attachedObject.localEulerAngles = new Vector3(0, 0, 0);
         }

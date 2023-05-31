@@ -55,7 +55,7 @@ public class HandManager : MonoBehaviour {
         rightHand.position += yAdjust * rightHand.up;
 
         // Raycast to check whats in front if the hand is getting blocked
-        LayerMask mask = LayerMask.GetMask("Ground", "Wall");
+        LayerMask mask = LayerMask.GetMask("Ground", "Wall", "StickyWall", "");
         Vector3 rayOrigin = transform.position; //+ yAdjust * rightHand.up;
         float rayDist = getScaledX(newCenterDist) + currToolLength;
 
