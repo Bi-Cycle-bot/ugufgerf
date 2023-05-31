@@ -131,6 +131,19 @@ public class RabbitBoss : Boss
 
     void FixedUpdate()
     {
+        if (isBaby)
+        {
+            bool canMove =  (target.transform.position.x - transform.position.x) < 20 &&
+                            (target.transform.position.y - transform.position.y) < 9 &&
+                            (target.transform.position.x - transform.position.x) > -20 &&
+                            (target.transform.position.y - transform.position.y) > -6;
+            if(!canMove)
+            {
+                rb.velocity = new Vector2(0, 0);
+                StopAllCoroutines();
+                return;
+            }
+        }
         isTouchingWallRight = Physics2D.OverlapBox(wallCheckRight.position, wallCheckSize, 0, LayerMask.GetMask("Ground")) || Physics2D.OverlapBox(wallCheckRight.position, wallCheckSize, 0, LayerMask.GetMask("Wall")) ||
             Physics2D.OverlapBox(wallCheckRight.position, wallCheckSize, 0, LayerMask.GetMask("StickyWall"));
         isTouchingWallLeft = Physics2D.OverlapBox(wallCheckLeft.position, wallCheckSize, 0, LayerMask.GetMask("Ground")) || Physics2D.OverlapBox(wallCheckLeft.position, wallCheckSize, 0, LayerMask.GetMask("Wall")) ||
@@ -143,13 +156,13 @@ public class RabbitBoss : Boss
         if (!isAttacking && (isTouchingWallLeft && !isFacingRight() || isTouchingWallRight && isFacingRight()))
         {
             ChangeDirection();
-            if(isBaby && isGrounded)
+            if (isBaby && isGrounded)
                 Jump();
         }
-        if(choosingAttack && (isTouchingWallLeft || isTouchingWallRight))
+        if (choosingAttack && (isTouchingWallLeft || isTouchingWallRight))
         {
             ChangeDirection();
-            if (isBaby&&isGrounded)
+            if (isBaby && isGrounded)
                 Jump();
         }
     }
@@ -212,7 +225,7 @@ public class RabbitBoss : Boss
                 StartCoroutine(bunnyExplosion.Explode());
                 doNotRun = true;
                 yield return new WaitForSeconds(0.1f);
-                if(isBaby)
+                if (isBaby)
                     StopRunning(timeBetweenJumps);
             }
             else
@@ -233,7 +246,7 @@ public class RabbitBoss : Boss
         isShooting = true;
         for (int i = 0; i < shotsToFire; i++)
         {
-            GameObject NewBullet =Instantiate(bullet, transform.position, Quaternion.identity);
+            GameObject NewBullet = Instantiate(bullet, transform.position, Quaternion.identity);
             NewBullet.SetActive(true);
             yield return new WaitForSeconds(0.1f);
         }
@@ -258,7 +271,7 @@ public class RabbitBoss : Boss
         {
             DashAttackDirection = targetPosition - (Vector2)transform.position;
             DashAttackDirection.Normalize();
-            if(isBaby)
+            if (isBaby)
                 DashAttackDirection.x *= -1;
             rb.velocity = DashAttackDirection * dashAttackSpeed;
             yield return null;
@@ -342,8 +355,10 @@ public class RabbitBoss : Boss
         timeBetweenAttacks = Random.Range(timeBetweenAttacksMin, timeBetweenAttacksMax);
     }
 
-    public void despawn() {
-        if (currentHealth >= 0) {
+    public void despawn()
+    {
+        if (currentHealth >= 0)
+        {
             Destroy(gameObject);
         }
     }

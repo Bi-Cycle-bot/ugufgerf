@@ -117,7 +117,7 @@ public class SoldierMovement : MonoBehaviour
         if (Time.time - lastAttackTime > Data.attackSpeed && canMove)
         {
             lastAttackTime = Time.time;
-            GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+            // GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
         }
 
 

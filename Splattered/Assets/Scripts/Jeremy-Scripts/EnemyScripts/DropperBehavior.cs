@@ -34,6 +34,7 @@ public class DropperBehavior : MonoBehaviour
     #endregion
     private Rigidbody2D rb;
     private Collider2D hitbox;
+    private SpriteRenderer spriteRenderer;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -42,6 +43,7 @@ public class DropperBehavior : MonoBehaviour
         lastDropTime = Time.time-10;
         animator = GetComponent<Animator>();
         hitbox = GetComponent<Collider2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void FixedUpdate()
@@ -84,6 +86,7 @@ public class DropperBehavior : MonoBehaviour
     void Update()
     {
         Drop();
+        spriteRenderer.flipX = direction == Direction.Right;
     }
 
     void Drop()

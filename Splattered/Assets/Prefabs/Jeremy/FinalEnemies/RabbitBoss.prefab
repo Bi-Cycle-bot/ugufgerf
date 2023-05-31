@@ -202,8 +202,8 @@ MonoBehaviour:
   gunAttackKnockback: 5
   gunAttackStunDuration: 0.1
   gunAttackSpeed: 30
-  mininumShots: 4
-  maximumShots: 30
+  mininumShots: 8
+  maximumShots: 20
   isShooting: 0
 --- !u!95 &8640862847149330794
 Animator:

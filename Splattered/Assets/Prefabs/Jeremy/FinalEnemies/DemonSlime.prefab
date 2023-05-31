@@ -181,7 +181,7 @@ MonoBehaviour:
   targetMinCoordinates: {x: -21, y: -6}
   attackRange: 3
   attackSpeed: 2
-  attackDamage: 6.4
+  attackDamage: 7
   attackStunDuration: 0.2
   knockbackForce: 20
   knockbackDirection: {x: 0, y: 0}
