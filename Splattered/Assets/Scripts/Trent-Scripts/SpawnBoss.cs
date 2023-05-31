@@ -34,7 +34,7 @@ public class SpawnBoss : MonoBehaviour
         }
 
         for (int i = 0; i < bossCopy.Length; i++) {
-            if (bossCopy[i] != null && bossCopy[i].currentHealth < 0) {
+            if (bossCopy[i] != null && bossCopy[i].currentHealth <= 0) {
                 bossCopyBool[i] = true;
             }
         }
@@ -42,8 +42,6 @@ public class SpawnBoss : MonoBehaviour
         if (Array.TrueForAll(bossCopyBool, trueCondition)) {
             door.SetActive(false);
         }
-
-
     }
 
     bool trueCondition(bool value) {
