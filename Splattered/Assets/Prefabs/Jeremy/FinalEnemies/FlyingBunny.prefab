@@ -167,6 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   dropObject: {fileID: 1496278412758659650, guid: ccf16b7f4cf2a6649b99bd2209382af4, type: 3}
+  floatingDamage: {fileID: 7749820967733343912, guid: 74f867c0fbc4a7e48a7e1f34e400d5bd, type: 3}
   maxSpeed: 8
   direction: 0
   targetMaxCoordinates: {x: 20, y: 8}

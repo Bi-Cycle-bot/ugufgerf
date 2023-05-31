@@ -5,6 +5,7 @@ using TMPro;
 
 public class DamagePopUp : MonoBehaviour
 {
+    private TextMeshPro textMesh;
 
     public static DamagePopUp Create(Vector3 position, int damageAmount) {
 
@@ -15,7 +16,6 @@ public class DamagePopUp : MonoBehaviour
 
         return popUp;
     }
-    private TextMeshPro textMesh;
 
     public void Awake(){
         textMesh = transform.GetComponent<TextMeshPro>();
