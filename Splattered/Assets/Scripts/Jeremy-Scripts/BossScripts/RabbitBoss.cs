@@ -194,7 +194,7 @@ public class RabbitBoss : Boss
     {
         currentHealth -= damageAmount;
         textMesh.SetText(damageAmount.ToString());
-        GameObject newDamage = Instantiate(floatingDamage, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z) , transform.rotation);
+        GameObject newDamage = Instantiate(floatingDamage, new Vector3(transform.position.x + Random.Range(-0.2f, 0.2f), transform.position.y + Random.Range(1f, 1.2f), transform.position.z) , transform.rotation);
         //Instantiate(floatingDamage, new Vector3(transform.position.x, transform.position.y + 2, transform.position.z) , transform.rotation);
         //StartCoroutine(deleteFDamage());
         Destroy(newDamage, 3);
