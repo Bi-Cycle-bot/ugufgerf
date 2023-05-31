@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Bird_Behavior : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] public GameObject target;
+    [SerializeField] public GameObject floatingDamage;
+    private TextMeshPro textMesh;
     Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     CircleCollider2D hitbox;
@@ -27,6 +30,7 @@ public class Bird_Behavior : MonoBehaviour
         currentHealth = data.maxHealth;
         target = GameObject.FindGameObjectWithTag("Player");
         spriteRenderer = GetComponent<SpriteRenderer>();
+        textMesh = floatingDamage.GetComponent<TextMeshPro>();
     }
 
     // Update is called once per frame
@@ -89,9 +93,13 @@ public class Bird_Behavior : MonoBehaviour
 
     public void DamageBird(float damage){
         currentHealth -= damage;
+        textMesh.SetText(damage.ToString());
+        Instantiate(floatingDamage, transform.position, Quaternion.identity);
     }
     public void DamageBird(float damage, Vector2 knockback){
         currentHealth -= damage;
         rb.AddForce(knockback, ForceMode2D.Impulse);
+        textMesh.SetText(damage.ToString());
+        Instantiate(floatingDamage, transform.position, Quaternion.identity);
     }
 }

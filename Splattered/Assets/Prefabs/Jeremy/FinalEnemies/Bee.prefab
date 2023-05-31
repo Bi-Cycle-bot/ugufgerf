@@ -244,6 +244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  floatingDamage: {fileID: 7749820967733343912, guid: 74f867c0fbc4a7e48a7e1f34e400d5bd, type: 3}
 --- !u!114 &3774666329453246219
 MonoBehaviour:
   m_ObjectHideFlags: 0

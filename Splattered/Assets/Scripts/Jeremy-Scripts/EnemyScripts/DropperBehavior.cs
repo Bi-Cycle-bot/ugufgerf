@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class DropperBehavior : MonoBehaviour
 {
     [SerializeField] private GameObject target;
     [SerializeField] private GameObject dropObject;
+    [SerializeField] public GameObject floatingDamage;
+    private TextMeshPro textMesh;
     private Animator animator;
     public enum Direction { Left, Right };
     #region Movement
@@ -43,7 +46,8 @@ public class DropperBehavior : MonoBehaviour
         lastDropTime = Time.time-10;
         animator = GetComponent<Animator>();
         hitbox = GetComponent<Collider2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        textMesh = floatingDamage.GetComponent<TextMeshPro>();
+
     }
 
     void FixedUpdate()
@@ -117,5 +121,7 @@ public class DropperBehavior : MonoBehaviour
     public void DamageDropper(float damage)
     {
         currentHealth -= damage;
+        textMesh.SetText(damage.ToString());
+        Instantiate(floatingDamage, transform.position, Quaternion.identity);
     }
 }

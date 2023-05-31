@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 
 public class SoldierMovement : MonoBehaviour
 {
     [SerializeField] public GameObject target;
     [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] public GameObject floatingDamage;
+    private TextMeshPro textMesh;
     private ParticleSystem deathParticles;
     GameObject deathParticlesInstance;
     private SpriteRenderer spriteRenderer;
@@ -15,6 +17,7 @@ public class SoldierMovement : MonoBehaviour
     Rigidbody2D rb;
     BoxCollider2D hitbox;
     private SoldierData Data;
+    
 
     [HideInInspector] public Vector2 targetLocation;
     [HideInInspector] public float direction;
@@ -58,6 +61,7 @@ public class SoldierMovement : MonoBehaviour
         setJumpCooldown();
         rb.gravityScale = 3.5f;
         lastLandTime = Time.time;
+        textMesh = floatingDamage.GetComponent<TextMeshPro>();
     }
 
     void FixedUpdate()
@@ -205,6 +209,10 @@ public class SoldierMovement : MonoBehaviour
         rb.AddForce(bulletDirection * knockbackforce, ForceMode2D.Impulse);
         StartCoroutine(Stun());
         currentHealth -= damage;
+        textMesh.SetText(damage.ToString());
+        Instantiate(floatingDamage, transform.position, Quaternion.identity);
+        //StartCoroutine(deleteFDamage());
+        Destroy(floatingDamage, 3);
         // animator.SetTrigger("Unstun");
     }
 
@@ -213,6 +221,11 @@ public class SoldierMovement : MonoBehaviour
         isStunned = true;
         yield return new WaitForSeconds(Data.hitStunDuration);
         isStunned = false;
+    }
+
+    IEnumerator deleteFDamage()
+    {
+        yield return new WaitForSeconds(3);
     }
 
 
