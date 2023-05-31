@@ -179,7 +179,7 @@ MonoBehaviour:
   timeBetweenAttacksMin: 0.3
   timeBetweenAttacksMax: 0.6
   timeBetweenJumps: 0.5
-  arialSpeedMultiplier: 1.7
+  arialSpeedMultiplier: 2.02
   jumpAttackDirectDamage: 10
   jumpAttackDirectKnockback: 10
   jumpAttackDirectStunDuration: 0.7
@@ -203,7 +203,7 @@ MonoBehaviour:
   gunAttackKnockback: 5
   gunAttackStunDuration: 0.1
   gunAttackSpeed: 30
-  mininumShots: 8
+  mininumShots: 12
   maximumShots: 20
   isShooting: 0
 --- !u!95 &8640862847149330794
