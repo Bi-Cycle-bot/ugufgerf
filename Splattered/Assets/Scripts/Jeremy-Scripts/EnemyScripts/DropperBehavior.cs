@@ -8,6 +8,7 @@ public class DropperBehavior : MonoBehaviour
     [SerializeField] private GameObject target;
     [SerializeField] private GameObject dropObject;
     [SerializeField] public GameObject floatingDamage;
+    private ParticleSystem deathParticles;
     private TextMeshPro textMesh;
     private Animator animator;
     public enum Direction { Left, Right };
@@ -48,6 +49,7 @@ public class DropperBehavior : MonoBehaviour
         hitbox = GetComponent<Collider2D>();
         textMesh = floatingDamage.GetComponent<TextMeshPro>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        deathParticles = GameObject.FindGameObjectWithTag("EnemyDeathParticles").GetComponent<ParticleSystem>();
     }
 
     void FixedUpdate()
@@ -56,6 +58,8 @@ public class DropperBehavior : MonoBehaviour
             if(dropOnDeath) {
                 Instantiate(dropObject, transform.position, Quaternion.identity);
             }
+            deathParticles.transform.position = transform.position;
+            deathParticles.Play();
             Destroy(gameObject);
         }
         if ((target.transform.position.x - transform.position.x) < targetMaxCoordinates.x &&
