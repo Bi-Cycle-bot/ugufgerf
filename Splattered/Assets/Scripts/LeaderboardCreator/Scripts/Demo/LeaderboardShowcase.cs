@@ -37,11 +37,11 @@ namespace Dan.Demo
                 entryField.text = "";
             }
 
-            for (int i = entries.Length - 1; i >= 0; i--)
+            for (int i = 0; i < entries.Length; i++)
             {
-                float temp = entries[entries.Length - 1 - i].Score;
+                float temp = entries[i].Score;
                 temp = -1 * temp / 100;
-                _entryFields[i].text = $"{i+1}. {entries[entries.Length - 1 - i].Username} : {temp}";
+                _entryFields[i].text = $"{i+1}. {entries[i].Username} : {temp}";
             }
         }
 
