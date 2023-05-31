@@ -32,7 +32,7 @@ public class Bird_Behavior : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player");
         spriteRenderer = GetComponent<SpriteRenderer>();
         textMesh = floatingDamage.GetComponent<TextMeshPro>();
-        deathParticles = GameObject.FindGameObjectWithTag("EnemyDeathParticles").GetComponent<ParticleSystem>();
+        deathParticles = GameObject.Find("enemyDeathParticles").GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame

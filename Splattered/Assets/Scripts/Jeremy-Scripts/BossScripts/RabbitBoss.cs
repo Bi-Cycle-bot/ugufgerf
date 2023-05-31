@@ -13,6 +13,7 @@ public class RabbitBoss : Boss
     private TextMeshPro textMesh;
     private Rigidbody2D rb;
     private Collider2D hitbox;
+    private ParticleSystem deathParticles;
     [HideInInspector] public Animator animator;
     [HideInInspector] public SpriteRenderer spriteRenderer;
     [Space(10)]
@@ -130,6 +131,10 @@ public class RabbitBoss : Boss
         playerMovement = target.GetComponent<PlayerMovement>();
         // DashAttack.bulletPrefab = GameObject.Find
         textMesh = floatingDamage.GetComponent<TextMeshPro>();
+        if(!isBaby)
+            deathParticles = GameObject.Find("bossDeathParticles").GetComponent<ParticleSystem>();
+        else
+            deathParticles = GameObject.Find("babyBossDeathParticles").GetComponent<ParticleSystem>();
     }
 
 
@@ -174,8 +179,12 @@ public class RabbitBoss : Boss
     void Update()
     {
         spriteRenderer.flipX = direction < 0;
-        if (currentHealth < 0)
+        if (currentHealth <= 0)
+        {
+            deathParticles.transform.position = transform.position;
+            deathParticles.Play();
             GameObject.Destroy(gameObject);
+        }
         if (Physics2D.OverlapBox(transform.position, hitbox.bounds.size, 0, LayerMask.GetMask("Player")))
             playerMovement.damagePlayer(dashAttackDamage, dashAttackStunDuration, rb.velocity, dashAttackKnockback, true);
     }

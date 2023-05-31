@@ -152,7 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   playerMovement: {fileID: 0}
-  maxHealth: 375
+  maxHealth: 300
   currentHealth: 300
   isBaby: 0
   bullet: {fileID: 7062735025051592971}

@@ -57,7 +57,7 @@ public class SoldierMovement : MonoBehaviour
         isStunned = false;
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
-        deathParticles = GameObject.FindGameObjectWithTag("EnemyDeathParticles").GetComponent<ParticleSystem>();
+        deathParticles = GameObject.Find("enemyDeathParticles").GetComponent<ParticleSystem>();
         setJumpCooldown();
         rb.gravityScale = 3.5f;
         lastLandTime = Time.time;

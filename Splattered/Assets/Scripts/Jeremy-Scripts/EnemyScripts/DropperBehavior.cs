@@ -49,7 +49,7 @@ public class DropperBehavior : MonoBehaviour
         hitbox = GetComponent<Collider2D>();
         textMesh = floatingDamage.GetComponent<TextMeshPro>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        deathParticles = GameObject.FindGameObjectWithTag("EnemyDeathParticles").GetComponent<ParticleSystem>();
+        deathParticles = GameObject.Find("enemyDeathParticles").GetComponent<ParticleSystem>();
     }
 
     void FixedUpdate()
