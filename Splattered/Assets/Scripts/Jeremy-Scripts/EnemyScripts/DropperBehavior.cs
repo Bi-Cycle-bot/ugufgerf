@@ -47,7 +47,7 @@ public class DropperBehavior : MonoBehaviour
         animator = GetComponent<Animator>();
         hitbox = GetComponent<Collider2D>();
         textMesh = floatingDamage.GetComponent<TextMeshPro>();
-
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void FixedUpdate()
