@@ -4900,6 +4900,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9b1982b411c9b84680c33c4f1ff1d03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseDamage: 11
+  baseDamage: 11.5
   headshotMultiplier: 2
   isExploding: 0

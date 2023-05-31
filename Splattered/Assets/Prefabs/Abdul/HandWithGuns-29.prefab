@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1683158296}
   - component: {fileID: 1683158297}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Remington_Shell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2929422593765392175}
   - component: {fileID: 2929422593765392174}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: M4_Mag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +179,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2929422593834318217}
   - component: {fileID: 2929422593834318216}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: HandWithGuns-29
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -267,7 +267,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2929422594016362245}
   - component: {fileID: 2929422594016362244}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: M4_Charging_Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -352,7 +352,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2929422594131760928}
   - component: {fileID: 2929422594131760935}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: M4_Bolt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -436,7 +436,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2929422594464157356}
   - component: {fileID: 2929422594464157347}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: M4_Gun_Internals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -520,7 +520,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2929422595379402912}
   - component: {fileID: 2929422595379402919}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: M4_Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -604,7 +604,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2929422595522386685}
   - component: {fileID: 2929422595522386684}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Fire_Part
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -694,7 +694,7 @@ GameObject:
   - component: {fileID: 2929422595730704215}
   - component: {fileID: 2929422594119818434}
   - component: {fileID: 2929422594119818435}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: M4A1
   m_TagString: Gun
   m_Icon: {fileID: 0}
@@ -1080,7 +1080,7 @@ GameObject:
   - component: {fileID: 8713592359435696522}
   - component: {fileID: 2929422595648363791}
   - component: {fileID: 2929422595648363790}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: RPG
   m_TagString: Gun
   m_Icon: {fileID: 0}
@@ -1405,7 +1405,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8713592359829234534}
   - component: {fileID: 8713592359829234533}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Rocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1489,7 +1489,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8713592360067362437}
   - component: {fileID: 8713592360067362436}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FirePart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1574,6 +1574,10 @@ PrefabInstance:
     - target: {fileID: 4112609332016840085, guid: acbf60b7e743d72418aca25980eef2ed, type: 3}
       propertyPath: equipped
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112609332016840085, guid: acbf60b7e743d72418aca25980eef2ed, type: 3}
+      propertyPath: baseDamage
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 4112609332016840085, guid: acbf60b7e743d72418aca25980eef2ed, type: 3}
       propertyPath: spentShell
@@ -1826,6 +1830,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Effect
       objectReference: {fileID: 0}
+    - target: {fileID: 5492950704676681715, guid: cfee6340b215dc749a7c1ac7cb390017, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6418226161264295653, guid: cfee6340b215dc749a7c1ac7cb390017, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -2006,6 +2014,10 @@ PrefabInstance:
     - target: {fileID: 5492950704676681715, guid: cfee6340b215dc749a7c1ac7cb390017, type: 3}
       propertyPath: m_Name
       value: Effect
+      objectReference: {fileID: 0}
+    - target: {fileID: 5492950704676681715, guid: cfee6340b215dc749a7c1ac7cb390017, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6418226161264295653, guid: cfee6340b215dc749a7c1ac7cb390017, type: 3}
       propertyPath: m_RootOrder
@@ -2279,6 +2291,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Effect
       objectReference: {fileID: 0}
+    - target: {fileID: 5492950704676681715, guid: cfee6340b215dc749a7c1ac7cb390017, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6418226161264295653, guid: cfee6340b215dc749a7c1ac7cb390017, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -2454,6 +2470,10 @@ PrefabInstance:
     - target: {fileID: 5492950704676681715, guid: cfee6340b215dc749a7c1ac7cb390017, type: 3}
       propertyPath: m_Name
       value: Effect
+      objectReference: {fileID: 0}
+    - target: {fileID: 5492950704676681715, guid: cfee6340b215dc749a7c1ac7cb390017, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6418226161264295653, guid: cfee6340b215dc749a7c1ac7cb390017, type: 3}
       propertyPath: m_RootOrder
