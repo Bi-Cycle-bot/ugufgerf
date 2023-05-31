@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class RabbitBoss : Boss
 {
@@ -8,6 +9,8 @@ public class RabbitBoss : Boss
     [Header("GameObjects")]
     public GameObject bullet;
     [HideInInspector] public BunnyExplosion bunnyExplosion;
+    [SerializeField] public GameObject floatingDamage;
+    private TextMeshPro textMesh;
     private Rigidbody2D rb;
     private Collider2D hitbox;
     [HideInInspector] public Animator animator;
@@ -126,6 +129,7 @@ public class RabbitBoss : Boss
         spriteRenderer = GetComponent<SpriteRenderer>();
         playerMovement = target.GetComponent<PlayerMovement>();
         // DashAttack.bulletPrefab = GameObject.Find
+        textMesh = floatingDamage.GetComponent<TextMeshPro>();
     }
 
 
@@ -180,6 +184,11 @@ public class RabbitBoss : Boss
     public override void DamageBoss(float damageAmount)
     {
         currentHealth -= damageAmount;
+        textMesh.SetText(damageAmount.ToString());
+        GameObject newDamage = Instantiate(floatingDamage, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z) , transform.rotation);
+        //Instantiate(floatingDamage, new Vector3(transform.position.x, transform.position.y + 2, transform.position.z) , transform.rotation);
+        //StartCoroutine(deleteFDamage());
+        Destroy(newDamage, 3);
     }
 
     private void Run()

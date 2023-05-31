@@ -9,23 +9,27 @@ public class BossHealthManager : MonoBehaviour
     [SerializeField] private Slider healthBar;
     //[SerializeField] private Image healthFill;
     private GameObject boss;
-    //private PlayerMovement bossScript;
-    //private PlayerMovementData bossDataScript;
+    private SpawnBoss spawnScript;
+    private RabbitBoss bossScript;
 
     // Start is called before the first frame update
     void Start()
     {
-        boss = GameObject.FindGameObjectWithTag("Boss");
-        //bossScript = player.GetComponent<PlayerMovement>();
-        //bossDataScript = player.GetComponent<PlayerMovementData>();
-
-        //SetInitialHealth(bossDataScript.maxHealth);
+        
+        boss = GameObject.Find("Final Boss Spawner");
+        spawnScript = boss.GetComponent<SpawnBoss>();
+        //bossScript = spawnScript.bossCopy[0];
+        //SetInitialHealth(bossScript.maxHealth);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //UpdateHealth(bossScript.health);
+        if(spawnScript.spawned){
+            bossScript = spawnScript.bossCopy[0];
+            SetInitialHealth(bossScript.maxHealth);
+            UpdateHealth(bossScript.currentHealth);
+        }
     }
 
 
@@ -36,9 +40,9 @@ public class BossHealthManager : MonoBehaviour
         healthBar.value = maxHealth;
     }
 
-    public void UpdateHealth(float currentHealth)
+    public void UpdateHealth(float cHealth)
     {
-        healthBar.value = currentHealth;
+        healthBar.value = cHealth;
         //Debug.Log("health value: " + playerScript.health);
     }
 }

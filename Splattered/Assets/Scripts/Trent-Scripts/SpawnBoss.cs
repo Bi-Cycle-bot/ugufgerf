@@ -11,8 +11,8 @@ public class SpawnBoss : MonoBehaviour
     public Transform spawnPoint;
     public Vector2 minXY;
     public Vector2 maxXY;
-    private bool spawned;
-    private RabbitBoss[] bossCopy;
+    [HideInInspector] public bool spawned;
+    [HideInInspector] public RabbitBoss[] bossCopy;
     public GameObject door;
     public int bossCount;
     private bool[] bossCopyBool;

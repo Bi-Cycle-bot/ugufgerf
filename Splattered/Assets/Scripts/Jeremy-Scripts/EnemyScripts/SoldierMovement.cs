@@ -210,9 +210,10 @@ public class SoldierMovement : MonoBehaviour
         StartCoroutine(Stun());
         currentHealth -= damage;
         textMesh.SetText(damage.ToString());
-        Instantiate(floatingDamage, transform.position, Quaternion.identity);
+        GameObject newDamage = Instantiate(floatingDamage, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z) , transform.rotation);
+        //Instantiate(floatingDamage, new Vector3(transform.position.x, transform.position.y + 2, transform.position.z) , transform.rotation);
         //StartCoroutine(deleteFDamage());
-        Destroy(floatingDamage, 3);
+        Destroy(newDamage, 3);
         // animator.SetTrigger("Unstun");
     }
 

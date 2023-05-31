@@ -157,6 +157,7 @@ MonoBehaviour:
   isBaby: 1
   bullet: {fileID: 7062735025051592971}
   bunnyExplosion: {fileID: 0}
+  floatingDamage: {fileID: 7749820967733343912, guid: 74f867c0fbc4a7e48a7e1f34e400d5bd, type: 3}
   animator: {fileID: 0}
   spriteRenderer: {fileID: 0}
   groundCheck: {fileID: 1450636874200960242}
