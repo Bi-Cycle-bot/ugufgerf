@@ -26,11 +26,15 @@ public class NextLevel : MonoBehaviour
     }
 
     void loadLevel(int level) {
-        timer.StopTimer();
+        if (timer != null) {
+            timer.StopTimer();
+        }
         SceneManager.LoadScene(level);
     }
 
     void OnDisable() {
-        PlayerPrefs.SetFloat("time", Mathf.Round(timer.currentTime * 100f) / 100f);
+        if (timer != null) {
+            PlayerPrefs.SetFloat("time", Mathf.Round(timer.currentTime * 100f) / 100f);
+        }
     }
 }
