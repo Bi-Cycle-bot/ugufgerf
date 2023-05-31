@@ -107,7 +107,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: df29124581897244d8e067564608e160, type: 2}
   m_Interpolate: 1
   m_SleepingMode: 0
   m_CollisionDetection: 1
@@ -136,7 +136,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.22, y: 0.26}
+  m_Size: {x: 0.25, y: 0.26}
   m_EdgeRadius: 0
 --- !u!114 &2200620227612680906
 MonoBehaviour:
@@ -154,15 +154,16 @@ MonoBehaviour:
   playerMovement: {fileID: 0}
   maxHealth: 41
   currentHealth: 41
+  isBaby: 1
   bullet: {fileID: 7062735025051592971}
   bunnyExplosion: {fileID: 0}
   animator: {fileID: 0}
   spriteRenderer: {fileID: 0}
   groundCheck: {fileID: 1450636874200960242}
-  groundCheckSize: {x: 0.94, y: 0.1}
+  groundCheckSize: {x: 0.22, y: 0.16}
   wallCheckRight: {fileID: 745536226780333018}
   wallCheckLeft: {fileID: 5797935757207510429}
-  wallCheckSize: {x: 0.1, y: 0.95}
+  wallCheckSize: {x: 0.25, y: 0.95}
   isGrounded: 0
   isTouchingWallRight: 0
   isTouchingWallLeft: 0
@@ -172,7 +173,6 @@ MonoBehaviour:
   decelerationTime: 0
   runDeccelAmount: Infinity
   direction: 0
-  doNotRun: 0
   choosingAttack: 0
   timeBetweenAttacks: 3
   timeBetweenAttacksMin: 1
@@ -185,17 +185,17 @@ MonoBehaviour:
   jumpAttackExplosionDamage: 3
   jumpAttackExplosionKnockback: 5
   jumpAttackExplosionStunDuration: 0.2
-  jumpAttackHeight: 5
-  jumpAttackToApexTime: 0.64
-  jumpAttackJumpForce: 15.625
+  jumpAttackHeight: 4
+  jumpAttackToApexTime: 0.75
+  jumpAttackJumpForce: 10.666667
   jumpAttackSlamSpeed: 32.8
-  jumpAttackGravityStrength: -24.414062
-  jumpAttackGravityScale: 2.4886913
+  jumpAttackGravityStrength: -14.222222
+  jumpAttackGravityScale: 1.4497677
   isJumping: 0
   dashAttackDamage: 3
   dashAttackKnockback: 4
   dashAttackStunDuration: 0.1
-  dashAttackSpeed: 15
+  dashAttackSpeed: 28
   timeBeforeDashing: 2
   isDashing: 0
   gunAttackDamage: 1
@@ -466,7 +466,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7405337026174080227}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.13, z: 0}
+  m_LocalPosition: {x: 0, y: -0.12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

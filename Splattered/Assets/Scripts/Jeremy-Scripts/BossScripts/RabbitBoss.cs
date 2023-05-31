@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RabbitBoss : Boss
 {
+    public bool isBaby;
     [Header("GameObjects")]
     public GameObject bullet;
     [HideInInspector] public BunnyExplosion bunnyExplosion;
@@ -32,7 +33,7 @@ public class RabbitBoss : Boss
     public float decelerationTime; //time it should take for bunny to decelerate from max speed to 0
     [HideInInspector] public float runDeccelAmount; //force applied to bunny to decelerate
     [HideInInspector] public float direction;
-    [HideInInspector] public bool doNotRun;
+    private bool doNotRun;
     [HideInInspector] public bool choosingAttack;
 
 
@@ -140,9 +141,17 @@ public class RabbitBoss : Boss
         if (!isAttacking && isGrounded)
             StartCoroutine(chooseAttack());
         if (!isAttacking && (isTouchingWallLeft && !isFacingRight() || isTouchingWallRight && isFacingRight()))
+        {
             ChangeDirection();
+            if(isBaby && isGrounded)
+                Jump();
+        }
         if(choosingAttack && (isTouchingWallLeft || isTouchingWallRight))
+        {
             ChangeDirection();
+            if (isBaby&&isGrounded)
+                Jump();
+        }
     }
 
     void Update()
@@ -201,7 +210,10 @@ public class RabbitBoss : Boss
                     rb.velocity = new Vector2(0, -jumpAttackSlamSpeed);
                 }
                 StartCoroutine(bunnyExplosion.Explode());
+                doNotRun = true;
                 yield return new WaitForSeconds(0.1f);
+                if(isBaby)
+                    StopRunning(timeBetweenJumps);
             }
             else
             {
@@ -246,6 +258,8 @@ public class RabbitBoss : Boss
         {
             DashAttackDirection = targetPosition - (Vector2)transform.position;
             DashAttackDirection.Normalize();
+            if(isBaby)
+                DashAttackDirection.x *= -1;
             rb.velocity = DashAttackDirection * dashAttackSpeed;
             yield return null;
         }
@@ -282,6 +296,7 @@ public class RabbitBoss : Boss
 
     private void Jump()
     {
+        Debug.Log("Jumping");
         float force = jumpAttackJumpForce;
         rb.velocity = new Vector2(0, 0);
         rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
