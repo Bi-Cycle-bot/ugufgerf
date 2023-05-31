@@ -9,8 +9,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Beta Levels/Beta-Menu.unity
     guid: 8264b0527d7be4547aa0f2815071bd5b
   - enabled: 1
-    path: Assets/Scenes/Final Scenes/Trent 5-26.unity
-    guid: eb9249b427c104a469778653a49f909a
+    path: Assets/Scenes/Final Scenes/Haaris Tutorial Level.unity
+    guid: 561fc60f626348f4abaf6d3d1ac77509
+  - enabled: 1
+    path: Assets/Scenes/Final Scenes/Jeremy 5-29.unity
+    guid: d80610fd0efe2714a9e2a7ed136183ca
   - enabled: 1
     path: Assets/Scenes/Final Scenes/Leaderboard.unity
     guid: a864ccbe3a968094ba55cfc99b8c4bc3
