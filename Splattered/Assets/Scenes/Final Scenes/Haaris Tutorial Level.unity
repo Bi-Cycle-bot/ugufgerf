@@ -52493,7 +52493,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5281956332373782888}
   - component: {fileID: 5281956332373782890}
-  - component: {fileID: 5281956332373782891}
   - component: {fileID: 461433867}
   m_Layer: 5
   m_Name: Ammo
@@ -52553,27 +52552,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!95 &5281956332373782891
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5281956332373782889}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f83dcbfd02259f944ad016f912037b80, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &5281956332411550880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52625,27 +52603,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!95 &5281956332411550881
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5281956332411550911}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8a44d21d5ad5df54291aed2ede26fb10, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &5281956332411550883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52692,7 +52649,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5281956332411550910}
   - component: {fileID: 5281956332411550880}
-  - component: {fileID: 5281956332411550881}
   - component: {fileID: 5281956332411550883}
   m_Layer: 5
   m_Name: Health
