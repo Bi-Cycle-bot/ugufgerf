@@ -152,8 +152,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   playerMovement: {fileID: 0}
-  maxHealth: 300
-  currentHealth: 300
+  maxHealth: 350
+  currentHealth: 350
   isBaby: 0
   bullet: {fileID: 7062735025051592971}
   bunnyExplosion: {fileID: 0}
@@ -168,14 +168,14 @@ MonoBehaviour:
   isGrounded: 0
   isTouchingWallRight: 0
   isTouchingWallLeft: 0
-  maxSpeed: 11
+  maxSpeed: 9
   accelerationTime: 2
-  runAccelAmount: 9.090909
+  runAccelAmount: 11.111111
   decelerationTime: 0
   runDeccelAmount: Infinity
   direction: 0
   choosingAttack: 0
-  timeBetweenAttacks: 0.4
+  timeBetweenAttacks: 2.8
   timeBetweenAttacksMin: 0.3
   timeBetweenAttacksMax: 0.6
   timeBetweenJumps: 0.5
@@ -196,15 +196,15 @@ MonoBehaviour:
   dashAttackDamage: 8
   dashAttackKnockback: 10
   dashAttackStunDuration: 0.7
-  dashAttackSpeed: 30
+  dashAttackSpeed: 28
   timeBeforeDashing: 0.6
   isDashing: 0
   gunAttackDamage: 5
   gunAttackKnockback: 5
   gunAttackStunDuration: 0.1
   gunAttackSpeed: 30
-  mininumShots: 12
-  maximumShots: 20
+  mininumShots: 13
+  maximumShots: 17
   isShooting: 0
 --- !u!95 &8640862847149330794
 Animator:
@@ -321,7 +321,7 @@ Transform:
   m_GameObject: {fileID: 7062735025051592971}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0.26397, y: 0.05794, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.26934206}
+  m_LocalScale: {x: 0.34, y: 0.34, z: 0.26934206}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2200620227612680910}
