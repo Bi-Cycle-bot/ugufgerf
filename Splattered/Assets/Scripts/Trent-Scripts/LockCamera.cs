@@ -1,3 +1,10 @@
+// Trent Lucas
+// 25 June 2023
+
+// Locks the camera's boundaries based on world coordinates 
+// Quality of life effect for camera movement
+//////////////////////////////////////////////////////////////
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +21,7 @@ public class LockCamera : MonoBehaviour
     private Vector2 oldMaxLimits;
     private SpawnPoint spawnPoint;
 
+    // Set default constraints
     void Start() {
         cam = gameObject.GetComponent<Camera>();
         camManager = cam.GetComponent<CameraManager>();
@@ -21,10 +29,10 @@ public class LockCamera : MonoBehaviour
         oldMaxLimits = camManager.maxLimits;
     }
 
+    // Checks if player is in a given zone
     void Update()
     {
-
-        //floor 1 checker
+        // floor 1 checker
         if ((player.transform.position.x >= -208 && player.transform.position.x < -3) && player.transform.position.y < -2) {
             Vector2 floor1 = new Vector2(-194, -17);
             Vector2 floor12 = new Vector2(0, 0);
@@ -32,13 +40,13 @@ public class LockCamera : MonoBehaviour
             camManager.maxLimits = floor12;
         }
 
-        //floor 2 checker
+        // floor 2 checker
         else if ((player.transform.position.y >= 7 && player.transform.position.y < 16) && player.transform.position.x <= 51) {
             Vector2 floor2 = new Vector2(5, 11);
             camManager.minLimits = floor2;
         }
 
-        //floor 3 checker
+        // floor 3 checker
         else if (player.transform.position.y >= 16 && player.transform.position.x <= 55) {
             Vector2 floor3 = new Vector2(5, 11);
             camManager.minLimits = floor3;
@@ -61,9 +69,6 @@ public class LockCamera : MonoBehaviour
             camManager.mouseFactor = 0.15f;
             camManager.mouseLimit = 3.0f;
         }
-
-        // boss room
-        
 
         // vent checker
         else if ((player.transform.position.x >= 82 && player.transform.position.x <= 101) && (player.transform.position.y >= 22 && player.transform.position.y <= 23)) {
@@ -94,7 +99,7 @@ public class LockCamera : MonoBehaviour
             cam.orthographicSize = 3.0f;
         }
 
-        // set default settings/ floor 1 checker
+        // set default settings/floor 1 checker
         else {
             camManager.minLimits = oldMinLimits;
             camManager.maxLimits = oldMaxLimits;

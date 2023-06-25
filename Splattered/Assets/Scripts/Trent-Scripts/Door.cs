@@ -1,10 +1,13 @@
+// Trent Lucas
+// 25 June 2023
+
+// Script for door trigger detection
+// Contains collision for a open/close point and a reset point
+////////////////////////////////////////////////////////////////
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-// Script for door trigger detection
-// Contains collsion for a open/close point and a reset point
-////////////////////////////////////////////////////////////////
 
 public class Door : MonoBehaviour
 {
@@ -19,33 +22,26 @@ public class Door : MonoBehaviour
     [HideInInspector] public Vector2 endMaxXY;
     [HideInInspector] public bool playerDied;
 
+    // Set door's start position(open/closed)
     void Start() {
-        if (isClosed == true) {
-            door.SetActive(true);
-        } else { 
-            door.SetActive(false);
-        }
+        door.SetActive(isClosed);
     }
 
+    // Check if the player is in the start or end zone
     void Update()
     {
+        // if player is in start zone
         if ((player.transform.position.x > startMinXY[0] && player.transform.position.x < startMaxXY[0]) && (player.transform.position.y > startMinXY[1] && player.transform.position.y < startMaxXY[1])) {
-            if (isClosed == true) {
-                door.SetActive(false);
-            } else { 
-                door.SetActive(true);
-            }
+            door.SetActive(!isClosed);
         }
 
+        // if player is in end zone
         if (((player.transform.position.x > endMinXY[0] && player.transform.position.x < endMaxXY[0]) && (player.transform.position.y > endMinXY[1] && player.transform.position.y < endMaxXY[1]))) {
-            if (isClosed == true) {
-                door.SetActive(true);
-            } else { 
-                door.SetActive(false);
-            }
+            door.SetActive(isClosed);
         }
     }
 
+    // Reset door
     public void reset() {
         Start();
     }

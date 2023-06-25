@@ -1,3 +1,9 @@
+// Trent Lucas
+// 25 June 2023
+
+// Script for on screen timer
+////////////////////////////////
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,10 +20,12 @@ public class Timer : MonoBehaviour
     public bool countDown;
     private bool continueTimer;
 
+    // Start Timer
     void Start() {
         continueTimer = true;
     }
 
+    // Check if timer should stop
     void Update()
     {
         if (continueTimer == true) {
@@ -28,6 +36,7 @@ public class Timer : MonoBehaviour
         }
     }
 
+    // Stop timer
     public void StopTimer() {
         continueTimer = false;
     }

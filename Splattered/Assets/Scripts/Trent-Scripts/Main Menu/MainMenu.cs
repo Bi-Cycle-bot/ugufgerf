@@ -1,3 +1,11 @@
+// Trent Lucas
+// 25 June 2023
+
+// Main Menu class
+// Contains functions to control the user interactions
+// and visuals in the main menu screen
+///////////////////////////////////////////////////////////
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,22 +16,13 @@ using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
-    public TextMeshPro theText;
-
-    void Start() {
+    // Make cursor visible
+    void Start()
+    {
         Cursor.visible = true;
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        theText.color = Color.red;
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        theText.color = Color.white;
-    }
-
+    // Changes the scene when the play button is pressed
     public void PlayGame()
     {
         SceneManager.LoadScene(1);
